@@ -80,7 +80,8 @@ Our contributions are:
 \section{Background and related work}\label{sec:background}
 \paragraph{Language models and decision language models.}
 Autoregressive language models generate text one token at a time; a \emph{decision language model} instead answers a typed question about a state by returning a probability over a bounded set of options in one pass~\citep{unsloth_decision}.
-In practice this means attaching a classification-style head to the final hidden state of a pretrained model and training it on soft targets, so that the output is a calibrated distribution rather than a sampled string, which is exactly what a decoder of a gene distribution needs.
+TypeSafe AI calls such models \emph{System One} models, which return typed outputs with probabilities from a single query instead of generating text~\citep{typesafe2026jev}; an independent benchmark of its model Jev found its choice probabilities well calibrated and argued that answering a decision by generating and parsing text is indirect and leaves the answer's probability unavailable or unreliable~\citep{deusser2026jev}.
+In practice a decision language model attaches a classification-style head to the final hidden state of a pretrained model and trains it on soft targets with the cross-entropy, a proper scoring rule, so that the output is a probability vector to be scored rather than a sampled string to be parsed, which is exactly what a decoder of a gene distribution needs.
 
 \paragraph{Cells as text.}
 Cell2Sentence fine-tunes language models on rank-ordered gene sentences and has been scaled to billions of parameters and tens of millions of cells~\citep{levine2024cell2sentence,rizvi2025c2sscale}.
@@ -234,7 +235,7 @@ A model indexed by cell type cannot generate a type it has never seen; a decoder
 
 \section{Conclusion and discussion}
 Writing a cell as what its counts define, a distribution over a fixed panel, turns a language model into a cell generator with an exact likelihood: a softmax decision head returns the whole distribution in one pass, and the same multinomial score applies to every method.
-This interface makes the representation a measurable choice.
+This interface makes the representation a measurable choice, much as decision models for text are judged by the calibration of their option probabilities rather than by parsed answers~\citep{deusser2026jev}; for a cell, the held-out count likelihood plays that role.
 Rank sentences look reversible by the criterion used to motivate them, yet they lose most of the likelihood that a distribution keeps, and on the same backbone and budget an autoregressive rank-sentence model adds no likelihood over the perturbed mean while costing two orders of magnitude more to decode.
 As a model, \cad{} is as good as the strongest simple baseline on held-out perturbations, generates more realistic cells than that baseline when the control cell enters as a residual prior, and generates unseen cell types from their names.
 Its limits are equally clear and, we argue, informative: a categorical state can only reach its training mean, the language model's gene knowledge does not transfer to genes it has not seen perturbed, and the diffuse genome-wide part of a perturbation is still captured better by additive composition.
@@ -347,7 +348,7 @@ On PBMC the negative-binomial score separates the decoders slightly more than th
 On Norman the ordering of the methods is the same as under the multinomial score.
 
 \section{Worked examples: prompts and decoded distributions}\label{app:demo}
-Figure~\ref{fig:demo} shows, for every use case, the exact prompt that the decision language model reads and the distribution it returns, next to the held-out ground truth.
+Figures~\ref{fig:demo} and~\ref{fig:demo2} show, for every use case, the exact prompt that the decision language model reads and the distribution it returns, next to the held-out ground truth.
 The examples are not hand-picked.
 In each case, the shown unit is the held-out cell type or perturbation whose paired NLL difference between \cad{} and the case's reference is the median over the units of that case, so half of the units look better and half look worse.
 The cases are:
@@ -363,11 +364,17 @@ For perturbations, the right panel compares the log fold change over the held-ou
 The selected units and the numbers quoted for them are:
 \autoinput{figs/demo_outputs_text.tex}
 
-\begin{figure}[h]
+\begin{figure}[p]
 \centering
-\IfFileExists{figs/demo_outputs.pdf}{\includegraphics[width=\linewidth]{figs/demo_outputs.pdf}}{\todo{demo figure: run figures/demo_outputs.py after the final test runs}}
-\caption{Prompts and decoded distributions, one median example per use case (test split). Left: the prompt given to \cad{}. Middle: frequency of the 25 genes with the highest ground-truth frequency (log scale) for the held-out real cells (grey bars), \cad{} (teal dots) and the reference (orange ticks). Right, perturbations only: log fold change over the held-out control mean on the unit's top-20 DE genes for real cells, \cad{} and the reference.}
+\includegraphics[width=0.94\linewidth,trim=0 484 0 0,clip]{figs/demo_outputs.pdf}
+\caption{Prompts and decoded distributions, one median example per use case (test split). Left: the prompt given to \cad{}. Middle: frequency of the 25 genes with the highest ground-truth frequency (log scale) for the held-out real cells (grey bars), \cad{} (teal dots) and the reference (orange ticks). Right, perturbations only: log fold change over the held-out control mean on the unit's top-20 DE genes for real cells, \cad{} and the reference. Shown here: conditional generation and the three strata without a control cell; the remaining cases are in Figure~\ref{fig:demo2}.}
 \label{fig:demo}
+\end{figure}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.94\linewidth,trim=0 0 0 650,clip]{figs/demo_outputs.pdf}
+\caption{Prompts and decoded distributions (continued from Figure~\ref{fig:demo}): perturbation response with the control cell as text and residual, and as residual only, and zero-shot cell types.}
+\label{fig:demo2}
 \end{figure}
 
 \section{Target transformations}\label{app:transform}
