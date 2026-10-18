@@ -1,0 +1,294 @@
+{
+ "split": "test",
+ "ref": "t2_g_ctrl_s0",
+ "strata": {
+  "all": {
+   "description": "all held-out perturbations",
+   "n": 76,
+   "units": [
+    "BAK1",
+    "BCL2L11",
+    "BPGM+SAMD1",
+    "C3orf72",
+    "C3orf72+FOXL2",
+    "CBL",
+    "CBL+CNN1",
+    "CBL+PTPN9",
+    "CBL+UBASH3A",
+    "CDKN1B+CDKN1A",
+    "CDKN1C",
+    "CDKN1C+CDKN1A",
+    "CDKN1C+CDKN1B",
+    "CEBPE+CEBPA",
+    "CEBPE+CNN1",
+    "CEBPE+KLF1",
+    "CELF2",
+    "CITED1",
+    "CNN1+MAPK1",
+    "DUSP9+ETS2",
+    "DUSP9+IGDCC3",
+    "DUSP9+KLF1",
+    "DUSP9+SNAI1",
+    "ELMSAN1",
+    "ETS2+CEBPE",
+    "ETS2+CNN1",
+    "ETS2+IKZF3",
+    "FOSB",
+    "FOSB+CEBPE",
+    "FOSB+IKZF3",
+    "FOXA1+FOXF1",
+    "FOXA1+FOXL2",
+    "FOXA3+FOXA1",
+    "FOXA3+FOXF1",
+    "FOXA3+FOXL2",
+    "FOXF1",
+    "FOXF1+FOXL2",
+    "FOXL2+MEIS1",
+    "FOXO4",
+    "HOXA13",
+    "IRF1+SET",
+    "KIAA1804",
+    "KLF1+BAK1",
+    "KLF1+CEBPA",
+    "KLF1+CLDN6",
+    "LHX1",
+    "LYL1",
+    "LYL1+IER5L",
+    "MAML2",
+    "MAP2K3+ELMSAN1",
+    "MAP2K6+ELMSAN1",
+    "MAP2K6+IKZF3",
+    "MAP2K6+SPI1",
+    "MAP4K3",
+    "MEIS1",
+    "PLK4+STIL",
+    "POU3F2+CBFA2T3",
+    "SAMD1+UBASH3B",
+    "SGK1+S1PR2",
+    "SGK1+TBX2",
+    "SGK1+TBX3",
+    "SNAI1+UBASH3B",
+    "TBX2",
+    "TBX3+TBX2",
+    "TMSB4X+BAK1",
+    "UBASH3B",
+    "UBASH3B+CNN1",
+    "UBASH3B+PTPN9",
+    "UBASH3B+UBASH3A",
+    "UBASH3B+ZBTB25",
+    "ZBTB10+DLX2",
+    "ZBTB10+ELMSAN1",
+    "ZC3HAV1",
+    "ZC3HAV1+CEBPA",
+    "ZC3HAV1+CEBPE",
+    "ZC3HAV1+HOXC13"
+   ],
+   "stats": {
+    "t2_g_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.198515625052587
+     },
+     "nll_mix": {
+      "mean": 5.171058766414785
+     }
+    },
+    "t2_q_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.212317849825413,
+      "diff": [
+       0.013802224772826397,
+       0.0028628984532513045,
+       0.025453108935375446
+      ]
+     },
+     "nll_mix": {
+      "mean": 5.181822122857521,
+      "diff": [
+       0.010763356442734623,
+       0.0011603423868601888,
+       0.021356201587325745
+      ]
+     }
+    }
+   }
+  },
+  "s": {
+   "description": "unseen single gene",
+   "n": 21,
+   "units": [
+    "BAK1",
+    "BCL2L11",
+    "C3orf72",
+    "CBL",
+    "CDKN1C",
+    "CELF2",
+    "CITED1",
+    "ELMSAN1",
+    "FOSB",
+    "FOXF1",
+    "FOXO4",
+    "HOXA13",
+    "KIAA1804",
+    "LHX1",
+    "LYL1",
+    "MAML2",
+    "MAP4K3",
+    "MEIS1",
+    "TBX2",
+    "UBASH3B",
+    "ZC3HAV1"
+   ],
+   "stats": {
+    "t2_g_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.419837541359219
+     },
+     "nll_mix": {
+      "mean": 5.407649985254686
+     }
+    },
+    "t2_q_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.426747446396114,
+      "diff": [
+       0.006909905036894847,
+       -0.0051269560851845255,
+       0.019961590055043096
+      ]
+     },
+     "nll_mix": {
+      "mean": 5.413242228533259,
+      "diff": [
+       0.0055922432785734544,
+       -0.004259703532723525,
+       0.01631611553847168
+      ]
+     }
+    }
+   }
+  },
+  "pu": {
+   "description": "pair, one unseen gene",
+   "n": 29,
+   "units": [
+    "C3orf72+FOXL2",
+    "CBL+CNN1",
+    "CBL+PTPN9",
+    "CBL+UBASH3A",
+    "CDKN1C+CDKN1A",
+    "CDKN1C+CDKN1B",
+    "FOSB+CEBPE",
+    "FOSB+IKZF3",
+    "FOXA1+FOXF1",
+    "FOXA3+FOXF1",
+    "FOXF1+FOXL2",
+    "FOXL2+MEIS1",
+    "KLF1+BAK1",
+    "LYL1+IER5L",
+    "MAP2K3+ELMSAN1",
+    "MAP2K6+ELMSAN1",
+    "SAMD1+UBASH3B",
+    "SGK1+TBX2",
+    "SNAI1+UBASH3B",
+    "TBX3+TBX2",
+    "TMSB4X+BAK1",
+    "UBASH3B+CNN1",
+    "UBASH3B+PTPN9",
+    "UBASH3B+UBASH3A",
+    "UBASH3B+ZBTB25",
+    "ZBTB10+ELMSAN1",
+    "ZC3HAV1+CEBPA",
+    "ZC3HAV1+CEBPE",
+    "ZC3HAV1+HOXC13"
+   ],
+   "stats": {
+    "t2_g_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.074833520524637
+     },
+     "nll_mix": {
+      "mean": 5.042357290623908
+     }
+    },
+    "t2_q_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.08722511784685,
+      "diff": [
+       0.012391597322213526,
+       -0.005058058367642379,
+       0.030840937651919278
+      ]
+     },
+     "nll_mix": {
+      "mean": 5.051487744058523,
+      "diff": [
+       0.009130453434616473,
+       -0.007394398693026267,
+       0.02648848528135095
+      ]
+     }
+    }
+   }
+  },
+  "p": {
+   "description": "pair, both genes seen",
+   "n": 26,
+   "units": [
+    "BPGM+SAMD1",
+    "CDKN1B+CDKN1A",
+    "CEBPE+CEBPA",
+    "CEBPE+CNN1",
+    "CEBPE+KLF1",
+    "CNN1+MAPK1",
+    "DUSP9+ETS2",
+    "DUSP9+IGDCC3",
+    "DUSP9+KLF1",
+    "DUSP9+SNAI1",
+    "ETS2+CEBPE",
+    "ETS2+CNN1",
+    "ETS2+IKZF3",
+    "FOXA1+FOXL2",
+    "FOXA3+FOXA1",
+    "FOXA3+FOXL2",
+    "IRF1+SET",
+    "KLF1+CEBPA",
+    "KLF1+CLDN6",
+    "MAP2K6+IKZF3",
+    "MAP2K6+SPI1",
+    "PLK4+STIL",
+    "POU3F2+CBFA2T3",
+    "SGK1+S1PR2",
+    "SGK1+TBX3",
+    "ZBTB10+DLX2"
+   ],
+   "stats": {
+    "t2_g_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.157708732316864
+     },
+     "nll_mix": {
+      "mean": 5.123517504964695
+     }
+    },
+    "t2_q_ctrl_s0": {
+     "nll_pooled": {
+      "mean": 5.178651222879012,
+      "diff": [
+       0.020942490562147007,
+       -0.0026503352866264008,
+       0.04773944329553188
+      ]
+     },
+     "nll_mix": {
+      "mean": 5.140278844625998,
+      "diff": [
+       0.016761339661304272,
+       -0.0010111428773845331,
+       0.03986161866244273
+      ]
+     }
+    }
+   }
+  }
+ }
+}

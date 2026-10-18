@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrr}
+\toprule
+Model & NLL $\downarrow$ & cell NLL $\downarrow$ & MMD $\downarrow$ & AUC $\downarrow$ & $r_\mu$ $\uparrow$ \\
+\midrule
+scGen-style & 5.204 & \textbf{5.108} & \textbf{0.0289} & \textbf{0.765} & \textbf{0.958} \\
+\rowcolor{ours}CAD (Gemma), no control cell & \textbf{5.186 (-0.018 [-0.032, -0.006])} & 5.186 & 0.0393 & 0.811 & 0.957 \\
+\rowcolor{ours}CAD (Gemma), control residual & 5.199 (-0.005 [-0.018, +0.008]) & 5.173 & 0.0371 & 0.816 & 0.955 \\
+\bottomrule
+\end{tabular}}
+\caption{Norman K562, test split: 76 held-out perturbations. NLL: multinomial negative log-likelihood per UMI of the pooled real cells under the model (Delta: paired difference to scGen-style [95\% bootstrap over perturbations]). cell NLL: per-cell mixture over $M$ random control cells. MMD, AUC (real vs generated classifier; 0.5 is ideal), $r_\mu$ (gene-mean correlation). The generation metrics use cells from the shared Dirichlet-multinomial sampler. Best in bold; our rows shaded.}
+\label{tab:norman_test_pert_vs_scgen}
+\end{table}

@@ -1,0 +1,12 @@
+dispersion phi: median 26.538, 90% 77.671
+cb_type_mean                                  NB=1.5155  multinomial=5.6271  units=19
+cb_global_mean                                NB=1.8292  multinomial=6.7003  units=19
+cb_scVI                                       NB=1.5222  multinomial=5.6338  units=19
+cb_scANVI                                     NB=1.5198  multinomial=5.6298  units=19
+g_cond_freq_rr                                NB=1.5190  multinomial=5.6278  units=19
+q_cond_freq_s1                                NB=1.5202  multinomial=5.6317  units=19
+  cb_global_mean                              d(NB) +0.3137 [+0.2585,+0.3612]  d(mult) +1.0732 [+0.8916,+1.2825]
+  cb_scVI                                     d(NB) +0.0067 [+0.0036,+0.0105]  d(mult) +0.0067 [-0.0050,+0.0179]
+  cb_scANVI                                   d(NB) +0.0042 [+0.0022,+0.0068]  d(mult) +0.0028 [-0.0073,+0.0120]
+  g_cond_freq_rr                              d(NB) +0.0035 [+0.0021,+0.0048]  d(mult) +0.0007 [-0.0071,+0.0075]
+  q_cond_freq_s1                              d(NB) +0.0047 [+0.0032,+0.0063]  d(mult) +0.0046 [-0.0028,+0.0114]

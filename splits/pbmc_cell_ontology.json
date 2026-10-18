@@ -1,0 +1,876 @@
+{
+ "source": "EBI OLS4 API, Cell Ontology",
+ "fetched": "2026-10-17T14:40:02.731Z",
+ "terms": {
+  "B cell": {
+   "id": "CL:0000236",
+   "label": "B cell",
+   "definition": "A lymphocyte of B lineage that is capable of B cell mediated immunity.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000945",
+     "lymphocyte of B lineage"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000945",
+    "CL:0000988",
+    "CL:0002242"
+   ]
+  },
+  "CD14-low, CD16-positive monocyte": {
+   "id": "CL:0002396",
+   "label": "CD14-low, CD16-positive monocyte",
+   "definition": "A patrolling monocyte that is CD14-low and CD16-positive.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000875",
+     "non-classical monocyte"
+    ],
+    [
+     "CL:0001054",
+     "CD14-positive monocyte"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000113",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000234",
+    "CL:0000255",
+    "CL:0000325",
+    "CL:0000518",
+    "CL:0000576",
+    "CL:0000738",
+    "CL:0000763",
+    "CL:0000766",
+    "CL:0000842",
+    "CL:0000875",
+    "CL:0000988",
+    "CL:0001054",
+    "CL:0002242",
+    "CL:0011026",
+    "CL:0011115"
+   ]
+  },
+  "CD14-positive monocyte": {
+   "id": "CL:0001054",
+   "label": "CD14-positive monocyte",
+   "definition": "A monocyte that expresses CD14 and is negative for the lineage markers CD3, CD19, and CD20.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000576",
+     "monocyte"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000113",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000234",
+    "CL:0000255",
+    "CL:0000325",
+    "CL:0000518",
+    "CL:0000576",
+    "CL:0000738",
+    "CL:0000763",
+    "CL:0000766",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0011026",
+    "CL:0011115"
+   ]
+  },
+  "CD16-negative, CD56-bright natural killer cell, human": {
+   "id": "CL:0000938",
+   "label": "CD16-negative, CD56-bright natural killer cell, human",
+   "definition": "NK cell that has the phenotype CD56-bright, CD16-negative, and CD84-positive with the function to secrete interferon-gamma but is not cytotoxic.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000824",
+     "mature natural killer cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000623",
+    "CL:0000738",
+    "CL:0000824",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0001065",
+    "CL:0001067",
+    "CL:0002242"
+   ]
+  },
+  "CD4-positive, alpha-beta T cell": {
+   "id": "CL:0000624",
+   "label": "CD4-positive, alpha-beta T cell",
+   "definition": "A mature alpha-beta T cell that expresses an alpha-beta T cell receptor and the CD4 coreceptor.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000791",
+     "mature alpha-beta T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "CD4-positive, alpha-beta cytotoxic T cell": {
+   "id": "CL:0000934",
+   "label": "CD4-positive, alpha-beta cytotoxic T cell",
+   "definition": "A CD4-positive, alpha-beta T cell that has cytotoxic function.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000624",
+     "CD4-positive, alpha-beta T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000624",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "CD8-positive, alpha-beta T cell": {
+   "id": "CL:0000625",
+   "label": "CD8-positive, alpha-beta T cell",
+   "definition": "A T cell expressing an alpha-beta T cell receptor and the CD8 coreceptor.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000791",
+     "mature alpha-beta T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "central memory CD4-positive, alpha-beta T cell": {
+   "id": "CL:0000904",
+   "label": "central memory CD4-positive, alpha-beta T cell",
+   "definition": "CD4-positive, alpha-beta memory T cell with the phenotype CCR7-positive, CD127-positive, CD45RA-negative, CD45RO-positive, and CD25-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0001204",
+     "CD4-positive, alpha-beta memory T cell, CD45RO-positive"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000624",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000813",
+    "CL:0000842",
+    "CL:0000897",
+    "CL:0000988",
+    "CL:0001204",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "central memory CD8-positive, alpha-beta T cell": {
+   "id": "CL:0000907",
+   "label": "central memory CD8-positive, alpha-beta T cell",
+   "definition": "CD8-positive, alpha-beta memory T cell with the phenotype CCR7-positive, CD127-positive, CD45RA-negative, CD45RO-positive, and CD25-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0001203",
+     "CD8-positive, alpha-beta memory T cell, CD45RO-positive"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000625",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000813",
+    "CL:0000842",
+    "CL:0000909",
+    "CL:0000988",
+    "CL:0001203",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "conventional dendritic cell": {
+   "id": "CL:0000990",
+   "label": "conventional dendritic cell",
+   "definition": "Conventional dendritic cell is a dendritic cell that is CD11c-high.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000451",
+     "dendritic cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000113",
+    "CL:0000145",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000234",
+    "CL:0000255",
+    "CL:0000325",
+    "CL:0000451",
+    "CL:0000518",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242"
+   ]
+  },
+  "double negative thymocyte": {
+   "id": "CL:0002489",
+   "label": "double negative thymocyte",
+   "definition": "A thymocyte that lacks expression of CD4 and CD8.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000893",
+     "thymocyte"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000893",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002420"
+   ]
+  },
+  "effector memory CD4-positive, alpha-beta T cell": {
+   "id": "CL:0000905",
+   "label": "effector memory CD4-positive, alpha-beta T cell",
+   "definition": "CD4-positive, alpha-beta memory T cell with the phenotype CCR7-negative, CD127-positive, CD45RA-negative, CD45RO-positive, and CD25-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0001204",
+     "CD4-positive, alpha-beta memory T cell, CD45RO-positive"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000624",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000813",
+    "CL:0000842",
+    "CL:0000897",
+    "CL:0000988",
+    "CL:0001204",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "effector memory CD8-positive, alpha-beta T cell": {
+   "id": "CL:0000913",
+   "label": "effector memory CD8-positive, alpha-beta T cell",
+   "definition": "CD8-positive, alpha-beta memory T cell with the phenotype CCR7-negative, CD127-positive, CD45RA-negative, CD45RO-positive, and CD25-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0001203",
+     "CD8-positive, alpha-beta memory T cell, CD45RO-positive"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000625",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000813",
+    "CL:0000842",
+    "CL:0000909",
+    "CL:0000988",
+    "CL:0001203",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "erythrocyte": {
+   "id": "CL:0000232",
+   "label": "erythrocyte",
+   "definition": "A red blood cell. In mammals, mature erythrocytes are biconcave disks containing hemoglobin whose function is to transport oxygen.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000081",
+     "blood cell"
+    ],
+    [
+     "CL:0000329",
+     "oxygen accumulating cell"
+    ],
+    [
+     "CL:0000764",
+     "erythroid lineage cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000081",
+    "CL:0000255",
+    "CL:0000329",
+    "CL:0000763",
+    "CL:0000764",
+    "CL:0000988"
+   ]
+  },
+  "gamma-delta T cell": {
+   "id": "CL:0000798",
+   "label": "gamma-delta T cell",
+   "definition": "A T cell that expresses a gamma-delta T cell receptor complex.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000084",
+     "T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242"
+   ]
+  },
+  "hematopoietic stem cell": {
+   "id": "CL:0000037",
+   "label": "hematopoietic stem cell",
+   "definition": "A stem cell from which all cells of the lymphoid and myeloid lineages develop, including blood cells and cells of the immune system. Hematopoietic stem cells lack cell markers of effector cells (lin-negative). Lin-negative is defined by lacking one or more of the following cell surface markers: CD2, CD3 epsilon, CD4, CD5 ,CD8 alpha chain, CD11b, CD14, CD19, CD20, CD56, ly6G, ter119.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000255",
+     "eukaryotic cell"
+    ],
+    [
+     "CL:0000723",
+     "somatic stem cell"
+    ],
+    [
+     "CL:0008001",
+     "hematopoietic precursor cell"
+    ],
+    [
+     "CL:0011026",
+     "progenitor cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000034",
+    "CL:0000255",
+    "CL:0000723",
+    "CL:0000988",
+    "CL:0008001",
+    "CL:0011026",
+    "CL:0011115"
+   ]
+  },
+  "innate lymphoid cell": {
+   "id": "CL:0001065",
+   "label": "innate lymphoid cell",
+   "definition": "A lymphocyte that lacks characteristic T cell, B cell, myeloid cell, and dendritic cell markers, that functions as part of the innate immune response to produce cytokines and other effector responses.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000542",
+     "lymphocyte"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242"
+   ]
+  },
+  "memory B cell": {
+   "id": "CL:0000787",
+   "label": "memory B cell",
+   "definition": "A memory B cell is a mature B cell that is long-lived, readily activated upon re-encounter of its antigenic determinant, and has been selected for expression of higher affinity immunoglobulin. This cell type has the phenotype CD19-positive, CD20-positive, MHC Class II-positive, and CD138-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000785",
+     "mature B cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000145",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000236",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000785",
+    "CL:0000842",
+    "CL:0000945",
+    "CL:0000988",
+    "CL:0001200",
+    "CL:0001201",
+    "CL:0002242"
+   ]
+  },
+  "memory regulatory T cell": {
+   "id": "CL:0002678",
+   "label": "memory regulatory T cell",
+   "definition": "A CD4-positive, CD25-positive alpha-beta regulatory T cell that has encountered antigen.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000792",
+     "CD4-positive, CD25-positive, alpha-beta regulatory T cell"
+    ],
+    [
+     "CL:0000897",
+     "CD4-positive, alpha-beta memory T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000624",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000792",
+    "CL:0000813",
+    "CL:0000815",
+    "CL:0000842",
+    "CL:0000897",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "mucosal invariant T cell": {
+   "id": "CL:0000940",
+   "label": "mucosal-associated invariant T cell",
+   "definition": "An alpha-beta T cell that is found in the lamina propria of mucosal tissues and is restricted by the MR-1 molecule. This cell develops from double-positive, alpha-beta thymocyte.",
+   "dataset_label_is_alias": true,
+   "parents": [
+    [
+     "CL:0000791",
+     "mature alpha-beta T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "myeloid dendritic cell, human": {
+   "id": "CL:0001057",
+   "label": "myeloid dendritic cell, human",
+   "definition": "A myeloid dendritic cell with the phenotype HLA-DRA-positive and CD14-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000782",
+     "myeloid dendritic cell"
+    ],
+    [
+     "CL:0001056",
+     "dendritic cell, human"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000113",
+    "CL:0000145",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000234",
+    "CL:0000255",
+    "CL:0000325",
+    "CL:0000451",
+    "CL:0000518",
+    "CL:0000738",
+    "CL:0000763",
+    "CL:0000766",
+    "CL:0000782",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0000990",
+    "CL:0001056",
+    "CL:0002242"
+   ]
+  },
+  "naive B cell": {
+   "id": "CL:0000788",
+   "label": "naive B cell",
+   "definition": "A naive B cell is a mature B cell that has the phenotype surface IgD-positive, surface IgM-positive, CD20-positive, CD27-negative and that has not yet been activated by antigen in the periphery.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000785",
+     "mature B cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000145",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000236",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000785",
+    "CL:0000842",
+    "CL:0000945",
+    "CL:0000988",
+    "CL:0001200",
+    "CL:0001201",
+    "CL:0002242"
+   ]
+  },
+  "naive regulatory T cell": {
+   "id": "CL:0002677",
+   "label": "naive regulatory T cell",
+   "definition": "A regulatory T cell that has not encountered antigen.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000792",
+     "CD4-positive, CD25-positive, alpha-beta regulatory T cell"
+    ],
+    [
+     "CL:0000898",
+     "naive T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000624",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000792",
+    "CL:0000815",
+    "CL:0000842",
+    "CL:0000898",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "naive thymus-derived CD4-positive, alpha-beta T cell": {
+   "id": "CL:0000895",
+   "label": "naive thymus-derived CD4-positive, alpha-beta T cell",
+   "definition": "An antigen inexperienced CD4-positive, alpha-beta T cell with the phenotype CCR7-positive, CD127-positive and CD62L-positive. This cell type develops in the thymus. This cell type is also described as being CD25-negative, CD62L-high, and CD44-low.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000624",
+     "CD4-positive, alpha-beta T cell"
+    ],
+    [
+     "CL:0000898",
+     "naive T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000624",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000842",
+    "CL:0000898",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "naive thymus-derived CD8-positive, alpha-beta T cell": {
+   "id": "CL:0000900",
+   "label": "naive thymus-derived CD8-positive, alpha-beta T cell",
+   "definition": "A CD8-positive, alpha-beta T cell that has not experienced activation via antigen contact and has the phenotype CD45RA-positive, CCR7-positive and CD127-positive. This cell type is also described as being CD25-negative, CD62L-high and CD44-low.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000625",
+     "CD8-positive, alpha-beta T cell"
+    ],
+    [
+     "CL:0000898",
+     "naive T cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000084",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000625",
+    "CL:0000738",
+    "CL:0000789",
+    "CL:0000791",
+    "CL:0000842",
+    "CL:0000898",
+    "CL:0000988",
+    "CL:0002242",
+    "CL:0002419"
+   ]
+  },
+  "natural killer cell": {
+   "id": "CL:0000623",
+   "label": "natural killer cell",
+   "definition": "A lymphocyte that can spontaneously kill a variety of target cells without prior antigenic activation via germline encoded activation receptors and also regulate immune responses via cytokine release and direct contact with other cells.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0001067",
+     "group 1 innate lymphoid cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0001065",
+    "CL:0001067",
+    "CL:0002242"
+   ]
+  },
+  "plasmablast": {
+   "id": "CL:0000980",
+   "label": "plasmablast",
+   "definition": "An activated mature (naive or memory) B cell that is secreting immunoglobulin, typified by being CD27-positive, CD38-positive, CD138-negative.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000785",
+     "mature B cell"
+    ],
+    [
+     "CL:0000946",
+     "antibody secreting cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000145",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000236",
+    "CL:0000255",
+    "CL:0000542",
+    "CL:0000738",
+    "CL:0000785",
+    "CL:0000842",
+    "CL:0000945",
+    "CL:0000946",
+    "CL:0000988",
+    "CL:0001200",
+    "CL:0001201",
+    "CL:0002242"
+   ]
+  },
+  "plasmacytoid dendritic cell": {
+   "id": "CL:0000784",
+   "label": "plasmacytoid dendritic cell",
+   "definition": "A dendritic cell type of distinct morphology, localization, and surface marker expression (CD123-positive) from other dendritic cell types and associated with early stage immune responses, particularly the release of physiologically abundant amounts of type I interferons in response to infection.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000451",
+     "dendritic cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000113",
+    "CL:0000145",
+    "CL:0000219",
+    "CL:0000226",
+    "CL:0000234",
+    "CL:0000255",
+    "CL:0000325",
+    "CL:0000451",
+    "CL:0000518",
+    "CL:0000738",
+    "CL:0000842",
+    "CL:0000988",
+    "CL:0002242"
+   ]
+  },
+  "platelet": {
+   "id": "CL:0000233",
+   "label": "platelet",
+   "definition": "A non-nucleated disk-shaped cell formed by extrusion from megakaryocytes, found in the blood of all mammals, and mainly involved in blood coagulation.",
+   "dataset_label_is_alias": false,
+   "parents": [
+    [
+     "CL:0000081",
+     "blood cell"
+    ],
+    [
+     "CL:0000225",
+     "anucleate cell"
+    ],
+    [
+     "CL:0000458",
+     "serotonin secreting cell"
+    ],
+    [
+     "CL:0000763",
+     "myeloid cell"
+    ]
+   ],
+   "ancestors_cl": [
+    "CL:0000000",
+    "CL:0000081",
+    "CL:0000151",
+    "CL:0000225",
+    "CL:0000255",
+    "CL:0000457",
+    "CL:0000458",
+    "CL:0000763",
+    "CL:0000988"
+   ]
+  }
+ }
+}

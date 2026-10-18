@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrr}
+\toprule
+Model & NLL $\downarrow$ & cell NLL $\downarrow$ & MMD $\downarrow$ & AUC $\downarrow$ & $r_\mu$ $\uparrow$ \\
+\midrule
+Perturbed mean & 5.314 & 5.314 & 0.0779 & 0.915 & 0.920 \\
+Additive & 5.248 (-0.066 [-0.096, -0.040]) & 5.248 & 0.0459 & 0.838 & 0.952 \\
+\rowcolor{ours}CAD Gemma no ctrl & \textbf{5.235 (-0.079 [-0.105, -0.059])} & 5.235 & \textbf{0.0360} & \textbf{0.799} & \textbf{0.959} \\
+\rowcolor{ours}CAD Gemma ctrl & 5.246 (-0.068 [-0.094, -0.046]) & \textbf{5.221} & 0.0393 & 0.824 & 0.952 \\
+\bottomrule
+\end{tabular}}
+\caption{Norman K562, val split: 48 held-out perturbations. NLL: multinomial negative log-likelihood per UMI of the pooled real cells under the model (Delta: paired difference to Perturbed mean [95\% bootstrap over perturbations]). cell NLL: per-cell mixture over $M$ random control cells. MMD, AUC (real vs generated classifier; 0.5 is ideal), $r_\mu$ (gene-mean correlation) use cells from the shared Dirichlet-multinomial sampler. Best in bold; our rows shaded.}
+\label{tab:val_gemma}
+\end{table}

@@ -1,0 +1,12 @@
+t2_g_cond s0: nll=5.6234 cell=5.6234 d_ref=+0.0171 mmd=0.1630 | s1: nll=5.6275 cell=5.6275 d_ref=+0.0212 mmd=0.1598 | s2: nll=5.6306 cell=5.6306 d_ref=+0.0244 mmd=0.1615 | mean nll=5.6272 sd=0.0030
+t2_q_cond s0: nll=5.6362 cell=5.6362 d_ref=+0.0300 mmd=0.1717 | s1: nll=5.6382 cell=5.6382 d_ref=+0.0320 mmd=0.1728 | s2: nll=5.6438 cell=5.6438 d_ref=+0.0376 mmd=0.1732 | mean nll=5.6394 sd=0.0032
+t2_g_cond_lowrank s0: nll=5.6472 cell=5.5522 d_ref=+0.0410 mmd=0.1654 | s1: nll=5.6484 cell=5.6058 d_ref=+0.0421 mmd=0.1735 | s2: nll=5.6369 cell=5.5630 d_ref=+0.0307 mmd=0.1607 | mean nll=5.6442 sd=0.0051
+t2_g_noctrl s0: nll=5.1855 cell=5.1855 d_ref=-0.0093 mmd=0.0390 | s1: nll=5.1866 cell=5.1866 d_ref=-0.0083 mmd=0.0377 | s2: nll=5.1822 cell=5.1822 d_ref=-0.0126 mmd=0.0384 | mean nll=5.1848 sd=0.0018
+t2_q_noctrl s0: nll=5.1976 cell=5.1976 d_ref=+0.0027 mmd=0.0425 | s1: nll=5.1942 cell=5.1942 d_ref=-0.0006 mmd=0.0412 | s2: nll=5.1956 cell=5.1956 d_ref=+0.0008 mmd=0.0432 | mean nll=5.1958 sd=0.0014
+t2_g_ctrl s0: nll=5.1985 cell=5.1711 d_ref=+0.0037 mmd=0.0378 | s1: nll=5.1996 cell=5.1694 d_ref=+0.0048 mmd=0.0369 | s2: nll=5.1956 cell=5.1679 d_ref=+0.0008 mmd=0.0393 | mean nll=5.1979 sd=0.0017
+t2_q_ctrl s0: nll=5.2123 cell=5.1818 d_ref=+0.0175 mmd=0.0393 | s1: nll=5.2101 cell=5.1806 d_ref=+0.0153 mmd=0.0373 | s2: nll=5.2060 cell=5.1754 d_ref=+0.0111 mmd=0.0396 | mean nll=5.2095 sd=0.0026
+t2_g_ctrl_notext s0: nll=5.1971 cell=5.1290 d_ref=+0.0023 mmd=0.0300 | s1: nll=5.1958 cell=5.1269 d_ref=+0.0010 mmd=0.0290 | s2: nll=5.2042 cell=5.1304 d_ref=+0.0094 mmd=0.0314 | mean nll=5.1990 sd=0.0037
+t2_g_contrast s0: nll=5.2098 cell=5.1472 d_ref=+0.0150 mmd=0.0358 | s1: nll=5.2145 cell=5.1504 d_ref=+0.0197 mmd=0.0382 | s2: nll=5.1958 cell=5.1384 d_ref=+0.0010 mmd=0.0325 | mean nll=5.2067 sd=0.0079
+t2_g_noctrl_nb s0: nll=5.2010 cell=5.2010 d_ref=+0.0061 mmd=0.0365 | s1: nll=5.2010 cell=5.2010 d_ref=+0.0062 mmd=0.0365 | s2: nll=5.1987 cell=5.1987 d_ref=+0.0038 mmd=0.0361 | mean nll=5.2002 sd=0.0011
+t2_g_noctrl_lowrank s0: nll=5.2475 cell=5.0962 d_ref=+0.0526 mmd=0.0401 | s1: nll=5.2489 cell=5.0942 d_ref=+0.0541 mmd=0.0401 | s2: nll=5.2571 cell=5.0996 d_ref=+0.0623 mmd=0.0425 | mean nll=5.2512 sd=0.0043
+t2_g_desc_opaque s0: nll=5.1997 cell=5.1997 d_ref=+0.0048 mmd=0.0480 | s1: nll=5.1982 cell=5.1982 d_ref=+0.0034 mmd=0.0431 | s2: nll=5.1893 cell=5.1893 d_ref=-0.0056 mmd=0.0421 | mean nll=5.1957 sd=0.0046

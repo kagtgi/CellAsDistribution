@@ -1,0 +1,6 @@
+cb_perturbed_mean                             pearson_delta_ctrl=0.422 pearson_delta_pert=0.112 pearson_de20=0.558 sign_de20=0.805 mse_de20=1.137 prec_de20=0.124
+cb_additive                                   pearson_delta_ctrl=0.580 pearson_delta_pert=0.452 pearson_de20=0.770 sign_de20=0.898 mse_de20=0.417 prec_de20=0.272
+cb_additive_residual                          pearson_delta_ctrl=0.340 pearson_delta_pert=0.234 pearson_de20=0.603 sign_de20=0.672 mse_de20=1.791 prec_de20=0.126
+t2_g_ctrl_s0                                  pearson_delta_ctrl=0.537 pearson_delta_pert=0.469 pearson_de20=0.736 sign_de20=0.874 mse_de20=0.534 prec_de20=0.251
+t2_g_ctrl_notext_s0                           pearson_delta_ctrl=0.541 pearson_delta_pert=0.472 pearson_de20=0.725 sign_de20=0.861 mse_de20=0.505 prec_de20=0.241
+cb_scGen_style                                pearson_delta_ctrl=0.558 pearson_delta_pert=0.515 pearson_de20=0.724 sign_de20=0.856 mse_de20=0.521 prec_de20=0.243

@@ -1,0 +1,35 @@
+{
+  "font_file": "GoogleSans-Regular.ttf",
+  "data_source": "panel b: ~/cad_out/auto_cell/{norman,pbmc}_test_repr_ceiling_v2.json (headroom_kept_matched); R^2: auto_rev2/rank_r2_{norman,pbmc}_test.json",
+  "model_trained": false,
+  "panel_a": "Observation 1, not a measurement",
+  "figure": "fig3_representation",
+  "dpi": 400,
+  "width_mm": 180.0,
+  "layout": {
+    "width_mm": 180.0,
+    "height_mm": 76.0,
+    "landscape": true,
+    "cards": [
+      {
+        "letter": "a",
+        "height_mm": 72.0,
+        "width_mm": 100.0,
+        "content_fraction": 0.078,
+        "vertical_fraction": 0.036
+      },
+      {
+        "letter": "b",
+        "height_mm": 72.0,
+        "width_mm": 73.0,
+        "content_fraction": 0.087,
+        "vertical_fraction": 0.036
+      }
+    ],
+    "stage_titles": [],
+    "text_collisions": [],
+    "overflow": [],
+    "panel_overlaps": [],
+    "straddling_content": []
+  }
+}

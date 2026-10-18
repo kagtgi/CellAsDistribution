@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Model & \multicolumn{2}{c}{all ($n=60$)} & \multicolumn{2}{c}{unseen singles ($n=60$)} \\
+ & NLL & $\Delta$ [95\% CI] & NLL & $\Delta$ [95\% CI] \\
+\midrule
+perturbed mean & 6.339 & --- & 6.339 & --- \\
+additive & 6.339 & +0.000 [+0.000, +0.000] & 6.339 & +0.000 [+0.000, +0.000] \\
+ridge & 6.339 & +0.000 [-0.000, +0.000] & 6.339 & +0.000 [-0.000, +0.000] \\
+CAD-P & 6.340 & +0.001 [-0.000, +0.002] & 6.340 & +0.001 [-0.000, +0.002] \\
+CAD-P shuffled names & 6.340 & +0.001 [+0.000, +0.002] & 6.340 & +0.001 [+0.000, +0.002] \\
+C2S-1B (tutorial budget) & 6.496 & +0.156 [+0.151, +0.162] & 6.496 & +0.156 [+0.151, +0.162] \\
+oracle (split-half) & 6.344 & +0.004 [+0.003, +0.006] & 6.344 & +0.004 [+0.003, +0.006] \\
+\bottomrule
+\end{tabular}
+\caption{Held-out Jurkat perturbations (val). NLL: multinomial negative log-likelihood per UMI (lower is better); $\Delta$: paired difference to the perturbed-mean baseline, bootstrap over perturbations.}
+\label{tab:jurkat-val}
+\end{table}

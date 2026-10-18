@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}
+\toprule
+Model & NLL $\downarrow$ & cell NLL $\downarrow$ & MMD $\downarrow$ & AUC $\downarrow$ & $r_\mu$ $\uparrow$ & Type acc. $\uparrow$ \\
+\midrule
+Cell-type mean & \textbf{5.627 (-0.002 [-0.009, +0.005])} & 5.627 & 0.1688 & 0.983 & 0.942 & \textbf{0.928} \\
+\rowcolor{ours}v2_q_cond & 5.629 & 5.629 & \textbf{0.1414} & \textbf{0.959} & \textbf{0.947} & 0.913 \\
+\rowcolor{ours}v2_q_cond_umi & 5.628 (-0.001 [-0.005, +0.002]) & 5.628 & 0.1437 & 0.966 & 0.946 & 0.888 \\
+\rowcolor{ours}v2_q_cond_nb & 5.638 (+0.008 [+0.001, +0.018]) & 5.638 & 0.1461 & 0.966 & 0.946 & 0.905 \\
+\rowcolor{ours}v2_q_cond_lowrank & 5.666 (+0.037 [+0.008, +0.073]) & \textbf{5.597} & 0.1569 & 0.971 & 0.943 & 0.825 \\
+\bottomrule
+\end{tabular}}
+\caption{Human PBMC (Hao et al.), val split: 19 held-out cell types. NLL: multinomial negative log-likelihood per UMI of the pooled real cells under the model (Delta: paired difference to v2_q_cond [95\% bootstrap over cell types]). MMD, AUC (real vs generated classifier; 0.5 is ideal), $r_\mu$ (gene-mean correlation), type acc.: a classifier trained on real cells recovers the requested type. The generation metrics use cells from the shared Dirichlet-multinomial sampler. Best in bold; our rows shaded.}
+\label{tab:pbmc_val_rev2}
+\end{table}

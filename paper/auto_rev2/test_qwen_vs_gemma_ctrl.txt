@@ -1,0 +1,12 @@
+== all held-out perturbations (n=76), paired difference to t2_g_ctrl_s0 [95% CI]
+  t2_g_ctrl_s0                                  nll_pooled=5.199  nll_mix=5.171
+  t2_q_ctrl_s0                                  nll_pooled=5.212 (+0.014 [+0.003,+0.025])  nll_mix=5.182 (+0.011 [+0.001,+0.021])
+== unseen single gene (n=21), paired difference to t2_g_ctrl_s0 [95% CI]
+  t2_g_ctrl_s0                                  nll_pooled=5.420  nll_mix=5.408
+  t2_q_ctrl_s0                                  nll_pooled=5.427 (+0.007 [-0.005,+0.020])  nll_mix=5.413 (+0.006 [-0.004,+0.016])
+== pair, one unseen gene (n=29), paired difference to t2_g_ctrl_s0 [95% CI]
+  t2_g_ctrl_s0                                  nll_pooled=5.075  nll_mix=5.042
+  t2_q_ctrl_s0                                  nll_pooled=5.087 (+0.012 [-0.005,+0.031])  nll_mix=5.051 (+0.009 [-0.007,+0.026])
+== pair, both genes seen (n=26), paired difference to t2_g_ctrl_s0 [95% CI]
+  t2_g_ctrl_s0                                  nll_pooled=5.158  nll_mix=5.124
+  t2_q_ctrl_s0                                  nll_pooled=5.179 (+0.021 [-0.003,+0.048])  nll_mix=5.140 (+0.017 [-0.001,+0.040])

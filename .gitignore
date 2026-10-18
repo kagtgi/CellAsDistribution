@@ -1,0 +1,45 @@
+# Internal notes and machine-specific files (not part of the release)
+HANDOFF.md
+CellAsDecision_RECOMB_Final_Research_Plan.md
+sync_to_vm.sh
+umap_cond_val.png
+.claude/
+experiments/e0_smoke/
+paper/venue_profile_recomb2027.md
+paper/evidence_matrix.md
+
+# Font with unclear redistribution terms
+fonts/
+
+# LaTeX build products and old drafts
+paper/*.aux
+paper/*.log
+paper/*.blg
+paper/*.bbl
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/cadbuild.*
+paper/main_v*.tex
+paper/main_before_*.tex
+paper/refs_before_*.bib
+paper/figs/draft/
+paper/figs/*.bak
+paper/figs/pg-*.png
+paper/figs/prev_*.png
+
+# Python
+__pycache__/
+*.pyc
+.venv*/
+
+# Internal working notes and VM result copies (not part of the release)
+paper/response_to_reviews.md
+paper/story_spine.md
+paper/style_notes.md
+paper/auto_rev2_vm/
+paper/auto_rev2_vm3/
+paper/auto_rev2_vm5/
+paper/main_before_*.tex
+paper/submission_*.pdf

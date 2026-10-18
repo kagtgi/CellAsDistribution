@@ -1,0 +1,34 @@
+{
+ "rule": "cell types with >=30 cells in both validation (donor P6) and test (P7-P8), sorted by name, assigned round-robin to 5 folds",
+ "folds": [
+  [
+   "B cell",
+   "central memory CD8-positive, alpha-beta T cell",
+   "memory B cell",
+   "naive thymus-derived CD8-positive, alpha-beta T cell"
+  ],
+  [
+   "CD14-low, CD16-positive monocyte",
+   "conventional dendritic cell",
+   "memory regulatory T cell",
+   "natural killer cell"
+  ],
+  [
+   "CD14-positive monocyte",
+   "effector memory CD4-positive, alpha-beta T cell",
+   "mucosal invariant T cell",
+   "plasmacytoid dendritic cell"
+  ],
+  [
+   "CD16-negative, CD56-bright natural killer cell, human",
+   "effector memory CD8-positive, alpha-beta T cell",
+   "naive B cell",
+   "platelet"
+  ],
+  [
+   "central memory CD4-positive, alpha-beta T cell",
+   "gamma-delta T cell",
+   "naive thymus-derived CD4-positive, alpha-beta T cell"
+  ]
+ ]
+}

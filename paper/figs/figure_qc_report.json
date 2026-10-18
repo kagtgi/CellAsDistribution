@@ -1,0 +1,362 @@
+[
+ {
+  "figure": "fig1_method",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_method.png"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_method.svg"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_method.pdf"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_method_caption.md"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_method_provenance.json"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "PNG width 180 mm at 400 dpi",
+  "status": "pass",
+  "detail": "2834 px"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "height within 225 mm",
+  "status": "pass",
+  "detail": "79.9 mm"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "white background",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig1_method",
+  "check": "SVG width exact",
+  "status": "pass",
+  "detail": "510.23622"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "SVG text stays editable",
+  "status": "pass",
+  "detail": "49"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "no glyph below 5 pt",
+  "status": "pass",
+  "detail": "smallest 5.04"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "body text in the declared face",
+  "status": "pass",
+  "detail": "google sans 75%"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "no overlapping labels",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "nothing runs off the canvas",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "no two data panels overlap",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "every element clears its panel edge",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "landscape (height < width)",
+  "status": "pass",
+  "detail": "180.0 x 80.0 mm"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "panels registered",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "panel letters run a, b, c without a gap",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig1_method",
+  "check": "caption opens with a bold sentence",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_overview.png"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_overview.svg"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_overview.pdf"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_overview_caption.md"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig1_overview_provenance.json"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "PNG width 180 mm at 400 dpi",
+  "status": "pass",
+  "detail": "2834 px"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "height within 225 mm",
+  "status": "pass",
+  "detail": "67.9 mm"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "white background",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "SVG width exact",
+  "status": "pass",
+  "detail": "510.23622"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "SVG text stays editable",
+  "status": "pass",
+  "detail": "40"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "no glyph below 5 pt",
+  "status": "pass",
+  "detail": "smallest 5.04"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "body text in the declared face",
+  "status": "pass",
+  "detail": "google sans 81%"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "no overlapping labels",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "nothing runs off the canvas",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "no two data panels overlap",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "every element clears its panel edge",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "landscape (height < width)",
+  "status": "pass",
+  "detail": "180.0 x 68.0 mm"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "panels registered",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "panel letters run a, b, c without a gap",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig1_overview",
+  "check": "caption opens with a bold sentence",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig2_detail.png"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig2_detail.svg"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig2_detail.pdf"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig2_detail_caption.md"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig2_detail_provenance.json"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "PNG width 180 mm at 400 dpi",
+  "status": "pass",
+  "detail": "2834 px"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "height within 225 mm",
+  "status": "pass",
+  "detail": "91.9 mm"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "white background",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "SVG width exact",
+  "status": "pass",
+  "detail": "510.23622"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "SVG text stays editable",
+  "status": "pass",
+  "detail": "48"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "no glyph below 5 pt",
+  "status": "pass",
+  "detail": "smallest 5.04"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "body text in the declared face",
+  "status": "pass",
+  "detail": "google sans 77%"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "no overlapping labels",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "nothing runs off the canvas",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "no two data panels overlap",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "every element clears its panel edge",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "landscape (height < width)",
+  "status": "pass",
+  "detail": "180.0 x 92.0 mm"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "panels registered",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "panel letters run a, b, c without a gap",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig2_detail",
+  "check": "caption opens with a bold sentence",
+  "status": "pass",
+  "detail": ""
+ }
+]
