@@ -101,21 +101,22 @@ The cases are:
 \item zero-shot cell types (fold 0, so the median of its $4$ held-out types), against the mean of the nearest training type in the Cell Ontology.
 \end{itemize}
 The ground truth is the pooled frequency of all held-out real cells of the unit.
-For a control-cell model the plotted distribution is the mean over the $M=50$ matched control cells, and the prompt shown is the one built from the first of them.
+The decision head outputs one probability per panel gene, always in the same panel order, so the distributions are drawn on a \emph{fixed gene axis}: the $25$ panel genes with the highest mean frequency in training cells, in panel order, the same for every unit of a dataset; only the heights change from unit to unit and from cell to cell.
+For a control-cell model, the large dot is the mean over the $M=50$ matched control cells and the hollow dots are the distributions decoded for three individual control cells, which differ because each control cell enters as its own log-prior; the prompt shown is the one built from the first control cell.
 For perturbations, the right panel compares the log fold change over the held-out control mean on the unit's top-20 differentially expressed genes (largest $|t|$ of a Welch test between its real cells and the held-out control cells, computed on real cells only).
 The selected units and the numbers quoted for them are:
 \autoinput{figs/demo_outputs_text.tex}
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.94\linewidth,trim=0 484 0 0,clip]{figs/demo_outputs.pdf}
-\caption{Prompts and decoded distributions, one median example per use case (test split). Left: the prompt given to \cad{}. Middle: frequency of the 25 genes with the highest ground-truth frequency (log scale) for the held-out real cells (grey bars), \cad{} (teal dots) and the reference (orange ticks). Right, perturbations only: log fold change over the held-out control mean on the unit's top-20 DE genes for real cells, \cad{} and the reference. Shown here: conditional generation and the three strata without a control cell; the remaining cases are in Figure~\ref{fig:demo2}.}
+\includegraphics[width=0.94\linewidth]{figs/demo_outputs_a.pdf}
+\caption{Prompts and decoded distributions, one median example per use case (test split). Left: the prompt given to \cad{}. Middle: the decoded distribution on a fixed axis of $25$ genes (chosen once from training cells, shown in panel order, identical in every row of a dataset; log scale) for the held-out real cells (grey bars), \cad{} (teal dots) and the reference (orange ticks). Right, perturbations only: log fold change over the held-out control mean on the unit's top-20 DE genes for real cells, \cad{} and the reference. Shown here: conditional generation and the three strata without a control cell; the remaining cases are in Figure~\ref{fig:demo2}.}
 \label{fig:demo}
 \end{figure}
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.94\linewidth,trim=0 0 0 650,clip]{figs/demo_outputs.pdf}
-\caption{Prompts and decoded distributions (continued from Figure~\ref{fig:demo}): perturbation response with the control cell as text and residual, and as residual only, and zero-shot cell types.}
+\includegraphics[width=0.94\linewidth]{figs/demo_outputs_b.pdf}
+\caption{Prompts and decoded distributions (continued from Figure~\ref{fig:demo}): perturbation response with the control cell as text and residual, and as residual only (hollow dots: distributions decoded for three individual control cells on the same gene axis), and zero-shot cell types.}
 \label{fig:demo2}
 \end{figure}
 

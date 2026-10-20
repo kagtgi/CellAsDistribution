@@ -6,8 +6,11 @@ python figures/demo_outputs.py --out paper/figs/demo_outputs --split test \
 
 No cherry-picking: in each case the demo unit is the held-out unit whose paired NLL difference to the reference
 (CAD minus reference, from cell_<split>.json) is the median over the units of the case's stratum (all, s, pu or p).
-Ground truth = pooled frequency of all held-out real cells of the unit. Panel (a): the 25 genes with the highest
-ground-truth frequency, log10 frequency of ground truth, CAD and the reference. Panel (b), perturbations only: the top-20
+Ground truth = pooled frequency of all held-out real cells of the unit. Panel (a): the decoded distribution on a FIXED gene
+axis (the --top genes with the highest mean frequency in training cells, in panel order = the order of the decision head's
+outputs), shared by every unit of a dataset, so only the distribution changes between units; log frequency of ground truth,
+CAD and the reference. For a per-cell (control-residual) model, the distributions decoded for three individual control
+cells are drawn as hollow markers next to their mean. Panel (b), perturbations only: the top-20
 DE genes of the unit (Welch t, real vs held-out control cells), log2 fold change over the held-out control mean of
 ground truth, CAD and the reference (pseudobulk, pseudo-count 1e-5). For a control-cell model the plotted CAD
 distribution is the mean over the M matched control cells and the prompt shown is the one for the first control cell.
@@ -43,6 +46,25 @@ def qbar_of(w, tag, split):
     return {str(u): q.astype(np.float64) for u, q in zip(z["units"], z["q"])}
 
 
+def qrows_of(w, tag, split):
+    """Per-control-cell decoded distributions [M, G] saved by train_cell (empty dict if the run did not save them)."""
+    f = os.path.join(w.dir, "runs", tag, f"qrows_{split}.npz")
+    if not os.path.exists(f):
+        return {}
+    z = np.load(f, allow_pickle=True)
+    return {str(u): z[f"{u}__q"].astype(np.float64) for u in z["units"]}
+
+
+def fixed_axis(w, k):
+    """The k panel genes with the highest mean frequency in TRAINING cells (no held-out data), returned in panel order,
+    i.e. the order of the decision head's outputs. One axis per dataset, shared by every unit and case."""
+    tr = np.where((w.split == "train") & ~w.ctrl)[0]
+    tr = np.sort(np.random.default_rng(0).choice(tr, min(len(tr), 20000), replace=False))
+    C = w.counts(tr)
+    f = (C / np.clip(C.sum(1, keepdims=True), 1, None)).mean(0)
+    return np.sort(np.argsort(-f)[:k])
+
+
 def pick_median(w, tag, ref, split, stratum):
     a = load_json(os.path.join(w.dir, "runs", tag, f"cell_{split}.json"))["per_unit"]
     b = load_json(os.path.join(w.dir, "runs", ref, f"cell_{split}.json"))["per_unit"]
@@ -74,7 +96,7 @@ def main():
         FS = dict(tick=4.2, lab=5.5, title=5.5, leg=4.8, ms=2.6)
         fig, axs = plt.subplots(len(cases), 3, figsize=(7.2, 2.25 * len(cases)), gridspec_kw={"width_ratios": [1.15, 1.6, 1.0]})
         axs = np.atleast_2d(axs)
-    worlds, record = {}, []
+    worlds, record, axes, plotdata = {}, [], {}, {}
     for r, (task, title, name, tag, ref, stratum) in enumerate(cases):
         w = worlds.setdefault((task, name), World(task, name))
         u, dnll, n_units = pick_median(w, tag, ref, a.split, stratum)
@@ -93,15 +115,28 @@ def main():
                 lines = lines[:15] + ["..."]
             ax.text(0, 1, "\n".join(lines), va="top", ha="left", family="monospace", fontsize=4.6, transform=ax.transAxes)
             ax.set_title(f"{title}\nunit: {u}", fontsize=6.5, loc="left")
-        # (middle) top genes by ground-truth frequency
+        # (middle) the decoded distribution on a FIXED gene axis: the same genes, in the panel's own order (the order of the
+        # decision head's outputs), for every unit of a dataset; only the distribution changes from unit to unit
         ax = axs[r, 1]
-        top = np.argsort(-gt)[: a.top]
+        if (task, name) not in axes:
+            axes[(task, name)] = fixed_axis(w, a.top)
+        top = axes[(task, name)]
         x = np.arange(len(top))
         refl = {"cb_additive": "additive", "cb_type_mean": "type mean", "cb_perturbed_mean": "perturbed mean"}.get(ref, ref.replace("cb_", "").replace("_", " "))
         ax.bar(x, gt[top], color=C_GT, alpha=.25, width=.8, label="held-out real (pooled)")
+        qr = qrows_of(w, tag, a.split).get(u)
+        if qr is not None and qr.shape[0] > 1 and np.abs(qr - qr[:1]).max() > 1e-6:   # a per-cell model: one q per control cell
+            for j in range(min(3, qr.shape[0])):
+                ax.plot(x + (j - 1) * 0.22, qr[j][top], "o", ms=FS["ms"] * .6, mfc="none", mec=C_CAD, mew=.6,
+                        label="single control cells" if j == 0 else None)
         ax.plot(x, q_cad[top], "o", ms=FS["ms"], color=C_CAD, label="CellAsDistribution" if a.compact else "CAD")
         ax.plot(x, q_ref[top], "_", ms=FS["ms"] * 2, mew=1.4, color=C_REF, label=refl)
         ax.set_yscale("log")
+        lo, hi = ax.get_ylim()
+        ax.set_ylim(lo, hi * (12 if a.compact else 6))      # headroom so the legend never covers a bar
+        plotdata[f"{r}_axis"], plotdata[f"{r}_gt"], plotdata[f"{r}_cad"], plotdata[f"{r}_ref"] = top, gt, q_cad, q_ref
+        if qr is not None:
+            plotdata[f"{r}_qrows"] = qr[:3]
         ax.set_xticks(x)
         ax.set_xticklabels([w.panel[i] for i in top], rotation=90, fontsize=FS["tick"])
         ax.tick_params(axis="y", labelsize=FS["tick"])
@@ -109,9 +144,9 @@ def main():
         if a.compact:
             ax.set_title(f"({chr(97 + 2 * r)}) {title}: {u} (median of {n_units})", fontsize=FS["title"], loc="left")
         else:
-            ax.set_title(f"top-{a.top} genes; NLL CAD - ref = {dnll:+.3f} (median of {n_units})", fontsize=5.5)
-        if r == 0:
-            ax.legend(fontsize=FS["leg"], frameon=False, loc="upper right")
+            ax.set_title(f"fixed {a.top}-gene axis; NLL CAD - ref = {dnll:+.3f} (median of {n_units})", fontsize=5.5)
+        if r == 0 or (qr is not None and qr.shape[0] > 1 and np.abs(qr - qr[:1]).max() > 1e-6):
+            ax.legend(fontsize=FS["leg"], frameon=False, loc="upper right", ncol=2 if a.compact else 1)
         rec = {"title": title, "task": task, "name": name, "unit": u, "stratum": stratum, "n_units": n_units, "cad": tag, "ref": ref,
                "nll_diff_cad_minus_ref": dnll, "prompt": ptxt, "top_genes": [w.panel[i] for i in top]}
         # (right) DE genes, perturbations only
@@ -154,6 +189,7 @@ def main():
     fig.savefig(a.out + ".pdf")
     fig.savefig(a.out + ".png", dpi=200)
     json.dump(record, open(a.out + ".json", "w"), indent=1)
+    np.savez_compressed(a.out + "_plotdata.npz", **{k: np.asarray(v) for k, v in plotdata.items()})   # everything drawn, for local re-plotting
     # LaTeX snippet for the appendix text (every name and number comes from this run; nothing is typed by hand)
     esc = lambda t: t.replace("\\", "").replace("_", r"\_").replace("&", r"\&").replace("%", r"\%")
     REF = {"cb_type_mean": "the cell-type mean", "cb_additive": "the additive baseline", "cb_perturbed_mean": "the perturbed mean"}
