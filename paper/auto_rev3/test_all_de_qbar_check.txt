@@ -1,0 +1,2 @@
+cb_additive                                   mse_de20=0.417 pearson_de20=0.770 pearson_delta_ctrl=0.580 pearson_delta_pert=0.452 prec_de20=0.272 sign_de20=0.898
+t2_g_noctrl_s0                                mse_de20=0.464 pearson_de20=0.776 pearson_delta_ctrl=0.573 pearson_delta_pert=0.504 prec_de20=0.257 sign_de20=0.888

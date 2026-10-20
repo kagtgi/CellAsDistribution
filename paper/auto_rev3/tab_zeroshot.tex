@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrr}
+\toprule
+Unseen cell type & $\Delta$NLL to global mean & $\Delta$NLL to name overlap & type acc. \\
+\midrule
+Nearest Cell Ontology type & $-$0.209 [$-$.612, +.328] & +0.440 [+.133, +.860] & 0.02 \\
+Cell Ontology parents & $-$0.515 [$-$.737, $-$.285] & +0.134 [+.001, +.299] & 0.05 \\
+Name-overlap type (string match) & $-$0.649 [$-$.877, $-$.388] & 0 & 0.02 \\
+\rowcolor{ours}\cad{}, opaque type id & +0.106 [$-$.154, +.377] & +0.754 [+.470, +1.041] & 0.01 \\
+\rowcolor{ours}\cad{}, type name & $-$0.707 [$-$.875, $-$.542] & $-$0.059 [$-$.216, +.097] & 0.15 \\
+\rowcolor{ours}\cad{}, name + definition & $-$0.707 [$-$.862, $-$.545] & $-$0.058 [$-$.219, +.101] & 0.14 \\
+\bottomrule
+\end{tabular}
+\caption{Zero-shot cell types, PBMC test split: 19 types, each held out of training in one of five leave-types-out folds (Qwen3.5-0.8B backbone, seed 0). Paired differences [95\% bootstrap over cell types]. Baselines use training types only.}
+\label{tab:zeroshot}
+\end{table}

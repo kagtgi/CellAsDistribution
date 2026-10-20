@@ -1,0 +1,25 @@
+[fla.utils._device|WARNING]Current Python version 3.10 is below the recommended 3.11 version. It is recommended to upgrade to Python 3.11 or higher for the best experience.
+/home/Win/cad_repo/src/repr_ceiling.py:99: RuntimeWarning: Mean of empty slice.
+  pos_b = np.array([pos[RBINS[i]:(RBINS[i + 1] if i + 1 < nb else k)].mean() for i in range(nb)])
+/home/Win/cad/lib/python3.10/site-packages/numpy/_core/_methods.py:145: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+frequency  eps=0.0   NLL=5.4883  reference=5.6063
+frequency-matched eps=0.5   NLL=5.5163  reference=5.6063
+rank-200   eps=0.8   NLL=5.5549  reference=5.6063
+rank-2048  eps=0.8   NLL=5.5556  reference=5.6063
+rank-learned-pos eps=0.8   NLL=5.5561  reference=5.6063
+rank-learned-pos+N eps=0.8   NLL=5.5519  reference=5.6063
+rank-learned-gene eps=0.8   NLL=5.5539  reference=5.6063
+bins-51    eps=0.8   NLL=5.5538  reference=5.6063
+levels-48  eps=0.8   NLL=5.5556  reference=5.6063
+  frequency          diff vs reference -0.1180 [-0.1666,-0.0808]  keeps 100% of the pooled-oracle headroom, 131% of the matched-frequency headroom
+  frequency-matched  diff vs reference -0.0899 [-0.1322,-0.0579]  keeps 76% of the pooled-oracle headroom, 100% of the matched-frequency headroom
+  rank-200           diff vs reference -0.0514 [-0.0805,-0.0293]  keeps 44% of the pooled-oracle headroom, 57% of the matched-frequency headroom
+  rank-2048          diff vs reference -0.0507 [-0.0791,-0.0291]  keeps 43% of the pooled-oracle headroom, 56% of the matched-frequency headroom
+  rank-learned-pos   diff vs reference -0.0502 [-0.0775,-0.0295]  keeps 43% of the pooled-oracle headroom, 56% of the matched-frequency headroom
+  rank-learned-pos+N diff vs reference -0.0544 [-0.0852,-0.0311]  keeps 46% of the pooled-oracle headroom, 61% of the matched-frequency headroom
+  rank-learned-gene  diff vs reference -0.0523 [-0.0812,-0.0303]  keeps 44% of the pooled-oracle headroom, 58% of the matched-frequency headroom
+  bins-51            diff vs reference -0.0525 [-0.0815,-0.0304]  keeps 44% of the pooled-oracle headroom, 58% of the matched-frequency headroom
+  levels-48          diff vs reference -0.0506 [-0.0835,-0.0265]  keeps 43% of the pooled-oracle headroom, 56% of the matched-frequency headroom

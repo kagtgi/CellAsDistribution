@@ -150,6 +150,38 @@ def gen(a):
     save_json(texts, os.path.join(d, f"gen_texts_{a.split}.json"))
 
 
+def redecode(a):
+    """rev3 (post hoc): decode the SAVED generated sentences with the learned rank-to-frequency decoder of repr_ceiling
+    (E[frequency | gene, rank-position bin], fit on training cells) instead of the C2S log-rank regression. Writes
+    runs/<tag>_learned/profiles_<split>.npz, scored by the unchanged `score` subcommand (eps chosen on validation)."""
+    from .repr_ceiling import fit_learned_rank, RBINS
+    w = World("pert", a.name)
+    G, pos = len(w.panel), {g: i for i, g in enumerate(w.panel)}
+    d = os.path.join(w.dir, "runs", a.tag)
+    texts = load_json(os.path.join(d, f"gen_texts_{a.split}.json"))
+    tr = np.where((w.split == "train") & ~w.ctrl)[0]
+    sub = np.random.default_rng(0).choice(tr, 3000, replace=False)          # the same training subsample as repr_ceiling
+    L = fit_learned_rank(w.counts(sub), G, k=TOPK)
+    prof = {}
+    for u, ts in texts.items():
+        P = np.zeros((len(ts), G))
+        for j, text in enumerate(ts):
+            text = text.split("\n")[0].strip()
+            seen, o = set(), []
+            for g in (text[:-1] if text.endswith(".") else text).split():
+                if g in pos and g not in seen:
+                    seen.add(g); o.append(pos[g])
+            o = np.array(o[:TOPK], dtype=int)
+            if len(o):
+                P[j, o] = L["gene"][o, np.searchsorted(RBINS, np.arange(len(o)), side="right") - 1]
+        prof[u] = P.astype(np.float32)
+    out = os.path.join(w.dir, "runs", f"{a.tag}_learned")
+    os.makedirs(out, exist_ok=True)
+    np.savez_compressed(os.path.join(out, f"profiles_{a.split}.npz"), units=np.array(sorted(prof)),
+                        **{f"{u}__P": prof[u] for u in sorted(prof)})
+    print(f"redecoded {len(prof)} units -> {out}", flush=True)
+
+
 def score(a):
     w = World("pert", a.name)
     d = os.path.join(w.dir, "runs", a.tag)
@@ -170,7 +202,7 @@ def score(a):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["train", "gen", "score"])
+    ap.add_argument("cmd", choices=["train", "gen", "score", "redecode"])
     ap.add_argument("--name", default="norman")
     ap.add_argument("--tag", required=True)
     ap.add_argument("--seed", type=int, default=0)
@@ -187,4 +219,4 @@ if __name__ == "__main__":
     ap.add_argument("--eps", type=float, default=0.1)
     ap.add_argument("--n-units", type=int, default=0, help="smoke test: only the first n units")
     a = ap.parse_args()
-    {"train": train, "gen": gen, "score": score}[a.cmd](a)
+    {"train": train, "gen": gen, "score": score, "redecode": redecode}[a.cmd](a)

@@ -25,7 +25,12 @@ SKILL = Path.home() / '.claude' / 'skills' / 'paper-schematic-figures' / 'script
 sys.path.insert(0, str(SKILL))
 from figkit import kit  # noqa: E402
 from figkit.kit import (BLUE, BLUE_FILL, PURPLE, PURPLE_FILL, TEAL, TEAL_FILL, ORANGE,  # noqa: E402
-                        GREY, GREY_FILL, MODULE, NOTE, SMALL)
+                        GREY, GREY_FILL)
+
+# rev3: larger type than the kit default so that no label prints below 7 pt (RECOMB asks for >= 10 pt text; the figure
+# is printed at 100% of the text width)
+MODULE, NOTE, SMALL = 8.2, 7.6, 7.0
+kit.HEAD, kit.NOTE = 8.6, 7.6
 
 NAME = 'fig1_method'
 H = 80.0
@@ -61,11 +66,11 @@ def compose():
 
     # ---- 1 text state --------------------------------------------------------------------------------------
     d.box(X1, top, W1, 10.0, '', edge=TEAL, fill=TEAL_FILL)
-    d.label(X1 + W1 / 2, top + 3.0, 'use case 1: conditional generation', NOTE, color=TEAL, weight='bold')
-    d.label(X1 + W1 / 2, top + 7.0, 'Cell type: CD14-positive monocyte', NOTE)
+    d.label(X1 + W1 / 2, top + 3.0, 'cell-type generation', NOTE, color=TEAL, weight='bold')
+    d.label(X1 + W1 / 2, top + 7.0, 'Cell type: CD14+ monocyte', NOTE)
     y2 = top + 13.0
     d.box(X1, y2, W1, 17.0, '', edge=TEAL, fill=TEAL_FILL)
-    d.label(X1 + W1 / 2, y2 + 3.0, 'use case 2: perturbation response', NOTE, color=TEAL, weight='bold')
+    d.label(X1 + W1 / 2, y2 + 3.0, 'perturbation response', NOTE, color=TEAL, weight='bold')
     d.label(X1 + W1 / 2, y2 + 7.0, 'Perturbation: KLF1', NOTE)
     d.label(X1 + W1 / 2, y2 + 10.6, 'Control cell: HBZ:10 CKS1B:9 ...', NOTE)
     d.label(X1 + W1 / 2, y2 + 14.2, r'level $\lfloor\log_2(1+10^4x_{0g}/N_0)\rfloor$', SMALL, color=GREY)
@@ -89,8 +94,8 @@ def compose():
     kit.arrow(d, [(X2 + W2 / 2, lm_y + 26.0), (X2 + W2 / 2, lm_y + 30.5)], 'inference')
     hy = lm_y + 30.5
     d.box(X2, hy, W2, 12.0, '', edge=PURPLE, fill=PURPLE_FILL)
-    d.label(X2 + W2 / 2, hy + 3.8, r'decision head  $z=Wh+\log b$', MODULE, weight='bold')
-    d.label(X2 + W2 / 2, hy + 8.4, r'$b$: none, training mean, or $x_0$', SMALL, color=GREY)
+    d.label(X2 + W2 / 2, hy + 3.8, 'decision head', MODULE, weight='bold')
+    d.label(X2 + W2 / 2, hy + 8.4, r'logits $z=Wh+\log b$', NOTE, color=GREY)
     kit.arrow(d, [(X2 + W2 / 2, hy + 12.0), (X2 + W2 / 2, hy + 16.5)], 'inference')
     sy = hy + 16.5
     d.box(X2, sy, W2, 10.0, '', edge=PURPLE, fill=PURPLE_FILL)
@@ -131,7 +136,7 @@ def compose():
     hb = sy
     d.box(X4, hb, W4, 10.0, '', edge=ORANGE, fill='#FFFFFF', dashed=True)
     d.label(X4 + W4 / 2, hb + 3.4, 'held-out real cells', NOTE, color=ORANGE)
-    d.label(X4 + W4 / 2, hb + 7.2, 'unseen donors / perturbations', SMALL, color=ORANGE)
+    d.label(X4 + W4 / 2, hb + 7.2, 'unseen conditions', SMALL, color=ORANGE)
     kit.arrow(d, [(X4 + 6.0, hb - .2), (X4 + 6.0, ck + 2 * 6.2 + 5.4)], 'supervision', 'score', side='right')
 
     # q -> sampler: under the training column, then up the gutter left of column 4

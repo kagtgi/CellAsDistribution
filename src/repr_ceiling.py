@@ -62,7 +62,7 @@ def levels_profile(c, k=48, levels=14):
     return p
 
 
-RBINS = np.unique(np.round(np.geomspace(1, 201, 17)).astype(int)) - 1   # log-spaced rank-position bins (0-based starts)
+RBINS = np.unique(np.round(np.geomspace(1, 200, 17)).astype(int)) - 1   # log-spaced rank-position bins (0-based starts, all < 200)
 
 
 def rank_order(c, k=200):

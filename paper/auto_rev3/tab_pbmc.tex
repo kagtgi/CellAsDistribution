@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Model & $\Delta$NLL to type mean & cell NLL & MMD & AUC & type acc. \\
+\midrule
+Global mean & +1.125 [+.939, +1.326] & 6.732 & 0.833 & 1.000 & 0.04 \\
+Cell-type mean (reference) & 0 & 5.606 & 0.182 & 0.985 & 0.88 \\
+scVI & +0.005 [$-$.007, +.016] & 5.611 & 0.166 & 0.975 & 0.82 \\
+scVI, own NB sampling & $-$0.001 [$-$.011, +.010] & 5.489 & 0.128 & 0.924 & 0.70 \\
+scANVI, own NB sampling & +0.003 [$-$.009, +.017] & 5.486 & 0.130 & 0.930 & 0.67 \\
+\rowcolor{ours}\cad{} & +0.017 [+.001, +.036] & 5.623 & 0.163 & 0.970 & 0.82 \\
+\rowcolor{ours}\cad{}, low-rank head & +0.041 [+.018, +.067] & 5.552 & 0.165 & 0.970 & 0.77 \\
+\bottomrule
+\end{tabular}
+\caption{Conditional generation, human PBMC test split (unseen donors; 24 cell types; seed 0; Gemma backbone). $\Delta$NLL: paired difference to the cell-type mean [95\% bootstrap over cell types]. \emph{Own NB sampling}: cells drawn from scVI/scANVI's own negative binomial from latent states of training cells, with cell NLL as the mixture over these draws; other rows use the shared samplers (generation metrics on Dirichlet-multinomial samples).}
+\label{tab:pbmc_main}
+\end{table}

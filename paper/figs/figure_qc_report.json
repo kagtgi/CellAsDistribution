@@ -32,8 +32,8 @@
  {
   "figure": "fig1_method",
   "check": "PNG width 180 mm at 400 dpi",
-  "status": "pass",
-  "detail": "2834 px"
+  "status": "FAIL",
+  "detail": "2598 px"
  },
  {
   "figure": "fig1_method",
@@ -50,8 +50,8 @@
  {
   "figure": "fig1_method",
   "check": "SVG width exact",
-  "status": "pass",
-  "detail": "510.23622"
+  "status": "FAIL",
+  "detail": "467.716535"
  },
  {
   "figure": "fig1_method",
@@ -69,7 +69,7 @@
   "figure": "fig1_method",
   "check": "body text in the declared face",
   "status": "pass",
-  "detail": "google sans 75%"
+  "detail": "google sans 72%"
  },
  {
   "figure": "fig1_method",
@@ -99,7 +99,7 @@
   "figure": "fig1_method",
   "check": "landscape (height < width)",
   "status": "pass",
-  "detail": "180.0 x 80.0 mm"
+  "detail": "165.0 x 80.0 mm"
  },
  {
   "figure": "fig1_method",
@@ -355,6 +355,126 @@
  },
  {
   "figure": "fig2_detail",
+  "check": "caption opens with a bold sentence",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig3_representation.png"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig3_representation.svg"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig3_representation.pdf"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig3_representation_caption.md"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "file exists",
+  "status": "pass",
+  "detail": "fig3_representation_provenance.json"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "PNG width 180 mm at 400 dpi",
+  "status": "FAIL",
+  "detail": "2598 px"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "height within 225 mm",
+  "status": "pass",
+  "detail": "51.9 mm"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "white background",
+  "status": "pass",
+  "detail": ""
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "SVG width exact",
+  "status": "FAIL",
+  "detail": "467.716535"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "SVG text stays editable",
+  "status": "pass",
+  "detail": "25"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "no glyph below 5 pt",
+  "status": "pass",
+  "detail": "smallest 5.6"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "body text in the declared face",
+  "status": "pass",
+  "detail": "google sans 100%"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "no overlapping labels",
+  "status": "FAIL",
+  "detail": "[{\"a\": \"38%   ($R^2$ = 0.68)\", \"b\": \"57%   ($R^2$ = 0.74)\", \"overlap_mm\": [5.42, 0.58]}]"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "nothing runs off the canvas",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "no two data panels overlap",
+  "status": "pass",
+  "detail": "[]"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "every element clears its panel edge",
+  "status": "FAIL",
+  "detail": "[{\"element\": \"text 'Norman K562 perturbations'\", \"card\": \"a\", \"element_box_mm\": [54.5, 47.21, 89.93, 49.79], \"card_box_mm\": [1.0, 0.5, 164.0, 51.5], \"short_of_inset_mm\": {\"left\": 0, \"top\": 0, \"right\": 0, \"bottom\": 0.29}}, {\"element\": \"text "
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "landscape (height < width)",
+  "status": "pass",
+  "detail": "165.0 x 52.0 mm"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "panels registered",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig3_representation",
+  "check": "panel letters run a, b, c without a gap",
+  "status": "pass",
+  "detail": "['a']"
+ },
+ {
+  "figure": "fig3_representation",
   "check": "caption opens with a bold sentence",
   "status": "pass",
   "detail": ""

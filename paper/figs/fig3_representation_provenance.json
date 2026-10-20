@@ -1,35 +1,81 @@
 {
   "font_file": "GoogleSans-Regular.ttf",
-  "data_source": "panel b: ~/cad_out/auto_cell/{norman,pbmc}_test_repr_ceiling_v2.json (headroom_kept_matched); R^2: auto_rev2/rank_r2_{norman,pbmc}_test.json",
+  "data_source": "paper/auto_rev3/{norman,pbmc}_test_ceiling_v3.txt (headroom_kept_matched); R^2: paper/auto_rev2/rank_r2_{norman,pbmc}_test.json",
   "model_trained": false,
-  "panel_a": "Observation 1, not a measurement",
   "figure": "fig3_representation",
   "dpi": 400,
-  "width_mm": 180.0,
+  "width_mm": 165.0,
   "layout": {
-    "width_mm": 180.0,
-    "height_mm": 76.0,
+    "width_mm": 165.0,
+    "height_mm": 52.0,
     "landscape": true,
     "cards": [
       {
         "letter": "a",
-        "height_mm": 72.0,
-        "width_mm": 100.0,
-        "content_fraction": 0.078,
-        "vertical_fraction": 0.036
-      },
-      {
-        "letter": "b",
-        "height_mm": 72.0,
-        "width_mm": 73.0,
-        "content_fraction": 0.087,
-        "vertical_fraction": 0.036
+        "height_mm": 51.0,
+        "width_mm": 163.0,
+        "content_fraction": 0.128,
+        "vertical_fraction": 0.052
       }
     ],
     "stage_titles": [],
-    "text_collisions": [],
+    "text_collisions": [
+      {
+        "a": "38%   ($R^2$ = 0.68)",
+        "b": "57%   ($R^2$ = 0.74)",
+        "overlap_mm": [
+          5.42,
+          0.58
+        ]
+      }
+    ],
     "overflow": [],
     "panel_overlaps": [],
-    "straddling_content": []
+    "straddling_content": [
+      {
+        "element": "text 'Norman K562 perturbations'",
+        "card": "a",
+        "element_box_mm": [
+          54.5,
+          47.21,
+          89.93,
+          49.79
+        ],
+        "card_box_mm": [
+          1.0,
+          0.5,
+          164.0,
+          51.5
+        ],
+        "short_of_inset_mm": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0.29
+        }
+      },
+      {
+        "element": "text 'PBMC cell types'",
+        "card": "a",
+        "element_box_mm": [
+          102.5,
+          47.23,
+          123.04,
+          49.77
+        ],
+        "card_box_mm": [
+          1.0,
+          0.5,
+          164.0,
+          51.5
+        ],
+        "short_of_inset_mm": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0.27
+        }
+      }
+    ]
   }
 }
