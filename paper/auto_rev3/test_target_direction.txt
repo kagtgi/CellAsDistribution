@@ -1,0 +1,8 @@
+# Output of src/target_direction.py (run 20 Oct 2026 on the VM, test split, qbar pseudobulk; printed, not saved as JSON at the time).
+# Mean signed error (pred - real log fold change of the perturbed gene over the held-out control mean), number of targets in panel.
+# Strata: s = unseen single, pu = pair with one unseen gene, p = pair of two seen genes; *_real = mean real log fold change.
+cb_additive {'p': (0.039, 52), 'p_real': (1.736, 52), 'pu': (0.085, 32), 'pu_real': (1.611, 32), 's': (-2.304, 4), 's_real': (2.221, 4)}
+cb_additive_ti {'p': (0.039, 52), 'p_real': (1.736, 52), 'pu': (0.222, 32), 'pu_real': (1.611, 32), 's': (-1.019, 4), 's_real': (2.221, 4)}
+t2_g_noctrl_s0 {'p': (-0.525, 52), 'p_real': (1.736, 52), 'pu': (-0.483, 32), 'pu_real': (1.611, 32), 's': (-1.988, 4), 's_real': (2.221, 4)}
+t3_nolm_s0 {'p': (-0.13, 52), 'p_real': (1.736, 52), 'pu': (-0.275, 32), 'pu_real': (1.611, 32), 's': (-2.269, 4), 's_real': (2.221, 4)}
+cb_scGen_style {'p': (-0.567, 52), 'p_real': (1.736, 52), 'pu': (-0.703, 32), 'pu_real': (1.611, 32), 's': (-2.184, 4), 's_real': (2.221, 4)}
