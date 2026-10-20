@@ -1,0 +1,32 @@
+== all held-out perturbations (n=76), paired difference to t2_g_noctrl_s2 [95% CI]
+  t2_g_noctrl_s2                                nll_pooled=5.182  pearson_de20=0.767  sign_de20=0.893
+  t3_nolm_s2                                    nll_pooled=5.180 (-0.003 [-0.015,+0.011])  pearson_de20=0.757 (-0.010 [-0.039,+0.023])  sign_de20=0.884 (-0.009 [-0.030,+0.013])
+  t4_nolm_genept_s2                             nll_pooled=5.215 (+0.033 [+0.010,+0.063])  pearson_de20=0.701 (-0.066 [-0.101,-0.032])  sign_de20=0.857 (-0.036 [-0.058,-0.013])
+  t4_nolm_coexpr_s2                             nll_pooled=5.191 (+0.009 [-0.006,+0.024])  pearson_de20=0.727 (-0.040 [-0.077,-0.005])  sign_de20=0.863 (-0.030 [-0.054,-0.007])
+  t3_g_frozen_mlp_s2                            nll_pooled=5.229 (+0.047 [+0.027,+0.069])  pearson_de20=0.674 (-0.092 [-0.142,-0.043])  sign_de20=0.865 (-0.028 [-0.064,+0.007])
+  cb_additive                                   nll_pooled=5.195 (+0.013 [-0.007,+0.040])  pearson_de20=0.769 (+0.002 [-0.033,+0.038])  sign_de20=0.898 (+0.005 [-0.017,+0.026])
+  cb_additive_ti                                nll_pooled=5.194 (+0.012 [-0.008,+0.039])  pearson_de20=0.769 (+0.002 [-0.033,+0.038])  sign_de20=0.898 (+0.005 [-0.017,+0.026])
+== unseen single gene (n=21), paired difference to t2_g_noctrl_s2 [95% CI]
+  t2_g_noctrl_s2                                nll_pooled=5.408  pearson_de20=0.525  sign_de20=0.771
+  t3_nolm_s2                                    nll_pooled=5.400 (-0.008 [-0.034,+0.012])  pearson_de20=0.517 (-0.008 [-0.114,+0.106])  sign_de20=0.752 (-0.019 [-0.079,+0.038])
+  t4_nolm_genept_s2                             nll_pooled=5.423 (+0.015 [-0.008,+0.035])  pearson_de20=0.453 (-0.072 [-0.162,+0.025])  sign_de20=0.750 (-0.021 [-0.071,+0.033])
+  t4_nolm_coexpr_s2                             nll_pooled=5.410 (+0.002 [-0.027,+0.030])  pearson_de20=0.466 (-0.058 [-0.178,+0.067])  sign_de20=0.724 (-0.048 [-0.117,+0.024])
+  t3_g_frozen_mlp_s2                            nll_pooled=5.415 (+0.007 [-0.009,+0.024])  pearson_de20=0.518 (-0.006 [-0.119,+0.111])  sign_de20=0.793 (+0.021 [-0.040,+0.083])
+  cb_additive                                   nll_pooled=5.417 (+0.009 [-0.016,+0.027])  pearson_de20=0.514 (-0.011 [-0.118,+0.105])  sign_de20=0.779 (+0.007 [-0.055,+0.069])
+  cb_additive_ti                                nll_pooled=5.414 (+0.005 [-0.020,+0.025])  pearson_de20=0.514 (-0.011 [-0.118,+0.105])  sign_de20=0.779 (+0.007 [-0.055,+0.069])
+== pair, one unseen gene (n=29), paired difference to t2_g_noctrl_s2 [95% CI]
+  t2_g_noctrl_s2                                nll_pooled=5.052  pearson_de20=0.829  sign_de20=0.919
+  t3_nolm_s2                                    nll_pooled=5.055 (+0.003 [-0.014,+0.020])  pearson_de20=0.809 (-0.021 [-0.048,+0.005])  sign_de20=0.902 (-0.017 [-0.050,+0.012])
+  t4_nolm_genept_s2                             nll_pooled=5.108 (+0.056 [+0.006,+0.129])  pearson_de20=0.737 (-0.093 [-0.141,-0.043])  sign_de20=0.853 (-0.066 [-0.110,-0.026])
+  t4_nolm_coexpr_s2                             nll_pooled=5.066 (+0.014 [-0.004,+0.034])  pearson_de20=0.792 (-0.037 [-0.071,-0.004])  sign_de20=0.888 (-0.031 [-0.060,-0.002])
+  t3_g_frozen_mlp_s2                            nll_pooled=5.067 (+0.015 [-0.009,+0.040])  pearson_de20=0.728 (-0.101 [-0.149,-0.060])  sign_de20=0.900 (-0.019 [-0.072,+0.028])
+  cb_additive                                   nll_pooled=5.048 (-0.004 [-0.022,+0.014])  pearson_de20=0.833 (+0.004 [-0.038,+0.044])  sign_de20=0.919 (+0.000 [-0.026,+0.028])
+  cb_additive_ti                                nll_pooled=5.048 (-0.004 [-0.022,+0.014])  pearson_de20=0.833 (+0.003 [-0.038,+0.044])  sign_de20=0.919 (+0.000 [-0.026,+0.028])
+== pair, both genes seen (n=26), paired difference to t2_g_noctrl_s2 [95% CI]
+  t2_g_noctrl_s2                                nll_pooled=5.145  pearson_de20=0.892  sign_de20=0.962
+  t3_nolm_s2                                    nll_pooled=5.141 (-0.004 [-0.026,+0.029])  pearson_de20=0.894 (+0.002 [-0.013,+0.019])  sign_de20=0.971 (+0.010 [-0.002,+0.023])
+  t4_nolm_genept_s2                             nll_pooled=5.166 (+0.021 [-0.001,+0.053])  pearson_de20=0.861 (-0.031 [-0.059,-0.002])  sign_de20=0.948 (-0.013 [-0.029,+0.004])
+  t4_nolm_coexpr_s2                             nll_pooled=5.152 (+0.008 [-0.017,+0.044])  pearson_de20=0.864 (-0.028 [-0.047,-0.011])  sign_de20=0.948 (-0.013 [-0.029,+0.000])
+  t3_g_frozen_mlp_s2                            nll_pooled=5.259 (+0.114 [+0.073,+0.162])  pearson_de20=0.740 (-0.152 [-0.252,-0.072])  sign_de20=0.885 (-0.077 [-0.150,-0.019])
+  cb_additive                                   nll_pooled=5.180 (+0.035 [-0.009,+0.109])  pearson_de20=0.903 (+0.011 [-0.013,+0.040])  sign_de20=0.971 (+0.010 [-0.006,+0.025])
+  cb_additive_ti                                nll_pooled=5.180 (+0.035 [-0.009,+0.109])  pearson_de20=0.903 (+0.011 [-0.013,+0.040])  sign_de20=0.971 (+0.010 [-0.006,+0.025])

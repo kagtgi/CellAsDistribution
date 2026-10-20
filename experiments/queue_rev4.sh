@@ -17,7 +17,14 @@ log start
 # ---- GenePT download (Zenodo 10833191, 574 MB) ----
 if [ ! -f ~/genept/GenePT_gene_embedding_ada_text.pickle ]; then
   mkdir -p ~/genept && cd ~/genept && curl -sL -o genept.zip "https://zenodo.org/records/10833191/files/GenePT_emebdding_v2.zip?download=1" \
-    && echo "3f6ce4317e3a0091978ae5cb8fbf05a3  genept.zip" | md5sum -c - >> $S 2>&1 && unzip -o -j -q genept.zip "*GenePT_gene_embedding_ada_text.pickle" && log "genept ok"
+    && echo "3f6ce4317e3a0091978ae5cb8fbf05a3  genept.zip" | md5sum -c - >> $S 2>&1
+fi
+if [ ! -f ~/genept/GenePT_gene_embedding_ada_text.pickle ]; then   # no unzip on the VM: extract the one file with python
+  cd ~/genept && python3 -c "
+import zipfile, shutil
+z = zipfile.ZipFile('genept.zip'); n = [x for x in z.namelist() if x.endswith('GenePT_gene_embedding_ada_text.pickle')][0]
+with z.open(n) as s, open('GenePT_gene_embedding_ada_text.pickle', 'wb') as d: shutil.copyfileobj(s, d)
+" && log "genept ok"
   cd ~/cad_repo
 fi
 

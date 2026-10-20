@@ -1,0 +1,22 @@
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{$\Delta$NLL to additive $\downarrow$} & \multicolumn{3}{c}{target error $\downarrow$} & \multicolumn{1}{c}{target sign $\uparrow$} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-8}
+Model & single & 1 unseen & 2 seen & single & 1 unseen & 2 seen & single \\
+\midrule
+Additive & 0 & 0 & 0 & 1.81 & 0.78 & \textbf{0.38} & 0.26 \\
+Perturbed mean & +0.000 & +0.114 & +0.141 & 1.81 & 1.49 & 1.61 & 0.26 \\
+Additive + target induction & $-$0.006 & \textbf{$-$0.003} & +0.000 & \textbf{0.93} & \textbf{0.45} & \textbf{0.38} & \textbf{0.95} \\
+No LM (learned) & \textbf{$-$0.017} & +0.006 & \textbf{$-$0.036} & 1.73 & 0.85 & 0.40 & 0.32 \\
+No LM (GenePT) & +0.004 & +0.065 & $-$0.014 & 1.72 & 1.17 & 0.76 & 0.32 \\
+No LM (co-expression) & +0.029 & +0.072 & $-$0.020 & 1.60 & 0.88 & 0.42 & 0.42 \\
+\rowcolor{ours}\cad{}, no control cell & $-$0.007 & +0.010 & $-$0.028 & 1.73 & 0.91 & 0.61 & 0.26 \\
+\bottomrule
+\end{tabular}
+\caption{Add-on gene panel with every perturbed gene forced in (21 unseen single genes, 19 of them with their target in the panel; same splits as the main panel, verified cell by cell; Norman test split, seed 0, C2S-Scale-Gemma-2-2B for \cad{}; post hoc). $\Delta$NLL: mean paired difference to additive; target error: mean absolute error of the predicted log fold change of the perturbed gene(s); target sign: fraction of unseen single targets predicted to go up. Best value of each column in bold; arrows give the better direction.}
+\label{tab:tp}
+\end{table}

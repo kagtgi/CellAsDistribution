@@ -113,8 +113,7 @@ def main():
     ap.add_argument("--pert-col", default="perturbation")
     ap.add_argument("--max-cells", type=int, default=0)
     ap.add_argument("--force-all-targets", action="store_true",
-                    help="rev4 add-on panel: force every perturbed gene (train, val and test) into the panel; only gene identities
-"
+                    help="rev4 add-on panel: force every perturbed gene (train, val and test) into the panel; only gene identities "
                          "are used, never held-out expression, and the panel is still filled by training-cell dispersion")
     a = ap.parse_args()
 

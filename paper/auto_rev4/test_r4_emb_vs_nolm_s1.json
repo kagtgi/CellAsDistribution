@@ -1,0 +1,330 @@
+{
+ "split": "test",
+ "ref": "t3_nolm_s1",
+ "strata": {
+  "all": {
+   "description": "all held-out perturbations",
+   "n": 76,
+   "units": [
+    "BAK1",
+    "BCL2L11",
+    "BPGM+SAMD1",
+    "C3orf72",
+    "C3orf72+FOXL2",
+    "CBL",
+    "CBL+CNN1",
+    "CBL+PTPN9",
+    "CBL+UBASH3A",
+    "CDKN1B+CDKN1A",
+    "CDKN1C",
+    "CDKN1C+CDKN1A",
+    "CDKN1C+CDKN1B",
+    "CEBPE+CEBPA",
+    "CEBPE+CNN1",
+    "CEBPE+KLF1",
+    "CELF2",
+    "CITED1",
+    "CNN1+MAPK1",
+    "DUSP9+ETS2",
+    "DUSP9+IGDCC3",
+    "DUSP9+KLF1",
+    "DUSP9+SNAI1",
+    "ELMSAN1",
+    "ETS2+CEBPE",
+    "ETS2+CNN1",
+    "ETS2+IKZF3",
+    "FOSB",
+    "FOSB+CEBPE",
+    "FOSB+IKZF3",
+    "FOXA1+FOXF1",
+    "FOXA1+FOXL2",
+    "FOXA3+FOXA1",
+    "FOXA3+FOXF1",
+    "FOXA3+FOXL2",
+    "FOXF1",
+    "FOXF1+FOXL2",
+    "FOXL2+MEIS1",
+    "FOXO4",
+    "HOXA13",
+    "IRF1+SET",
+    "KIAA1804",
+    "KLF1+BAK1",
+    "KLF1+CEBPA",
+    "KLF1+CLDN6",
+    "LHX1",
+    "LYL1",
+    "LYL1+IER5L",
+    "MAML2",
+    "MAP2K3+ELMSAN1",
+    "MAP2K6+ELMSAN1",
+    "MAP2K6+IKZF3",
+    "MAP2K6+SPI1",
+    "MAP4K3",
+    "MEIS1",
+    "PLK4+STIL",
+    "POU3F2+CBFA2T3",
+    "SAMD1+UBASH3B",
+    "SGK1+S1PR2",
+    "SGK1+TBX2",
+    "SGK1+TBX3",
+    "SNAI1+UBASH3B",
+    "TBX2",
+    "TBX3+TBX2",
+    "TMSB4X+BAK1",
+    "UBASH3B",
+    "UBASH3B+CNN1",
+    "UBASH3B+PTPN9",
+    "UBASH3B+UBASH3A",
+    "UBASH3B+ZBTB25",
+    "ZBTB10+DLX2",
+    "ZBTB10+ELMSAN1",
+    "ZC3HAV1",
+    "ZC3HAV1+CEBPA",
+    "ZC3HAV1+CEBPE",
+    "ZC3HAV1+HOXC13"
+   ],
+   "stats": {
+    "t3_nolm_s1": {
+     "nll_pooled": {
+      "mean": 5.179095885526673
+     }
+    },
+    "t4_nolm_genept_s1": {
+     "nll_pooled": {
+      "mean": 5.211561266974712,
+      "diff": [
+       0.032465381448038434,
+       0.01363158623803845,
+       0.05874686924019669
+      ]
+     }
+    },
+    "t4_nolm_coexpr_s1": {
+     "nll_pooled": {
+      "mean": 5.192081303498984,
+      "diff": [
+       0.012985417972311482,
+       0.006050683731949478,
+       0.022155656637061164
+      ]
+     }
+    },
+    "t2_g_noctrl_s1": {
+     "nll_pooled": {
+      "mean": 5.186557194528615,
+      "diff": [
+       0.007461309001942704,
+       -0.004187552761811329,
+       0.01897120430315103
+      ]
+     }
+    }
+   }
+  },
+  "s": {
+   "description": "unseen single gene",
+   "n": 21,
+   "units": [
+    "BAK1",
+    "BCL2L11",
+    "C3orf72",
+    "CBL",
+    "CDKN1C",
+    "CELF2",
+    "CITED1",
+    "ELMSAN1",
+    "FOSB",
+    "FOXF1",
+    "FOXO4",
+    "HOXA13",
+    "KIAA1804",
+    "LHX1",
+    "LYL1",
+    "MAML2",
+    "MAP4K3",
+    "MEIS1",
+    "TBX2",
+    "UBASH3B",
+    "ZC3HAV1"
+   ],
+   "stats": {
+    "t3_nolm_s1": {
+     "nll_pooled": {
+      "mean": 5.399423455036161
+     }
+    },
+    "t4_nolm_genept_s1": {
+     "nll_pooled": {
+      "mean": 5.421922193651347,
+      "diff": [
+       0.022498738615184952,
+       0.0052010239790583526,
+       0.041291795731365634
+      ]
+     }
+    },
+    "t4_nolm_coexpr_s1": {
+     "nll_pooled": {
+      "mean": 5.413698086334966,
+      "diff": [
+       0.014274631298804727,
+       0.0003339718506131525,
+       0.03807981288269457
+      ]
+     }
+    },
+    "t2_g_noctrl_s1": {
+     "nll_pooled": {
+      "mean": 5.410001728944002,
+      "diff": [
+       0.010578273907840881,
+       -0.009503350611565285,
+       0.036928138567206545
+      ]
+     }
+    }
+   }
+  },
+  "pu": {
+   "description": "pair, one unseen gene",
+   "n": 29,
+   "units": [
+    "C3orf72+FOXL2",
+    "CBL+CNN1",
+    "CBL+PTPN9",
+    "CBL+UBASH3A",
+    "CDKN1C+CDKN1A",
+    "CDKN1C+CDKN1B",
+    "FOSB+CEBPE",
+    "FOSB+IKZF3",
+    "FOXA1+FOXF1",
+    "FOXA3+FOXF1",
+    "FOXF1+FOXL2",
+    "FOXL2+MEIS1",
+    "KLF1+BAK1",
+    "LYL1+IER5L",
+    "MAP2K3+ELMSAN1",
+    "MAP2K6+ELMSAN1",
+    "SAMD1+UBASH3B",
+    "SGK1+TBX2",
+    "SNAI1+UBASH3B",
+    "TBX3+TBX2",
+    "TMSB4X+BAK1",
+    "UBASH3B+CNN1",
+    "UBASH3B+PTPN9",
+    "UBASH3B+UBASH3A",
+    "UBASH3B+ZBTB25",
+    "ZBTB10+ELMSAN1",
+    "ZC3HAV1+CEBPA",
+    "ZC3HAV1+CEBPE",
+    "ZC3HAV1+HOXC13"
+   ],
+   "stats": {
+    "t3_nolm_s1": {
+     "nll_pooled": {
+      "mean": 5.053815530471409
+     }
+    },
+    "t4_nolm_genept_s1": {
+     "nll_pooled": {
+      "mean": 5.10394421999647,
+      "diff": [
+       0.0501286895250602,
+       0.004572611544697211,
+       0.11822282877700864
+      ]
+     }
+    },
+    "t4_nolm_coexpr_s1": {
+     "nll_pooled": {
+      "mean": 5.070966867660209,
+      "diff": [
+       0.0171513371887997,
+       0.006603886568475736,
+       0.03264874221722236
+      ]
+     }
+    },
+    "t2_g_noctrl_s1": {
+     "nll_pooled": {
+      "mean": 5.061760033823291,
+      "diff": [
+       0.007944503351881009,
+       -0.007259246057242658,
+       0.023191815756925624
+      ]
+     }
+    }
+   }
+  },
+  "p": {
+   "description": "pair, both genes seen",
+   "n": 26,
+   "units": [
+    "BPGM+SAMD1",
+    "CDKN1B+CDKN1A",
+    "CEBPE+CEBPA",
+    "CEBPE+CNN1",
+    "CEBPE+KLF1",
+    "CNN1+MAPK1",
+    "DUSP9+ETS2",
+    "DUSP9+IGDCC3",
+    "DUSP9+KLF1",
+    "DUSP9+SNAI1",
+    "ETS2+CEBPE",
+    "ETS2+CNN1",
+    "ETS2+IKZF3",
+    "FOXA1+FOXL2",
+    "FOXA3+FOXA1",
+    "FOXA3+FOXL2",
+    "IRF1+SET",
+    "KLF1+CEBPA",
+    "KLF1+CLDN6",
+    "MAP2K6+IKZF3",
+    "MAP2K6+SPI1",
+    "PLK4+STIL",
+    "POU3F2+CBFA2T3",
+    "SGK1+S1PR2",
+    "SGK1+TBX3",
+    "ZBTB10+DLX2"
+   ],
+   "stats": {
+    "t3_nolm_s1": {
+     "nll_pooled": {
+      "mean": 5.140874783099879
+     }
+    },
+    "t4_nolm_genept_s1": {
+     "nll_pooled": {
+      "mean": 5.161688763211621,
+      "diff": [
+       0.02081398011174196,
+       0.009835870549667997,
+       0.03292665313139765
+      ]
+     }
+    },
+    "t4_nolm_coexpr_s1": {
+     "nll_pooled": {
+      "mean": 5.148172311182401,
+      "diff": [
+       0.007297528082522384,
+       0.00032376623882736063,
+       0.013407784610535144
+      ]
+     }
+    },
+    "t2_g_noctrl_s1": {
+     "nll_pooled": {
+      "mean": 5.14527959597982,
+      "diff": [
+       0.004404812879939913,
+       -0.020257378067300977,
+       0.022560068167272664
+      ]
+     }
+    }
+   }
+  }
+ }
+}

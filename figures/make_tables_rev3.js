@@ -3,7 +3,7 @@
 // Every metric column declares its better direction (min: lower is better, max: higher is better, one: closest to 1);
 // the header carries the arrow and the best displayed value of each column is set in bold (all tied values).
 const fs = require("fs");
-const D3 = "paper/auto_rev3/", D2 = "paper/auto_rev2/";
+const D3 = "paper/auto_rev3/", D2 = "paper/auto_rev2/", D4 = "paper/auto_rev4/";
 const J = f => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : null);
 const sg = x => (x >= 0 ? "+" : "\u2212") + Math.abs(x).toFixed(3);
 const sgs = x => (x >= 0 ? "+" : "\u2212") + Math.abs(x).toFixed(3).replace(/^0\./, ".");
@@ -58,10 +58,11 @@ if (nm) {
     label: "tab:norman_main" }));
 
   // ---------- Table: by stratum (NLL vs additive; downstream r_DE; direct target error) ----------
-  const st = nm.strata;
+  const st = nm.strata, r4 = J(D4 + "test_r4_vs_additive.json");
+  const g = (k, t) => (r4 && r4.strata[k].stats[t]) || st[k].stats[t];
   const R = [["Additive", "cb_additive"], ["Additive + target induction", "cb_additive_ti"], ["scGen-style", "cb_scGen_style"],
-    ["\\cad{}, no control cell", "t2_g_noctrl_s0"], ["\\cad{}, opaque gene ids", "t2_g_desc_opaque_s0"]].filter(([, t]) => st.all.stats[t]);
-  const g = (k, t) => st[k].stats[t];
+    ["No LM (gene embeddings)", "t3_nolm_s0"], ["\\cad{}, no control cell", "t2_g_noctrl_s0"], ["\\cad{} + target prior", "t2_g_noctrl_s0_tprior"],
+    ["\\cad{}, NB head", "t2_g_noctrl_nb_s0"], ["\\cad{}, opaque gene ids", "t2_g_desc_opaque_s0"]].filter(([, t]) => g("all", t));
   const dnl = k => t => (t === "cb_additive" ? zero() : (g(k, t) ? { num: +g(k, t).nll_pooled.diff[0].toFixed(3), txt: sg(g(k, t).nll_pooled.diff[0]) } : null));
   const rde = k => t => (g(k, t) && g(k, t).pearson_de20 ? num(g(k, t).pearson_de20.mean, 2) : null);
   const ter = k => t => (g(k, t) && g(k, t).target_abs_err ? num(g(k, t).target_abs_err.mean, 2) : null);
@@ -71,15 +72,17 @@ if (nm) {
       { h: "single", dir: "min", get: dnl("s") }, { h: "1 unseen", dir: "min", get: dnl("pu") }, { h: "2 seen", dir: "min", get: dnl("p") },
       { h: "single", dir: "max", get: rde("s") }, { h: "1 unseen", dir: "max", get: rde("pu") }, { h: "2 seen", dir: "max", get: rde("p") },
       { h: "1 unseen", dir: "min", get: ter("pu") }, { h: "2 seen", dir: "min", get: ter("p") }].map(c => ({ ...c, arrowInGroup: true })),
-    caption: `Norman test split by stratum: unseen single genes ($n=${st.s.n}$), pairs with one unseen gene ($n=${st.pu.n}$) and pairs of two genes seen alone in training ($n=${st.p.n}$). $\\Delta$NLL: mean paired difference to the additive baseline (intervals in the text). Downstream $r_{\\mathrm{DE}}$ as in Table~\\ref{tab:norman_main}, perturbed genes excluded. Target error: mean absolute error of the predicted log fold change of the perturbed gene(s) themselves over the held-out control mean, for targets in the panel. Added after the test results (post hoc).`,
+    caption: `Norman test split by stratum: unseen single genes ($n=${st.s.n}$), pairs with one unseen gene ($n=${st.pu.n}$) and pairs of two genes seen alone in training ($n=${st.p.n}$). $\\Delta$NLL: mean paired difference to the additive baseline (intervals in the text). Downstream $r_{\\mathrm{DE}}$ as in Table~\\ref{tab:norman_main}, perturbed genes excluded. Target error: mean absolute error of the predicted log fold change of the perturbed gene(s) themselves over the held-out control mean, for targets in the panel. Target prior: every target seen alone in training gets its own training-single frequency, unseen targets the global induction factor, applied to the saved \\cad{} output. Added after the test results (post hoc).`,
     label: "tab:strata" }).replace(/(single|1 unseen|2 seen) \$\\(downarrow|uparrow)\$/g, "$1"));   // arrows sit on the group headers
 }
 
 // ---------- Table: does the language model matter? (E1, pre-registered; test seeds 0-2) ----------
-const e1 = [0, 1, 2].map(s => J(D3 + `test_e1_vs_cad_s${s}.json`)).filter(Boolean);
+const e1r4 = [0, 1, 2].map(s => J(D4 + `test_r4_e1_vs_cad_s${s}.json`)).filter(Boolean);
+const e1 = e1r4.length === 3 ? e1r4 : [0, 1, 2].map(s => J(D3 + `test_e1_vs_cad_s${s}.json`)).filter(Boolean);
 if (e1.length) {
   const j = e1[0];
-  const rows = [["\\cad{} (reference)", "ref"], ["No LM (gene embeddings)", "t3_nolm_s0"], ["Frozen LM + MLP head", "t3_g_frozen_mlp_s0"],
+  const rows = [["\\cad{} (reference)", "ref"], ["No LM, learned", "t3_nolm_s0"], ["No LM, GenePT", "t4_nolm_genept_s0"],
+    ["No LM, co-expression", "t4_nolm_coexpr_s0"], ["Frozen LM + MLP", "t3_g_frozen_mlp_s0"],
     ["Additive", "cb_additive"], ["Additive + target induction", "cb_additive_ti"]].filter(([, t]) => t === "ref" || j.strata.all.stats[t]);
   const d = k => t => (t === "ref" ? zero() : (k === "all" ? diffci(j.strata[k].stats[t].nll_pooled.diff)
     : { num: +j.strata[k].stats[t].nll_pooled.diff[0].toFixed(3), txt: sg(j.strata[k].stats[t].nll_pooled.diff[0]) }));
@@ -92,7 +95,7 @@ if (e1.length) {
       { h: "$\\Delta$NLL, all", dir: "min", get: d("all") }, { h: "single", dir: "min", get: d("s") },
       { h: "1 unseen", dir: "min", get: d("pu") }, { h: "both seen", dir: "min", get: d("p") },
       { h: "$\\Delta r_{\\mathrm{DE}}$", dir: "max", get: t => (t === "ref" ? zero() : (j.strata.all.stats[t].pearson_de20 ? diffci(j.strata.all.stats[t].pearson_de20.diff) : null)) }],
-    caption: `Does the language model matter? Pooled NLL per UMI of each model minus that of \\cad{} without a control cell (same seed; positive values favor \\cad{}), Norman test split, seed 0: overall with [95\\% bootstrap over perturbations], and the mean difference by stratum (single $n=21$, 1 unseen $n=29$, both seen $n=26$). $\\Delta r_{\\mathrm{DE}}$: the same paired difference in downstream $r_{\\mathrm{DE}}$ (perturbed genes excluded; negative favors \\cad{}). Every model uses the same 20{,}000 training cells, frequency target, training-mean log-prior, softmax over the panel and scoring. Overall NLL difference by seed (no LM / frozen LM): ${seeds}. Pre-registered (Appendix~\\ref{app:protocol}). Differences whose interval covers zero are ties.`,
+    caption: `Does the language model matter? Pooled NLL per UMI of each model minus that of \\cad{} without a control cell (same seed; positive values favor \\cad{}), Norman test split, seed 0: overall with [95\\% bootstrap over perturbations], and the mean difference by stratum (single $n=21$, 1 unseen $n=29$, both seen $n=26$). $\\Delta r_{\\mathrm{DE}}$: the same paired difference in downstream $r_{\\mathrm{DE}}$ (perturbed genes excluded; negative favors \\cad{}). Every model uses the same 20{,}000 training cells, frequency target, training-mean log-prior, softmax over the panel and scoring. Overall NLL difference by seed (learned no LM / frozen LM): ${seeds}. GenePT: frozen text embeddings of NCBI gene summaries~\\citep{chen2024genept}; co-expression: loadings of training cells' principal components; both give every perturbed gene, including unseen ones, an embedding (post hoc). Pre-registered (Appendix~\\ref{app:protocol}). Differences whose interval covers zero are ties.`,
     label: "tab:e1" }));
 }
 
@@ -114,18 +117,20 @@ if (pb) {
     caption: `Conditional generation, human PBMC test split (unseen donors; ${pb.units.length} cell types; seed 0; Gemma backbone). $\\Delta$NLL: paired difference to the cell-type mean [95\\% bootstrap over cell types]. \\emph{Own NB sampling}: cells drawn from scVI/scANVI's own negative binomial from latent states of training cells, with cell NLL as the mixture over these draws; other rows use the shared samplers (generation metrics on Dirichlet-multinomial samples).`,
     label: "tab:pbmc_main" }));
 }
-const zs = J(D2 + "pbmc_zs_test.json");
+const zs = J(D4 + "pbmc_zs_test.json") || J(D2 + "pbmc_zs_test.json");
 if (zs) {
   const C = zs.compare["Global mean"], ref = zs.compare["Name-overlap type mean"];
   const rows = [["Nearest Cell Ontology type", "Nearest CL type mean"], ["Cell Ontology parents", "CL-parent mean"],
     ["Name-overlap type (string match)", "Name-overlap type mean"], ["\\cad{}, opaque type id", "CAD, opaque type id"],
-    ["\\cad{}, type name", "CAD, type name only"], ["\\cad{}, name + definition", "CAD, CL definition"]].filter(([, k]) => C[k]);
+    ["\\cad{}, type name", "CAD, type name only"], ["\\cad{}, name + definition", "CAD, CL definition"],
+    ["\\cad{} (Gemma), opaque type id", "CAD (Gemma), opaque type id"], ["\\cad{} (Gemma), type name", "CAD (Gemma), type name only"],
+    ["\\cad{} (Gemma), name + definition", "CAD (Gemma), CL definition"]].filter(([, k]) => C[k]);
   write("tab_zeroshot.tex", table({
     rows, firstHead: "Unseen cell type", cols: [
       { h: "$\\Delta$NLL to global mean", dir: "min", get: k => diffci(C[k].nll_pooled.diff) },
       { h: "$\\Delta$NLL to name overlap", dir: "min", get: k => (ref && ref[k] ? diffci(ref[k].nll_pooled.diff) : (k === "Name-overlap type mean" ? zero() : null)) },
       { h: "type acc.", dir: "max", get: k => num(C[k].type_acc_gen_dm.mean, 2) }],
-    caption: `Zero-shot cell types, PBMC test split: ${zs.n_units} types, each held out of training in one of five leave-types-out folds (Qwen3.5-0.8B backbone, seed 0). Paired differences [95\\% bootstrap over cell types]. Baselines use training types only.`,
+    caption: `Zero-shot cell types, PBMC test split: ${zs.n_units} types, each held out of training in one of five leave-types-out folds (Qwen3.5-0.8B and, added after the test results, C2S-Scale-Gemma-2-2B backbones; seed 0). Paired differences [95\\% bootstrap over cell types]. Baselines use training types only.`,
     label: "tab:zeroshot" }));
 }
 
@@ -163,4 +168,30 @@ if (cx) {
       { h: "PC1-share error", dir: "min", get: m("pc1_err", 3) }],
     caption: `Co-expression of generated cells, Norman test split (${cx.units.length} perturbations with at least 100 cells; ${cx.H} training-selected variable genes; seed 0; post hoc). Correlation error: mean absolute difference between gene--gene correlations across real and generated cells; variance ratio: total variance generated/real (1 is ideal).`,
     label: "tab:coexpr" }));
+}
+
+// ---------- Supplement: add-on panel with every perturbed gene (rev4, post hoc) ----------
+const tp = J(D4 + "tp_vs_additive.json");
+if (tp) {
+  const st = tp.strata, g = (k, t) => st[k].stats[t];
+  const rows = [["Additive", "cb_additive"], ["Perturbed mean", "cb_perturbed_mean"], ["Additive + target induction", "cb_additive_ti"],
+    ["No LM (learned)", "t4_tp_nolm_s0"], ["No LM (GenePT)", "t4_tp_nolm_genept_s0"], ["No LM (co-expression)", "t4_tp_nolm_coexpr_s0"],
+    ["\\cad{}, no control cell", "t4_tp_g_noctrl_s0"]].filter(([, t]) => g("all", t));
+  const dnl = k => t => (t === "cb_additive" ? zero() : (g(k, t) && g(k, t).nll_pooled.diff ? { num: +g(k, t).nll_pooled.diff[0].toFixed(3), txt: sg(g(k, t).nll_pooled.diff[0]) } : null));
+  // target metrics averaged over the units whose target(s) are in the panel (3 of the 105 perturbed genes are not
+  // in the dataset's gene list, so the strata summary, which needs every unit, drops them)
+  const dd = J(D4 + "tp_downstream.json");
+  const tavg = (k, t, m) => { const pu = dd && dd.per_unit[t]; if (!pu) return null;
+    const u = st[k].units.filter(x => pu[x] && pu[x][m] != null); return u.length ? { v: u.reduce((a, x) => a + pu[x][m], 0) / u.length, n: u.length } : null; };
+  const ter = k => t => { const r = tavg(k, t, "target_abs_err"); return r ? num(r.v, 2) : null; };
+  const tsg = k => t => { const r = tavg(k, t, "target_sign"); return r ? num(r.v, 2) : null; };
+  const nTarg = (tavg("s", "cb_additive", "target_abs_err") || { n: 0 }).n;
+  const pre = " & \\multicolumn{3}{c}{$\\Delta$NLL to additive $\\downarrow$} & \\multicolumn{3}{c}{target error $\\downarrow$} & \\multicolumn{1}{c}{target sign $\\uparrow$} \\\\\n\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\\cmidrule(lr){8-8}\n";
+  write("tab_tp.tex", table({
+    rows, sep: "3pt", size: "\\small\n", place: "h", pre, cols: [
+      { h: "single", dir: "min", get: dnl("s") }, { h: "1 unseen", dir: "min", get: dnl("pu") }, { h: "2 seen", dir: "min", get: dnl("p") },
+      { h: "single", dir: "min", get: ter("s") }, { h: "1 unseen", dir: "min", get: ter("pu") }, { h: "2 seen", dir: "min", get: ter("p") },
+      { h: "single", dir: "max", get: tsg("s") }],
+    caption: `Add-on gene panel with every perturbed gene forced in (${tp.strata.s.n} unseen single genes, ${nTarg} of them with their target in the panel; same splits as the main panel, verified cell by cell; Norman test split, seed 0, C2S-Scale-Gemma-2-2B for \\cad{}; post hoc). $\\Delta$NLL: mean paired difference to additive; target error: mean absolute error of the predicted log fold change of the perturbed gene(s); target sign: fraction of unseen single targets predicted to go up.`,
+    label: "tab:tp" }).replace(/(single|1 unseen|2 seen) \$\\(downarrow|uparrow)\$/g, "$1"));
 }

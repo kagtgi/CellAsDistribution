@@ -1,0 +1,20 @@
+== all held-out perturbations (n=76), paired difference to t3_nolm_s2 [95% CI]
+  t3_nolm_s2                                    nll_pooled=5.180
+  t4_nolm_genept_s2                             nll_pooled=5.215 (+0.035 [+0.015,+0.062])
+  t4_nolm_coexpr_s2                             nll_pooled=5.191 (+0.011 [+0.006,+0.017])
+  t2_g_noctrl_s2                                nll_pooled=5.182 (+0.003 [-0.011,+0.015])
+== unseen single gene (n=21), paired difference to t3_nolm_s2 [95% CI]
+  t3_nolm_s2                                    nll_pooled=5.400
+  t4_nolm_genept_s2                             nll_pooled=5.423 (+0.023 [+0.006,+0.042])
+  t4_nolm_coexpr_s2                             nll_pooled=5.410 (+0.010 [-0.001,+0.028])
+  t2_g_noctrl_s2                                nll_pooled=5.408 (+0.008 [-0.012,+0.034])
+== pair, one unseen gene (n=29), paired difference to t3_nolm_s2 [95% CI]
+  t3_nolm_s2                                    nll_pooled=5.055
+  t4_nolm_genept_s2                             nll_pooled=5.108 (+0.053 [+0.004,+0.124])
+  t4_nolm_coexpr_s2                             nll_pooled=5.066 (+0.012 [+0.006,+0.019])
+  t2_g_noctrl_s2                                nll_pooled=5.052 (-0.003 [-0.020,+0.014])
+== pair, both genes seen (n=26), paired difference to t3_nolm_s2 [95% CI]
+  t3_nolm_s2                                    nll_pooled=5.141
+  t4_nolm_genept_s2                             nll_pooled=5.166 (+0.025 [+0.011,+0.042])
+  t4_nolm_coexpr_s2                             nll_pooled=5.152 (+0.011 [+0.005,+0.018])
+  t2_g_noctrl_s2                                nll_pooled=5.145 (+0.004 [-0.029,+0.026])

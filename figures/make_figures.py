@@ -88,7 +88,7 @@ def kfold_forest(res, fname):
             ax.errorbar(s[0], i, xerr=[[s[0] - s[1]], [s[2] - s[0]]], fmt="o" if "oracle" not in m else "D", color=c,
                         mfc="white" if m in KF_HOLLOW else c, ms=4.2, capsize=2, lw=1)
         ax.axvline(0, color="k", lw=0.6)
-        ax.set_title(f"{g} (n={res[g]['n']})", fontsize=8)
+        ax.set_title(f"{g}\n(n={res[g]['n']})", fontsize=8)
         ax.set_yticks(range(len(models)))
         ax.set_yticklabels([KF_LABEL[m] for m in models])
         ax.invert_yaxis()
