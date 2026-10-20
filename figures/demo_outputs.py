@@ -62,10 +62,18 @@ def main():
     ap.add_argument("--split", default="test")
     ap.add_argument("--case", action="append", required=True, help='"task|title|name|cad_tag|ref_tag|stratum"')
     ap.add_argument("--top", type=int, default=25)
+    ap.add_argument("--compact", action="store_true", help="main-text version: no prompt column, larger type (>= 7.5 pt at 6.5 in)")
     a = ap.parse_args()
     cases = [c.split("|") for c in a.case]
-    fig, axs = plt.subplots(len(cases), 3, figsize=(7.2, 2.25 * len(cases)), gridspec_kw={"width_ratios": [1.15, 1.6, 1.0]})
-    axs = np.atleast_2d(axs)
+    if a.compact:   # (prompt, frequencies, DE) font sizes in pt at the printed width of 6.5 in
+        FS = dict(tick=7.5, lab=8.0, title=8.5, leg=7.5, ms=4.0)
+        fig, axs3 = plt.subplots(len(cases), 2, figsize=(6.5, 2.75 * len(cases)), gridspec_kw={"width_ratios": [1.45, 1.0]})
+        axs3 = np.atleast_2d(axs3)
+        axs = np.concatenate([np.array([[None]] * len(cases)), axs3], axis=1)
+    else:
+        FS = dict(tick=4.2, lab=5.5, title=5.5, leg=4.8, ms=2.6)
+        fig, axs = plt.subplots(len(cases), 3, figsize=(7.2, 2.25 * len(cases)), gridspec_kw={"width_ratios": [1.15, 1.6, 1.0]})
+        axs = np.atleast_2d(axs)
     worlds, record = {}, []
     for r, (task, title, name, tag, ref, stratum) in enumerate(cases):
         w = worlds.setdefault((task, name), World(task, name))
@@ -76,29 +84,34 @@ def main():
         prompts = os.path.join(w.dir, "runs", tag, f"prompts_{a.split}.json")
         ptxt = load_json(prompts)[u][0] if os.path.exists(prompts) else "(prompt file missing)"
         # (left) prompt
-        ax = axs[r, 0]
-        ax.axis("off")
-        wrapped = "\n".join(textwrap.fill(line, 46) for line in ptxt.split("\n"))
-        lines = wrapped.split("\n")
-        if len(lines) > 16:
-            lines = lines[:15] + ["..."]
-        ax.text(0, 1, "\n".join(lines), va="top", ha="left", family="monospace", fontsize=4.6, transform=ax.transAxes)
-        ax.set_title(f"{title}\nunit: {u}", fontsize=6.5, loc="left")
+        if not a.compact:
+            ax = axs[r, 0]
+            ax.axis("off")
+            wrapped = "\n".join(textwrap.fill(line, 46) for line in ptxt.split("\n"))
+            lines = wrapped.split("\n")
+            if len(lines) > 16:
+                lines = lines[:15] + ["..."]
+            ax.text(0, 1, "\n".join(lines), va="top", ha="left", family="monospace", fontsize=4.6, transform=ax.transAxes)
+            ax.set_title(f"{title}\nunit: {u}", fontsize=6.5, loc="left")
         # (middle) top genes by ground-truth frequency
         ax = axs[r, 1]
         top = np.argsort(-gt)[: a.top]
         x = np.arange(len(top))
+        refl = {"cb_additive": "additive", "cb_type_mean": "type mean", "cb_perturbed_mean": "perturbed mean"}.get(ref, ref.replace("cb_", "").replace("_", " "))
         ax.bar(x, gt[top], color=C_GT, alpha=.25, width=.8, label="held-out real (pooled)")
-        ax.plot(x, q_cad[top], "o", ms=2.6, color=C_CAD, label="CAD")
-        ax.plot(x, q_ref[top], "_", ms=5, mew=1.2, color=C_REF, label=ref.replace("cb_", "").replace("_", " "))
+        ax.plot(x, q_cad[top], "o", ms=FS["ms"], color=C_CAD, label="CellAsDistribution" if a.compact else "CAD")
+        ax.plot(x, q_ref[top], "_", ms=FS["ms"] * 2, mew=1.4, color=C_REF, label=refl)
         ax.set_yscale("log")
         ax.set_xticks(x)
-        ax.set_xticklabels([w.panel[i] for i in top], rotation=90, fontsize=4.2)
-        ax.tick_params(axis="y", labelsize=5)
-        ax.set_ylabel("frequency", fontsize=5.5)
-        ax.set_title(f"top-{a.top} genes; NLL CAD - ref = {dnll:+.3f} (median of {n_units})", fontsize=5.5)
+        ax.set_xticklabels([w.panel[i] for i in top], rotation=90, fontsize=FS["tick"])
+        ax.tick_params(axis="y", labelsize=FS["tick"])
+        ax.set_ylabel("share of transcripts", fontsize=FS["lab"])
+        if a.compact:
+            ax.set_title(f"({chr(97 + 2 * r)}) {title}: {u} (median of {n_units})", fontsize=FS["title"], loc="left")
+        else:
+            ax.set_title(f"top-{a.top} genes; NLL CAD - ref = {dnll:+.3f} (median of {n_units})", fontsize=5.5)
         if r == 0:
-            ax.legend(fontsize=4.8, frameon=False, loc="upper right")
+            ax.legend(fontsize=FS["leg"], frameon=False, loc="upper right")
         rec = {"title": title, "task": task, "name": name, "unit": u, "stratum": stratum, "n_units": n_units, "cad": tag, "ref": ref,
                "nll_diff_cad_minus_ref": dnll, "prompt": ptxt, "top_genes": [w.panel[i] for i in top]}
         # (right) DE genes, perturbations only
@@ -112,14 +125,19 @@ def main():
             o = de[np.argsort(lfc(gt)[de])]
             y = np.arange(len(o))
             ax.axvline(0, color="#BBBBBB", lw=.5)
-            ax.plot(lfc(gt)[o], y, "s", ms=2.4, color=C_GT, label="real")
-            ax.plot(lfc(q_cad)[o], y, "o", ms=2.4, color=C_CAD, label="CAD")
-            ax.plot(lfc(q_ref)[o], y, "|", ms=4, mew=1.0, color=C_REF, label="reference")
+            ms = FS["ms"] * .92
+            ax.plot(lfc(gt)[o], y, "s", ms=ms, color=C_GT, label="real")
+            ax.plot(lfc(q_cad)[o], y, "o", ms=ms, color=C_CAD, label="CAD")
+            ax.plot(lfc(q_ref)[o], y, "|", ms=ms * 1.7, mew=1.2, color=C_REF, label="reference")
             ax.set_yticks(y)
-            ax.set_yticklabels([w.panel[i] for i in o], fontsize=4.2)
-            ax.tick_params(axis="x", labelsize=5)
-            ax.set_xlabel("log2 fold change vs control", fontsize=5.5)
-            ax.set_title("top-20 DE genes", fontsize=5.5)
+            tg = set(split_pert(u))
+            ax.set_yticklabels([w.panel[i] for i in o], fontsize=FS["tick"] - (0.5 if a.compact else 0))
+            for lbl in ax.get_yticklabels():     # the perturbed (CRISPRa-targeted) genes in red
+                if lbl.get_text() in tg:
+                    lbl.set_color("#B0303A")
+            ax.tick_params(axis="x", labelsize=FS["tick"])
+            ax.set_xlabel("log2 fold change vs control", fontsize=FS["lab"])
+            ax.set_title(f"({chr(98 + 2 * r)}) top-20 DE genes" if a.compact else "top-20 DE genes", fontsize=FS["title"], loc="left" if a.compact else "center")
             gt_l, cad_l, ref_l = lfc(gt)[de], lfc(q_cad)[de], lfc(q_ref)[de]
             rec["de_genes"] = [w.panel[i] for i in de]
             rec["de_pearson_cad"] = float(np.corrcoef(gt_l, cad_l)[0, 1])
