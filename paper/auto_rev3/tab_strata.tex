@@ -3,17 +3,17 @@
 \setlength{\tabcolsep}{3.2pt}
 \begin{tabular}{lrrrrrrrr}
 \toprule
- & \multicolumn{3}{c}{$\Delta$NLL to additive} & \multicolumn{3}{c}{downstream $r_{\mathrm{DE}}$} & \multicolumn{2}{c}{target error} \\
+ & \multicolumn{3}{c}{$\Delta$NLL to additive $\downarrow$} & \multicolumn{3}{c}{downstream $r_{\mathrm{DE}}$ $\uparrow$} & \multicolumn{2}{c}{target error $\downarrow$} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-9}
 Model & single & 1 unseen & 2 seen & single & 1 unseen & 2 seen & 1 unseen & 2 seen \\
 \midrule
-Additive & 0 & 0 & 0 & 0.51 & 0.83 & 0.90 & 0.27 & 0.39 \\
-Additive + target induction & $-$0.003 & +0.000 & $-$0.000 & 0.51 & 0.83 & 0.90 & 0.24 & 0.39 \\
+Additive & 0 & \textbf{0} & 0 & 0.51 & \textbf{0.83} & \textbf{0.90} & 0.27 & \textbf{0.39} \\
+Additive + target induction & $-$0.003 & \textbf{+0.000} & $-$0.000 & 0.51 & \textbf{0.83} & \textbf{0.90} & \textbf{0.24} & \textbf{0.39} \\
 scGen-style & $-$0.002 & +0.037 & $-$0.021 & 0.44 & 0.79 & 0.87 & 0.74 & 0.65 \\
-\rowcolor{ours}\cad{}, no control cell & $-$0.006 & +0.010 & $-$0.033 & 0.54 & 0.83 & 0.89 & 0.51 & 0.58 \\
+\rowcolor{ours}\cad{}, no control cell & \textbf{$-$0.006} & +0.010 & \textbf{$-$0.033} & \textbf{0.54} & \textbf{0.83} & 0.89 & 0.51 & 0.58 \\
 \rowcolor{ours}\cad{}, opaque gene ids & +0.001 & +0.029 & $-$0.019 & 0.42 & 0.73 & 0.87 & 0.72 & 0.76 \\
 \bottomrule
 \end{tabular}
-\caption{Norman test split by stratum: unseen single genes ($n=21$), pairs with one unseen gene ($n=29$) and pairs of two genes seen alone in training ($n=26$). $\Delta$NLL: mean paired difference to the additive baseline (intervals in the text). Downstream $r_{\mathrm{DE}}$ as in Table~\ref{tab:norman_main}, perturbed genes excluded. Target error: mean absolute error of the predicted log fold change of the perturbed gene(s) themselves over the held-out control mean, for targets in the panel. Added after the test results (post hoc).}
+\caption{Norman test split by stratum: unseen single genes ($n=21$), pairs with one unseen gene ($n=29$) and pairs of two genes seen alone in training ($n=26$). $\Delta$NLL: mean paired difference to the additive baseline (intervals in the text). Downstream $r_{\mathrm{DE}}$ as in Table~\ref{tab:norman_main}, perturbed genes excluded. Target error: mean absolute error of the predicted log fold change of the perturbed gene(s) themselves over the held-out control mean, for targets in the panel. Added after the test results (post hoc). Best value of each column in bold; arrows give the better direction.}
 \label{tab:strata}
 \end{table}

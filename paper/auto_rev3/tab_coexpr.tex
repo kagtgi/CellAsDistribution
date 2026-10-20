@@ -1,19 +1,20 @@
 \begin{table}[h]
 \centering
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrrr}
 \toprule
-Generator & correlation error $\downarrow$ & variance ratio & PC1-share error $\downarrow$ \\
+Generator & correlation error $\downarrow$ & variance ratio ($\to1$) & PC1-share error $\downarrow$ \\
 \midrule
 Additive & 0.078 & 0.94 & 0.027 \\
-Additive, control residual (no LM) & 0.078 & 1.01 & 0.027 \\
+Additive, control residual (no LM) & 0.078 & \textbf{1.01} & 0.027 \\
 \rowcolor{ours}\cad{}, control residual & 0.078 & 1.04 & 0.028 \\
-\rowcolor{ours}\cad{}, low-rank head & 0.074 & 1.04 & 0.021 \\
-\rowcolor{ours}\cad{}, no control cell & 0.079 & 0.99 & 0.026 \\
+\rowcolor{ours}\cad{}, low-rank head & \textbf{0.074} & 1.04 & 0.021 \\
+\rowcolor{ours}\cad{}, no control cell & 0.079 & \textbf{0.99} & 0.026 \\
 Training-cell resampling & 0.093 & 1.02 & 0.018 \\
-scGen-style & 0.075 & 1.01 & 0.017 \\
+scGen-style & 0.075 & \textbf{1.01} & \textbf{0.017} \\
 \bottomrule
 \end{tabular}
-\caption{Co-expression of generated cells, Norman test split (71 perturbations with at least 100 cells; 100 training-selected variable genes; seed 0; post hoc). Correlation error: mean absolute difference between gene--gene correlations across real and generated cells; variance ratio: total variance generated/real (1 is ideal).}
+\caption{Co-expression of generated cells, Norman test split (71 perturbations with at least 100 cells; 100 training-selected variable genes; seed 0; post hoc). Correlation error: mean absolute difference between gene--gene correlations across real and generated cells; variance ratio: total variance generated/real (1 is ideal). Best value of each column in bold; arrows give the better direction.}
 \label{tab:coexpr}
 \end{table}
