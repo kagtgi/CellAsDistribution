@@ -22,8 +22,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--split", default="test")
     ap.add_argument("--min-cells", type=int, default=30)
+    ap.add_argument("--name", default="norman")
+    ap.add_argument("--base-run", default="cb_additive", help="run whose q gets the target-induction factor (rev4: also CAD)")
+    ap.add_argument("--tag", default="", help="output tag (default: <base-run>_ti, or cb_additive_ti for the additive baseline)")
+    ap.add_argument("--mode", default="unseen", choices=["unseen", "all"])
     a = ap.parse_args()
-    w = World("pert", "norman")
+    w = World("pert", a.name)
+    tag = a.tag or ("cb_additive_ti" if a.base_run == "cb_additive" else a.base_run + "_ti")
     pos = {g: i for i, g in enumerate(w.panel)}
     f_ctrl = B.profile(w.counts(np.where(w.ctrl & (w.split == "train"))[0]))
     tr_lab = set(w.lab[~w.ctrl & (w.split == "train")])
@@ -32,20 +37,27 @@ def main():
              for p in singles if p in pos]
     s = float(np.exp(np.median(selfl)))
     print(f"target-induction scale s={s:.3f} from {len(selfl)} train singles", flush=True)
-    z = np.load(os.path.join(w.dir, "runs", "cb_additive", f"qbar_{a.split}.npz"), allow_pickle=True)
+    # --mode all (rev4, "target prior"): a target gene seen alone in training takes the frequency it reached in its own
+    # training single perturbation; an unseen target is multiplied by s. --mode unseen: only unseen targets (the baseline).
+    f_self = {p: B.profile(w.counts(np.where((w.lab == p) & (w.split == "train"))[0]))[pos[p]] for p in singles if p in pos}
+    z = np.load(os.path.join(w.dir, "runs", a.base_run, f"qbar_{a.split}.npz"), allow_pickle=True)
     q_ti = {}
     for u, q in zip(z["units"], z["q"]):
         q = q.astype(np.float64) / q.sum()
         for g in split_pert(str(u)):
-            if g not in singles and g in pos:
+            if g not in pos:
+                continue
+            if g not in singles:
                 q[pos[g]] *= s
+            elif a.mode == "all":
+                q[pos[g]] = max(q[pos[g]], f_self[g])
         q_ti[str(u)] = q / q.sum()
 
     def qfn(u, cidx):
         return np.repeat(q_ti[u][None], len(cidx), 0)
 
-    per = eval_units(w, a.split, qfn, "cb_additive_ti", min_cells=a.min_cells, seed=0, units=sorted(q_ti))
-    print(f"additive+TI {a.split}: nll_pooled={np.mean([v['nll_pooled'] for v in per.values()]):.4f} "
+    per = eval_units(w, a.split, qfn, tag, min_cells=a.min_cells, seed=0, units=sorted(q_ti))
+    print(f"{tag} {a.split}: nll_pooled={np.mean([v['nll_pooled'] for v in per.values()]):.4f} "
           f"mmd_dm={np.mean([v['mmd_dm'] for v in per.values()]):.4f} auc_dm={np.mean([v['auc_dm'] for v in per.values()]):.3f}",
           flush=True)
 

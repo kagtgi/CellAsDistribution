@@ -112,6 +112,10 @@ def main():
     ap.add_argument("--name", required=True)
     ap.add_argument("--pert-col", default="perturbation")
     ap.add_argument("--max-cells", type=int, default=0)
+    ap.add_argument("--force-all-targets", action="store_true",
+                    help="rev4 add-on panel: force every perturbed gene (train, val and test) into the panel; only gene identities
+"
+                         "are used, never held-out expression, and the panel is still filled by training-cell dispersion")
     a = ap.parse_args()
 
     adata = ad.read_h5ad(a.h5ad)
@@ -132,7 +136,7 @@ def main():
     targets = {g for p in obs[a.pert_col].astype(str).unique() if not is_control(p) for g in split_pert(p)}
     # only targets seen in TRAIN may force-enter the panel (test targets are chosen only by variance)
     train_targets = {g for p in obs[a.pert_col].astype(str).values[train_idx] if not is_control(p) for g in split_pert(p)}
-    panel_idx = select_panel(X[train_idx], adata.var_names, train_targets)
+    panel_idx = select_panel(X[train_idx], adata.var_names, targets if a.force_all_targets else train_targets)
     panel = [str(adata.var_names[i]) for i in panel_idx]
 
     out = os.path.join(OUT_DIR, a.name)

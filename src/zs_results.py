@@ -14,6 +14,8 @@ from .common import OUT_DIR, load_json
 from .evaluate import bootstrap_ci
 
 RUNS = {"CAD, CL definition": "zs_q_def", "CAD, type name only": "zs_q_name", "CAD, opaque type id": "zs_q_opaque",
+        # rev4: the same three prompts with the C2S-Scale-Gemma-2-2B backbone (added after the test results; post hoc)
+        "CAD (Gemma), CL definition": "zs_g_def", "CAD (Gemma), type name only": "zs_g_name", "CAD (Gemma), opaque type id": "zs_g_opaque",
         "Global mean": "cb_zs_global", "Nearest CL type mean": "cb_zs_ontology",
         "Name-overlap type mean": "cb_zs_namenn", "CL-parent mean": "cb_zs_parent"}
 METRICS = ["nll_pooled", "nll_mix", "mmd_dm", "auc_dm", "mean_corr_dm", "type_acc_gen_dm"]
