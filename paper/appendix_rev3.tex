@@ -2,7 +2,7 @@
 \appendix
 \begin{center}{\large\bfseries Supplementary material}\\[2pt]\cad: Decision-Native Language Modeling of Single-Cell Gene Composition\end{center}
 \suppressfloats[t]
-\section{K-fold analysis on Norman}\label{app:kfold}
+\section{Gene-level five-fold analysis (Norman)}\label{app:kfold}
 This analysis was run with the Qwen3.5-0.8B backbone (\cadf{}, the flat decoder of the population-level analysis) before the Gemma backbone was added.
 \autoinput{auto/norman_kfold_table.tex}
 \begin{figure}[t]
@@ -89,7 +89,7 @@ Norman (vs.\ perturbed mean) & additive & $-0.014$ [$-0.023$, $-0.004$] & $-0.09
 On PBMC the negative-binomial score separates the decoders slightly more than the multinomial score does: \cadc{} is reliably, but marginally ($0.004$ nats), worse than the cell-type mean.
 On Norman the ordering of the methods is the same as under the multinomial score.
 
-\section{Worked examples: prompts and decoded distributions}\label{app:demo}
+\section{All worked examples: prompts and decoded distributions}\label{app:demo}
 Figures~\ref{fig:demo} and~\ref{fig:demo2} show, for every use case, the exact prompt that the decision language model reads and the distribution it returns, next to the held-out ground truth.
 The examples are not hand-picked.
 In each case, the shown unit is the held-out cell type or perturbation whose paired NLL difference between \cad{} and the case's reference is the median over the units of that case, so half of the units look better and half look worse.
@@ -119,7 +119,7 @@ The selected units and the numbers quoted for them are:
 \label{fig:demo2}
 \end{figure}
 
-\section{Target transformations}\label{app:transform}
+\section{Transformed training targets (log1p, square root)}\label{app:transform}
 \autoinput{auto/pbmc_val_transform_table.tex}
 Table~\ref{tab:pbmc_val_transform} (validation, $19$ cell types, Qwen3.5-0.8B backbone) shows that the transformation trades likelihood for sample quality on PBMC.
 Frequency gives the best NLL, and smoothing is worse on every metric ($+0.172$ nats, 95\% CI $+0.144$ to $+0.196$; MMD $+0.074$).
@@ -145,7 +145,7 @@ We therefore keep frequency as the default, and we report the sample-quality adv
 \label{fig:umap-cond}
 \end{figure}
 
-\section{Decision rules and the test-split record}\label{app:protocol}
+\section{Pre-registered decision rules and the test-split record}\label{app:protocol}
 Beyond the main configurations, every variant was first run on validation (Qwen3.5-0.8B backbone, seed~0, matched control cells, comparators re-run with the same control cells) and promoted to the test split only if, on validation, its paired 95\% interval against its comparator excluded zero in its favor on at least one metric fixed in advance, and no such metric was worse with an interval excluding zero; at most three new configurations were promoted. Promoted configurations were then run once per seed (0, 1, 2) on test with the Gemma backbone. The rules and decisions were written to the repository before the test runs.
 
 \begin{table}[h]
@@ -177,7 +177,7 @@ Deviations, all disclosed: a $128$-gene mass-level control text was not evaluate
 
 \paragraph{Revision 3 (written before its new runs).} Two controls for the language model (a frozen backbone with an MLP head, and a decoder without a language model; Section~\ref{sec:lm}) were specified, with their comparators, metrics and decision rule, in \texttt{experiments/PREREGISTRATION\_rev3.md} before they were run. As controls rather than candidate improvements, they were run on validation (Qwen, seed 0) and then on test (Gemma, seeds 0--2) whatever their validation result. Four further analyses of saved outputs were added after the test results had been seen: the downstream and target metrics with the perturbed genes excluded and the additive-plus-target-induction baseline (Section~\ref{sec:pert}); the learned rank-to-frequency maps, including the re-decoding of the C2S-Gemma sentences (Section~\ref{sec:repr}); and the co-expression comparison (Appendix~\ref{app:coexpr}). They use no new training on test data. Without exclusion, the downstream code reproduces the earlier $r_{\mathrm{DE}}$ values exactly.
 
-\section{Distributional heads}\label{app:heads}
+\section{Negative-binomial and low-rank heads}\label{app:heads}
 \textbf{Negative-binomial head.} The head adds a per-gene inverse dispersion $\theta_g(c)$, $\log\theta_g(c)=\beta_g+v_g^\top h$, and is trained on the negative-binomial likelihood of the counts with mean $N_iq_g$, so high-mass genes no longer dominate the gradient. On the Norman test split (no control cell, against the softmax head) it raises $r_\Delta$ by $0.020$ (CI $0.012$ to $0.029$), and by $0.049$ on unseen single genes (CI $0.034$ to $0.067$), at a small cost in pooled multinomial NLL ($+0.015$, CI $+0.006$ to $+0.028$). On PBMC it did not help on validation and was not promoted.
 
 \textbf{Low-rank logistic-normal head.} The logits become $z=Wh+\log b+U\,\mathrm{diag}(a(h))\,\epsilon$ with $\epsilon\sim\mathcal N(0,I_{16})$, so $q(c,z)$ varies from cell to cell along $16$ learned gene programs; training uses a variational bound with an encoder of the target cell, and generation draws $\epsilon$ from the prior. Without a control cell it lowers the cell NLL by $0.089$ (CI $0.080$ to $0.098$) on Norman, reaching the scGen-style model ($-0.009$, CI $-0.019$ to $+0.002$), and on PBMC from $5.623$ to $5.552$. The pooled NLL of the mean over draws is worse ($+0.062$, CI $+0.040$ to $+0.087$) and $r_\Delta$ lower ($-0.067$). The cell NLL is estimated from $50$ (Norman) or $300$ (PBMC) prior draws; this log-mean-exp estimator is biased upwards.
@@ -186,7 +186,7 @@ Deviations, all disclosed: a $128$-gene mass-level control text was not evaluate
 \autoinput{auto_rev3/tab_coexpr.tex}
 For each test perturbation with at least $100$ real cells, on the $100$ panel genes with the largest variance of log-normalized expression in training cells, we compared the gene--gene Pearson correlations across real cells with those across the method's generated cells (multinomial sampler), and the total variance and the share of variance on the first principal component (Table~\ref{tab:coexpr}; post hoc). With a median of about $216$ panel UMIs per cell, correlations are dominated by counting noise, and every generator is within $0.005$ of the others in correlation error. Resampling real cells of training perturbations is further from the held-out cells ($0.093$), so the generated cells reproduce perturbation-specific co-variation at least as well as real cells of other conditions. The low-rank head and the scGen-style shift, which model variation between cells explicitly, are slightly closer than the flat decoders, and the additive baseline under-disperses (variance ratio $0.94$).
 
-\section{Additional tables}\label{app:val}
+\section{Additional tables (all methods, validation, sensitivity)}\label{app:val}
 \autoinput{auto_rev3/tab_norman_full.tex}
 The tables in this section and in Appendix~\ref{app:transform} come from the earlier runs, in which the control cells were drawn separately for each method; the main-text tables use matched control cells.
 Table~\ref{tab:norman_test_transform} (test) compares the target transformations for perturbation response with the Gemma backbone, and Table~\ref{tab:norman_test_rank_vs_mass} (test) compares the two control-cell formats.
@@ -197,7 +197,7 @@ Tables~\ref{tab:val_cond} and~\ref{tab:val_pert} repeat the comparison with the 
 \autoinput{auto_rev/val_pert_table.tex}
 \autoinput{auto_test/val_pert_lora_table.tex}
 
-\section{Proofs}\label{app:proofs}
+\section{Proofs (Observation 1 and the hierarchical head)}\label{app:proofs}
 \textbf{Observation~\ref{prop:repr}.} (i) $x=Np$ recovers the counts from $(N,p)$, and $(N,p)$ is a function of $x$. Under $\mathrm{Mult}(N,q)$, $\log P(x)=\log\frac{N!}{\prod_gx_g!}+\sum_gx_g\log q_g=\text{const}+N\sum_gp_g\log q_g$, which by Gibbs' inequality is maximized over $q\in\Delta$ at $q=p$. (ii) For any $x$ with at least two distinct nonzero counts, $x$ and $2x$ have the same ordering and hence the same sentence, and so do $x$ and any count vector obtained by a strictly increasing change of the counts. (iii) $x$ and $2x$ have the same binarization. For $f(t)=\log(1+t)$ or $f(t)=\sqrt t$, the renormalized vector is $p'_g=f(x_g)/\sum_hf(x_h)$, and $p'=p$ requires $f(x_g)/x_g$ to be equal for all genes with $x_g>0$; because $f(t)/t$ is strictly decreasing for $t>0$, this holds only when all nonzero counts are equal.
 
 Throughout, $\Delta$ is the simplex over the $G$ panel genes and modules $S_1,\dots,S_M$ partition the genes; P1, P3 and P4 concern the hierarchical head of Appendix~\ref{app:tree}, and P2 concerns the NLL used throughout.
@@ -216,6 +216,6 @@ Every $q$ in the interior of $\Delta$ factors uniquely this way, so the hierarch
 \textbf{P3.} $f_gt_g=\tilde p_g/Z$, so $\sum_hf_ht_h=1/Z$ and $f_gt_g/\sum_hf_ht_h=\tilde p_g$. For targets $t_b$ drawn with context $c$, \[\mathbb{E}_b[\mathrm{CE}(t_b,r)]=H(\mathbb{E}t_b)+\mathrm{KL}(\mathbb{E}t_b\|r)+\text{const}\] is minimized by $r=\mathbb{E}[t_b]$, so $q_g\propto f_g\mathbb{E}[t_{b,g}]=\mathbb{E}[\tilde p_{b,g}/Z_b]$, a $1/Z_b$-weighted mean of $\tilde p_b$. With $\tilde p=(1-w)p+wf$ and $w=\lambda/(n+\lambda)$, $\lVert\tilde p-p\rVert_1=w\lVert f-p\rVert_1\le2w$.
 
 \textbf{P4.} The chain rule gives $\mathrm{CE}(t,r)=\mathrm{CE}(T,r^{\mathrm{root}})+\sum_mT_m\,\mathrm{CE}(t|_m,r^m)$ with $t|_m=t_{S_m}/T_m$. For $m_1,\dots,m_R$ i.i.d.\ from $T$, $\mathbb{E}[\mathrm{CE}(t|_{m_r},r^{m_r})]=\sum_mT_m\mathrm{CE}(t|_m,r^m)$ for each $r$, which gives the claim. Sampling without replacement changes the inclusion probabilities away from $T_m$, and averaging over the $R{+}1$ answered questions gives each question weight $1/(R{+}1)$ instead of $(1,\tfrac1R,\dots,\tfrac1R)$; if every conditional is representable, each term is minimized at the true conditional and the minimizer is unchanged.
-\section{Hierarchical head ablation}\label{app:tree}
+\section{Hierarchical decision head (ablation)}\label{app:tree}
 The hierarchical variant (\cadn{}/\cadr{}) answers one 64-option module question and four 32-option gene questions through the Unsloth decision head, trained on a \emph{tilt} target (the ratio of the perturbed to the control frequency, renormalized, with the control prior $f$ multiplied back at generation). On the corrected Norman split, trained on absolute frequencies it is $+0.161$ [$+0.150$, $+0.174$] nats worse than the perturbed mean (control-state NLL $5.490$ against $5.295$ for the control frequencies); the tilt repairs the fit (control $5.300$; tilt minus no-tilt $-0.138$ [$-0.157$, $-0.119$]) but the tilted head remains $+0.023$ [$+0.009$, $+0.038$] worse than the perturbed mean and $0.100$ nats worse than the flat head. The biological partition beats a random one by $0.019$ ($[-0.035,-0.002]$). We therefore use the flat head in the main text.
 \end{document}
