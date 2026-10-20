@@ -79,7 +79,8 @@ def main():
     ap.add_argument("--tag", required=True)
     ap.add_argument("--model", default="unsloth/Qwen3.5-0.8B")
     ap.add_argument("--transform", default="freq")
-    ap.add_argument("--lora-r", type=int, default=16)
+    ap.add_argument("--lora-r", type=int, default=16, help="0 = frozen backbone, only the head trains (rev3 E1a)")
+    ap.add_argument("--head-arch", default="linear", choices=["linear", "mlp"], help="mlp: LayerNorm-Linear(1024)-GELU-Linear head (rev3 E1a)")
     ap.add_argument("--grad-ckpt", action="store_true", help="gradient checkpointing (needed for Gemma-2 2B at bs 16 on 40GB)")
     ap.add_argument("--attn", default=None, help="attn_implementation, e.g. eager for Gemma-2")
     ap.add_argument("--base", default="none", choices=["none", "mean", "ctrl"])
@@ -156,23 +157,32 @@ def main():
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     backbone = AutoModel.from_pretrained(a.model, torch_dtype=torch.bfloat16, **({"attn_implementation": a.attn} if a.attn else {})).cuda()
-    backbone = get_peft_model(backbone, LoraConfig(r=a.lora_r, lora_alpha=a.lora_r, target_modules="all-linear", lora_dropout=0.0))
-    if a.grad_ckpt:
+    if a.lora_r > 0:
+        backbone = get_peft_model(backbone, LoraConfig(r=a.lora_r, lora_alpha=a.lora_r, target_modules="all-linear", lora_dropout=0.0))
+    else:                                         # frozen language model: features only
+        for p_ in backbone.parameters():
+            p_.requires_grad_(False)
+    if a.grad_ckpt and a.lora_r > 0:
         backbone.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
         backbone.enable_input_require_grads()
     cfg = backbone.config
     hidden = getattr(getattr(cfg, "text_config", cfg), "hidden_size")
     model = FlatModel(backbone, hidden, G, None).cuda()
+    if a.head_arch == "mlp":
+        out_l = torch.nn.Linear(1024, G)
+        torch.nn.init.zeros_(out_l.weight); torch.nn.init.zeros_(out_l.bias)    # starts at the uniform q, like the linear head
+        model.head = torch.nn.Sequential(torch.nn.LayerNorm(hidden), torch.nn.Linear(hidden, 1024), torch.nn.GELU(), out_l).cuda()
     extra = None
     if a.head == "nb":
         extra = NBHead(hidden, G).cuda()
     elif a.head == "lowrank":
         extra = LowRankHead(hidden, G, k=a.rank_k).cuda()
     head_params = list(model.head.parameters()) + (list(extra.parameters()) if extra is not None else [])
-    opt = torch.optim.AdamW([{"params": [p for p in model.backbone.parameters() if p.requires_grad], "lr": a.lr},
-                             {"params": head_params, "lr": a.head_lr}], weight_decay=0.0)
+    bb_params = [p for p in model.backbone.parameters() if p.requires_grad]
+    groups = ([{"params": bb_params, "lr": a.lr}] if bb_params else []) + [{"params": head_params, "lr": a.head_lr}]
+    opt = torch.optim.AdamW(groups, weight_decay=0.0)
     n_steps = int(a.epochs * len(tr) / a.bs)
-    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=[a.lr, a.head_lr], total_steps=max(n_steps, 2), pct_start=0.05)
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=[g["lr"] for g in groups], total_steps=max(n_steps, 2), pct_start=0.05)
 
     def base_logits(counts_ctrl):
         if a.base == "none":
@@ -267,7 +277,8 @@ def main():
     per = eval_units(w, a.eval_split, qfn, a.tag, M=a.M, min_cells=a.min_cells, seed=a.seed, thfn=thfn, units=eval_u,
                      save_qrows=True)
     save_json({u: p[:3] for u, p in prompts_used.items()}, os.path.join(w.dir, "runs", a.tag, f"prompts_{a.eval_split}.json"))
-    save_json({"args": vars(a), "n_train_cells": len(tr), "train_seconds": train_s,
+    n_trainable = sum(p.numel() for p in bb_params) + sum(p.numel() for p in head_params)
+    save_json({"args": vars(a), "n_train_cells": len(tr), "train_seconds": train_s, "trainable_params": int(n_trainable),
                "peak_vram_gb": torch.cuda.max_memory_reserved() / 1e9, "loss_history": hist, "head_diag": diag,
                "decode_seconds_per_prompt": timing["seconds"] / max(timing["prompts"], 1), "decode_prompts": timing["prompts"]},
               os.path.join(w.dir, "runs", a.tag, "log.json"))

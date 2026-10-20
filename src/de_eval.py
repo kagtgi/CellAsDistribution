@@ -23,7 +23,7 @@ import numpy as np
 import scipy.sparse as sp
 from scipy.stats import ttest_ind
 
-from .common import OUT_DIR, save_json
+from .common import OUT_DIR, save_json, split_pert
 from .cell_eval import World
 from .evaluate import log_cp10k, safe_pearson
 
@@ -59,6 +59,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--stem", required=True)
     ap.add_argument("--k", type=int, default=20)
+    ap.add_argument("--exclude-targets", action="store_true", help="qbar only: drop the perturbed genes from all metrics")
     ap.add_argument("--source", default="gen", choices=["gen", "qbar"],
                     help="gen: mean log-CP10k of generated cells; qbar: pseudobulk log1p(1e4 q) against log1p(1e4 x pooled real "
                          "frequency), no sampling involved")
@@ -109,23 +110,38 @@ def main_qbar(a):
         z = np.load(os.path.join(w.dir, "runs", t, f"qbar_{a.split}.npz"), allow_pickle=True)
         qb[lab] = {str(u): q for u, q in zip(z["units"], z["q"])}
     units = sorted(set.intersection(*[set(v) for v in qb.values()]))
+    pos = {g: i for i, g in enumerate(w.panel)}
     per = {lab: {} for lab in runs}
+    targets = {}
     for u in units:
         R = w.counts(np.where((w.lab == u) & (w.split == a.split) & ~w.ctrl)[0])
         t = np.nan_to_num(ttest_ind(log_cp10k(R), C, equal_var=False, axis=0).statistic, nan=0.0)
-        top = np.argsort(-np.abs(t))[: a.k]
+        # --exclude-targets: the CRISPRa target genes of u are removed from the DE ranking and from every correlation, so
+        # the metrics measure the downstream response only; the targets are scored separately (target_*).
+        tgt = [pos[g] for g in split_pert(u) if g in pos] if a.exclude_targets else []
+        targets[u] = [w.panel[i] for i in tgt]
+        keep = np.ones(len(w.panel), bool)
+        keep[tgt] = False
+        top = [i for i in np.argsort(-np.abs(t)) if keep[i]][: a.k]
         mr = pb(R)
         for lab in runs:
             mg = np.log1p(1e4 * qb[lab][u] / qb[lab][u].sum())
             dr, dp = mr - mu_c, mg - mu_c
-            pred_top = np.argsort(-np.abs(dp))[: a.k]
-            per[lab][u] = {"pearson_delta_ctrl": safe_pearson(dp, dr), "pearson_delta_pert": safe_pearson(mg - mu_tp, mr - mu_tp),
-                           "pearson_de20": safe_pearson(dp[top], dr[top]), "sign_de20": float((np.sign(dp[top]) == np.sign(dr[top])).mean()),
-                           "mse_de20": float(((dp[top] - dr[top]) ** 2).mean()), "prec_de20": float(len(set(pred_top) & set(top)) / a.k)}
+            pred_top = [i for i in np.argsort(-np.abs(dp)) if keep[i]][: a.k]
+            m = {"pearson_delta_ctrl": safe_pearson(dp[keep], dr[keep]),
+                 "pearson_delta_pert": safe_pearson((mg - mu_tp)[keep], (mr - mu_tp)[keep]),
+                 "pearson_de20": safe_pearson(dp[top], dr[top]), "sign_de20": float((np.sign(dp[top]) == np.sign(dr[top])).mean()),
+                 "mse_de20": float(((dp[top] - dr[top]) ** 2).mean()), "prec_de20": float(len(set(pred_top) & set(top)) / a.k)}
+            if tgt:   # direct target induction: change of the target gene(s) over the held-out control mean
+                m["target_abs_err"] = float(np.mean(np.abs(dp[tgt] - dr[tgt])))
+                m["target_sign"] = float((np.sign(dp[tgt]) == np.sign(dr[tgt])).mean())
+            per[lab][u] = m
     os.makedirs(a.out, exist_ok=True)
-    save_json({"split": a.split, "source": "qbar", "units": units, "runs": runs, "per_unit": per}, os.path.join(a.out, f"{a.stem}.json"))
+    save_json({"split": a.split, "source": "qbar", "exclude_targets": bool(a.exclude_targets), "units": units, "runs": runs,
+               "targets_in_panel": targets, "per_unit": per}, os.path.join(a.out, f"{a.stem}.json"))
     for lab in runs:
-        m = {k: float(np.mean([per[lab][u][k] for u in units])) for k in per[lab][units[0]]}
+        keys = sorted({k for u in units for k in per[lab][u]})
+        m = {k: float(np.mean([per[lab][u][k] for u in units if k in per[lab][u]])) for k in keys}
         print(f"{lab:45s} " + " ".join(f"{k}={v:.3f}" for k, v in m.items()))
 
 

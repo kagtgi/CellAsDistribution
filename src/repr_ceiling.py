@@ -62,6 +62,58 @@ def levels_profile(c, k=48, levels=14):
     return p
 
 
+RBINS = np.unique(np.round(np.geomspace(1, 201, 17)).astype(int)) - 1   # log-spaced rank-position bins (0-based starts)
+
+
+def rank_order(c, k=200):
+    """Same ordering as sentence_from_counts: top-k nonzero genes, ties broken by panel order."""
+    nz = np.where(c > 0)[0]
+    return nz[np.argsort(-c[nz], kind="stable")][:k]
+
+
+def lib_bin(c, edges):
+    return int(np.searchsorted(edges, np.log(max(c.sum(), 1))))
+
+
+def fit_learned_rank(cells, G, k=200, min_n=5):
+    """Learned rank-to-frequency decoders fitted on TRAIN cells only (rev3, post hoc; stronger than the C2S log-linear fit).
+    pos:    E[frequency | rank position]                        (gene identity ignored; Bayes optimal for squared error)
+    posN:   E[frequency | rank position, library-size quintile]   (the sentence plus the cell's library size)
+    gene:   E[frequency | gene, rank-position bin], falling back to pos when fewer than min_n training observations."""
+    edges = np.quantile([np.log(max(c.sum(), 1)) for c in cells], [.2, .4, .6, .8])
+    pos_s, pos_n = np.zeros(k), np.zeros(k)
+    posN_s, posN_n = np.zeros((5, k)), np.zeros((5, k))
+    nb = len(RBINS)
+    g_s, g_n = np.zeros((G, nb)), np.zeros((G, nb))
+    for c in cells:
+        o = rank_order(c, k)
+        f = c[o] / max(c.sum(), 1)
+        r = np.arange(len(o))
+        pos_s[r] += f; pos_n[r] += 1
+        lb = lib_bin(c, edges)
+        posN_s[lb, r] += f; posN_n[lb, r] += 1
+        rb = np.searchsorted(RBINS, r, side="right") - 1
+        np.add.at(g_s, (o, rb), f); np.add.at(g_n, (o, rb), 1)
+    pos = pos_s / np.maximum(pos_n, 1)
+    posN = np.where(posN_n > 0, posN_s / np.maximum(posN_n, 1), pos[None])
+    pos_b = np.array([pos[RBINS[i]:(RBINS[i + 1] if i + 1 < nb else k)].mean() for i in range(nb)])
+    gene = np.where(g_n >= min_n, g_s / np.maximum(g_n, 1), pos_b[None])
+    return {"k": k, "pos": pos, "posN": posN, "gene": gene, "edges": edges}
+
+
+def learned_rank_profile(rep, c, L, G):
+    o = rank_order(c, L["k"])
+    r = np.arange(len(o))
+    p = np.zeros(G)
+    if rep == "rank-learned-pos":
+        p[o] = L["pos"][r]
+    elif rep == "rank-learned-pos+N":
+        p[o] = L["posN"][lib_bin(c, L["edges"]), r]
+    else:
+        p[o] = L["gene"][o, np.searchsorted(RBINS, r, side="right") - 1]
+    return p
+
+
 def encode_decode(rep, C, ctx):
     G = C.shape[1]
     out = np.zeros(G)
@@ -69,7 +121,9 @@ def encode_decode(rep, C, ctx):
         if rep in ("frequency", "frequency-matched"):
             out += c / max(c.sum(), 1)
             continue
-        if rep.startswith("rank"):
+        if rep.startswith("rank-learned"):
+            p = learned_rank_profile(rep, c, ctx["learned"], G)
+        elif rep.startswith("rank"):
             k = int(rep.split("-")[1])
             a, b = ctx["rank"][k]
             p = profile_from_sentence(sentence_from_counts(c, ctx["panel"], k), ctx["pos"], a, b, G)
@@ -102,7 +156,9 @@ def main():
         ctx["rank"][k] = fit_rank_expression(w.X, panel, tr, k=k)
     sub = rng.choice(tr, 3000, replace=False)
     ctx["binval"] = fit_bin_values(w.counts(sub))
-    reps = ["frequency", "frequency-matched", "rank-200", "rank-2048", "bins-51", "levels-48"]
+    ctx["learned"] = fit_learned_rank(w.counts(sub), G)
+    reps = ["frequency", "frequency-matched", "rank-200", "rank-2048", "rank-learned-pos", "rank-learned-pos+N", "rank-learned-gene",
+            "bins-51", "levels-48"]
     # frequency-matched: the same estimator as every other representation (equal-weight mean of per-cell profiles over the
     # same <= max-cells subsample, mixed with the reference by an epsilon fit on train units), so ratios compare like with like.
     units = w.units(a.split, a.min_cells)
@@ -143,7 +199,7 @@ def main():
         print(f"  {rep:18s} diff vs reference {d[0]:+.4f} [{d[1]:+.4f},{d[2]:+.4f}]  keeps {100 * keep:.0f}% of the pooled-oracle "
               f"headroom, {100 * keep_m:.0f}% of the matched-frequency headroom")
     os.makedirs(os.path.join(OUT_DIR, "auto_cell"), exist_ok=True)
-    save_json(out, os.path.join(OUT_DIR, "auto_cell", f"{a.name}_{a.split}_repr_ceiling_v2.json"))
+    save_json(out, os.path.join(OUT_DIR, "auto_cell", f"{a.name}_{a.split}_repr_ceiling_v3.json"))
 
 
 if __name__ == "__main__":
