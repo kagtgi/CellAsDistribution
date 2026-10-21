@@ -39,7 +39,7 @@
   "figure": "fig1_method",
   "check": "height within 225 mm",
   "status": "pass",
-  "detail": "79.9 mm"
+  "detail": "70.0 mm"
  },
  {
   "figure": "fig1_method",
@@ -57,19 +57,19 @@
   "figure": "fig1_method",
   "check": "SVG text stays editable",
   "status": "pass",
-  "detail": "49"
+  "detail": "57"
  },
  {
   "figure": "fig1_method",
   "check": "no glyph below 5 pt",
   "status": "pass",
-  "detail": "smallest 5.04"
+  "detail": "smallest 5.4"
  },
  {
   "figure": "fig1_method",
   "check": "body text in the declared face",
   "status": "pass",
-  "detail": "google sans 72%"
+  "detail": "google sans 89%"
  },
  {
   "figure": "fig1_method",
@@ -99,7 +99,7 @@
   "figure": "fig1_method",
   "check": "landscape (height < width)",
   "status": "pass",
-  "detail": "165.0 x 80.0 mm"
+  "detail": "165.0 x 70.0 mm"
  },
  {
   "figure": "fig1_method",

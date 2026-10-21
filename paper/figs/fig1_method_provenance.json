@@ -1,21 +1,21 @@
 {
   "font_file": "GoogleSans-Regular.ttf",
-  "data_source": "schematic (example tokens from biology_checks.json)",
+  "data_source": "q: paper/figs/demo_main_plotdata.npz row 1; timings: speed_bench.json; 38%: auto_rev3 ceilings; prompt: demo_main.json",
   "model_trained": true,
   "figure": "fig1_method",
   "dpi": 400,
   "width_mm": 165.0,
   "layout": {
     "width_mm": 165.0,
-    "height_mm": 80.0,
+    "height_mm": 70.0,
     "landscape": true,
     "cards": [
       {
         "letter": "a",
-        "height_mm": 79.0,
+        "height_mm": 69.0,
         "width_mm": 163.0,
-        "content_fraction": 0.219,
-        "vertical_fraction": 0.033
+        "content_fraction": 0.188,
+        "vertical_fraction": 0.038
       }
     ],
     "stage_titles": [],
