@@ -1,25 +1,25 @@
 \clearpage
 \appendix
-\begin{center}{\large\bfseries Supplementary material}\\[2pt]\cad: Decision-Native Language Modeling of Single-Cell Gene Composition\end{center}
-\suppressfloats[t]
+\begin{center}{\large\bfseries Supplementary material}\\[2pt]Why Generate a Sentence? A Decision Language Model for Modeling Single-Cell Composition\end{center}
 \section{Gene-level five-fold analysis (Norman)}\label{app:kfold}
 This analysis was run with the Qwen3.5-0.8B backbone (\cadf{}, the flat decoder of the population-level analysis) before the Gemma backbone was added.
+Pooled over five gene-level folds, the flat decoder ties the partial-additive baseline on pairs of seen genes ($-0.017$, CI $-0.060$ to $+0.021$, $n=28$) and on pairs with one unseen gene ($+0.004$, CI $-0.014$ to $+0.022$, $n=51$), and it beats ridge (Table~\ref{tab:kfold}, Figure~\ref{fig:forest}).
+The split-half oracle lies $0.108$ nats below the perturbed mean on unseen single genes, so headroom exists; descriptions and shuffled names do not help, and shuffled names are harmful ($+0.045$).
+A one-parameter target-induction baseline, which raises the unseen target gene's frequency, is better than every learned decoder on the $75$ genes whose target is in the panel ($-0.013$, CI $-0.031$ to $-0.004$).
+On the test split, \cadf{} (Qwen backbone) is $0.097$ better than the perturbed mean and ties additive ($-0.003$, CI $-0.031$ to $+0.019$).
 \autoinput{auto/norman_kfold_table.tex}
-\begin{figure}[t]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{figs/fig_kfold_forest.pdf}
 \caption{Gene-level 5-fold on Norman, population level: paired held-out NLL difference to the perturbed mean (bars: 95\% bootstrap over perturbations; hollow: identity or knowledge controls; diamond: split-half oracle).}
 \label{fig:forest}
 \end{figure}
-Pooled over five gene-level folds, the flat decoder ties the partial-additive baseline on pairs of seen genes ($-0.017$, CI $-0.060$ to $+0.021$, $n=28$) and on pairs with one unseen gene ($+0.004$, CI $-0.014$ to $+0.022$, $n=51$), and it beats ridge.
-The split-half oracle lies $0.108$ nats below the perturbed mean on unseen single genes, so headroom exists; descriptions and shuffled names do not help, and shuffled names are harmful ($+0.045$).
-A one-parameter target-induction baseline, which raises the unseen target gene's frequency, is better than every learned decoder on the $75$ genes whose target is in the panel ($-0.013$, CI $-0.031$ to $-0.004$).
-On the test split, \cadf{} (Qwen backbone) is $0.097$ better than the perturbed mean and ties additive ($-0.003$, CI $-0.031$ to $+0.019$).
 
+\FloatBarrier
 \section{Training details}\label{app:train}
 Table~\ref{tab:train} lists the training settings of the decision language models, and the paragraphs below it describe the scVI-based baselines.
 
-\begin{table}[h]
+\begin{table}[!htb]
 \centering
 \scriptsize
 \begin{tabular}{@{}p{0.22\linewidth}p{0.74\linewidth}@{}}
@@ -46,21 +46,22 @@ Hardware, time & one A100 40\,GB; run alone, Qwen takes $6$ to $8.5$ min and Gem
 \end{table}
 
 \paragraph{scVI and scANVI.}
-Both are trained on training cells of the panel with a negative-binomial likelihood, $30$ latent dimensions and $60$ epochs (scANVI: $15$ further epochs with cell-type labels).
+Both are trained on training cells of the panel with a negative-binomial likelihood, $30$ latent dimensions, and $60$ epochs (scANVI: $15$ further epochs with cell-type labels).
 The frequency vector of a cell type is the mean decoder output over up to $3000$ training cells of that type.
 
 \paragraph{scGen-style baseline.}
 An scVI model is trained on all training cells.
 The latent shift of a single gene is the mean latent state of its perturbed cells minus that of the control cells, the shift of a pair is the sum of the shifts of its known genes, and a perturbation with no known gene uses the mean shift of all training perturbations.
-Each held-out control cell is encoded, shifted and decoded with library size one.
+Each held-out control cell is encoded, shifted, and decoded with library size one.
 
+\FloatBarrier
 \section{Negative-binomial evaluation}\label{app:nb}
 For a held-out cell $i$ of a unit with library size $s_i$ and model frequency $q$, the count of gene $g$ is scored as $\mathrm{NB}(x_{ig}\mid\mu=s_iq_g,\phi_g)$ with variance $\mu+\phi_g\mu^2$.
 The dispersions $\phi_g$ come from a method-of-moments fit on library-normalized training counts with the within-unit variance pooled over units (median $\phi=26.5$ for PBMC and $9.0$ for Norman, clipped to $[10^{-3},10^2]$).
 The score is the negative log-likelihood per UMI, which is on a different scale from the multinomial score because it includes the zeros, so only differences are compared (Table~\ref{tab:nb}).
 It uses the pooled frequency of a unit, so it does not reward conditioning on a control cell.
 
-\begin{table}[h]
+\begin{table}[!htb]
 \centering
 \scriptsize
 \begin{tabular}{llrr}
@@ -89,6 +90,7 @@ Norman (vs.\ perturbed mean) & additive & $-0.014$ [$-0.023$, $-0.004$] & $-0.09
 On PBMC the negative-binomial score separates the decoders slightly more than the multinomial score does: \cadc{} is reliably, but marginally ($0.004$ nats), worse than the cell-type mean.
 On Norman the ordering of the methods is the same as under the multinomial score.
 
+\FloatBarrier
 \section{All worked examples: prompts and decoded distributions}\label{app:demo}
 Figures~\ref{fig:demo} and~\ref{fig:demo2} show, for every use case, the exact prompt that the decision language model reads and the distribution it returns, next to the held-out ground truth.
 The examples are not hand-picked.
@@ -110,7 +112,7 @@ The selected units and the numbers quoted for them are:
 \begin{figure}[p]
 \centering
 \includegraphics[width=0.94\linewidth]{figs/demo_outputs_a.pdf}
-\caption{Prompts and decoded distributions, one median example per use case (test split). Left: the prompt given to \cad{}. Middle: the decoded distribution on a fixed axis of $25$ genes (chosen once from training cells, shown in panel order, identical in every row of a dataset; log scale) for the held-out real cells (grey bars), \cad{} (teal dots) and the reference (orange ticks). Right, perturbations only: log fold change over the held-out control mean on the unit's top-20 DE genes for real cells, \cad{} and the reference. Shown here: conditional generation and the three strata without a control cell; the remaining cases are in Figure~\ref{fig:demo2}.}
+\caption{Prompts and decoded distributions, one median example per use case (test split). Left: the prompt given to \cad{}. Middle: the decoded distribution on a fixed axis of $25$ genes (chosen once from training cells, shown in panel order, identical in every row of a dataset; log scale) for the held-out real cells (grey bars), \cad{} (teal dots), and the reference (orange ticks). Right, perturbations only: log fold change over the held-out control mean on the unit's top-20 DE genes for real cells, \cad{}, and the reference. Shown here: conditional generation and the three strata without a control cell; the remaining cases are in Figure~\ref{fig:demo2}.}
 \label{fig:demo}
 \end{figure}
 \begin{figure}[p]
@@ -121,39 +123,42 @@ The selected units and the numbers quoted for them are:
 \end{figure}
 
 \section{Transformed training targets (log1p, square root)}\label{app:transform}
-\autoinput{auto/pbmc_val_transform_table.tex}
 Table~\ref{tab:pbmc_val_transform} (validation, $19$ cell types, Qwen3.5-0.8B backbone) shows that the transformation trades likelihood for sample quality on PBMC.
 Frequency gives the best NLL, and smoothing is worse on every metric ($+0.172$ nats, 95\% CI $+0.144$ to $+0.196$; MMD $+0.074$).
 Log1p and square-root targets are $+0.144$ and $+0.118$ nats worse in NLL, yet their MMD is lower ($-0.057$, CI $-0.107$ to $-0.016$, and $-0.057$, CI $-0.109$ to $-0.014$) with unchanged real-versus-generated AUC.
 A flatter target moves mass to rarely expressed genes, which lowers the likelihood of raw counts while placing generated cells closer to real ones in PCA space.
+\autoinput{auto/pbmc_val_transform_table.tex}
 
-For perturbation response the trade-off does not appear (Gemma backbone, test, $76$ perturbations; Appendix~\ref{app:val}).
+For perturbation response, the trade-off does not appear (Gemma backbone, test, $76$ perturbations; Appendix~\ref{app:val}).
 Relative to the frequency target, log1p is $0.288$ nats worse in NLL (CI $+0.249$ to $+0.333$) and square root $0.250$ worse (CI $+0.219$ to $+0.282$), and both also have a higher MMD ($0.094$ and $0.087$ against $0.039$) and a higher real-versus-generated AUC ($0.875$ and $0.871$ against $0.811$).
 We therefore keep frequency as the default, and we report the sample-quality advantage of flattened targets as specific to the conditional PBMC task in our experiments.
 
 
+\FloatBarrier
 \section{UMAP views of generated cells}\label{app:umap}
-\begin{figure}[t]
+Figures~\ref{fig:umap-pert} and~\ref{fig:umap-cond} show UMAP projections of held-out real and generated cells for the Norman K562 perturbation task and the human PBMC conditional generation task.
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{figs/umap_pert_rev2.pdf}
-\caption{UMAP of held-out real perturbed K562 cells (test split) and of cells generated from the matched control cells by \cad{} with the control-cell residual (Gemma, seed 0), by the additive baseline and by the scGen-style latent shift, all drawn with the shared multinomial sampler. PCA and UMAP are fit on real cells only, and generated cells are projected. Colors: the four most frequent held-out perturbations; grey: the others.}
+\caption{UMAP of held-out real perturbed K562 cells (test split) and of cells generated from the matched control cells by \cad{} with the control-cell residual (Gemma, seed 0), by the additive baseline, and by the scGen-style latent shift, all drawn with the shared multinomial sampler. PCA and UMAP are fit on real cells only, and generated cells are projected. Colors: the four most frequent held-out perturbations; grey: the others.}
 \label{fig:umap-pert}
 \end{figure}
-\begin{figure}[t]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=\linewidth]{figs/umap_cond_rev2.pdf}
 \caption{UMAP of held-out real PBMC cells (unseen donors, test split) and of cells generated by \cad{} (Gemma, seed 0) and by the cell-type mean with the same sampler. PCA and UMAP are fit on real cells only, and generated cells are projected. Colors: the six most frequent cell types; grey: the others.}
 \label{fig:umap-cond}
 \end{figure}
 
+\FloatBarrier
 \section{Pre-registered decision rules and the test-split record}\label{app:protocol}
 Beyond the main configurations, every variant was first run on validation (Qwen3.5-0.8B backbone, seed~0, matched control cells, comparators re-run with the same control cells) and promoted to the test split only if, on validation, its paired 95\% interval against its comparator excluded zero in its favor on at least one metric fixed in advance, and no such metric was worse with an interval excluding zero; at most three new configurations were promoted. Promoted configurations were then run once per seed (0, 1, 2) on test with the Gemma backbone. The rules and decisions were written to the repository before the test runs.
 
-\begin{table}[h]
+\begin{table}[!htb]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{p{0.30\linewidth}p{0.22\linewidth}p{0.24\linewidth}p{0.16\linewidth}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.28\linewidth}>{\raggedright\arraybackslash}p{0.22\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}}
 \toprule
 Variant & Comparator & Primary metric(s) & Decision \\
 \midrule
@@ -176,38 +181,44 @@ Four analyses were added after the test results had been seen, and are labeled a
 
 Deviations, all disclosed: a $128$-gene mass-level control text was not evaluated because it repeatedly ran out of GPU memory; three Qwen control-residual test runs ran out of memory during the test lanes and were re-run alone with the same configuration; and the zero-shot gate was applied on the $8$ types of folds 0 and 1 because three validation runs of folds 2--4 had run out of memory, which were then re-run (on all $19$ types the gate gives the same decision, $-0.476$ nats per UMI, CI $-0.971$ to $-0.123$).
 
-\paragraph{Revision 3 (written before its new runs).} Two controls for the language model (a frozen backbone with an MLP head, and a decoder without a language model; Section~\ref{sec:lm}) were specified, with their comparators, metrics and decision rule, in \texttt{experiments/PREREGISTRATION\_rev3.md} before they were run. As controls rather than candidate improvements, they were run on validation (Qwen, seed 0) and then on test (Gemma, seeds 0--2) whatever their validation result. Four further analyses of saved outputs were added after the test results had been seen: the downstream and target metrics with the perturbed genes excluded and the additive-plus-target-induction baseline (Section~\ref{sec:pert}); the learned rank-to-frequency maps, including the re-decoding of the C2S-Gemma sentences (Section~\ref{sec:repr}); and the co-expression comparison (Appendix~\ref{app:coexpr}). They use no new training on test data. Without exclusion, the downstream code reproduces the earlier $r_{\mathrm{DE}}$ values exactly.
+\paragraph{Revision 3 (written before its new runs).} Two controls for the language model (a frozen backbone with an MLP head, and a decoder without a language model; Section~\ref{sec:lm}) were specified, with their comparators, metrics, and decision rule, in \texttt{PREREGISTRATION\_rev3.md} (under \texttt{experiments/}) before they were run. As controls rather than candidate improvements, they were run on validation (Qwen, seed 0) and then on test (Gemma, seeds 0--2) whatever their validation result. Four further analyses of saved outputs were added after the test results had been seen: the downstream and target metrics with the perturbed genes excluded and the additive-plus-target-induction baseline (Section~\ref{sec:pert}); the learned rank-to-frequency maps, including the re-decoding of the C2S-Gemma sentences (Section~\ref{sec:repr}); and the co-expression comparison (Appendix~\ref{app:coexpr}). They use no new training on test data. Without exclusion, the downstream code reproduces the earlier $r_{\mathrm{DE}}$ values exactly.
 
-\paragraph{Revision 4 (written before its runs).}\sloppy{} Four further analyses were specified in the file \texttt{PREREGISTRATION\_rev4.md} (folder \texttt{experiments}) before they were run and are reported whatever their outcome: zero-shot cell types with the C2S-Scale-Gemma backbone (the same folds, prompts and settings as the Qwen runs); the no-language-model decoder with frozen GenePT or co-expression gene embeddings (test, seeds 0--2); the add-on panel of Appendix~\ref{app:tp}; and \cad{} with the target prior, applied to its saved output. All were added after the test results had been seen and none was promoted. The reporting rules fixed in advance were: Gemma counts as reading names better than string matching only if its interval against name overlap excludes zero (it does); GenePT counts as transfer only if it beats learned embeddings on unseen single genes with an interval excluding zero (it is worse).
+\paragraph{Revision 4 (written before its runs).} Four further analyses were specified in \texttt{PREREGISTRATION\_rev4.md} (under \texttt{experiments/}) before they were run and are reported whatever their outcome: zero-shot cell types with the C2S-Scale-Gemma backbone (the same folds, prompts, and settings as the Qwen runs); the no-language-model decoder with frozen GenePT or co-expression gene embeddings (test, seeds 0--2); the add-on panel of Appendix~\ref{app:tp}; and \cad{} with the target prior, applied to its saved output. All were added after the test results had been seen and none was promoted. The reporting rules fixed in advance were: Gemma counts as reading names better than string matching only if its interval against name overlap excludes zero (it does); GenePT counts as transfer only if it beats learned embeddings on unseen single genes with an interval excluding zero (it is worse).
 
+\FloatBarrier
 \section{Negative-binomial and low-rank heads}\label{app:heads}
 \textbf{Negative-binomial head.} The head adds a per-gene inverse dispersion $\theta_g(c)$, $\log\theta_g(c)=\beta_g+v_g^\top h$, and is trained on the negative-binomial likelihood of the counts with mean $N_iq_g$, so high-mass genes no longer dominate the gradient. On the Norman test split (no control cell, against the softmax head) it raises $r_\Delta$ by $0.020$ (CI $0.012$ to $0.029$), and by $0.049$ on unseen single genes (CI $0.034$ to $0.067$), at a small cost in pooled multinomial NLL ($+0.015$, CI $+0.006$ to $+0.028$). On PBMC it did not help on validation and was not promoted.
 
 \textbf{Low-rank logistic-normal head.} The logits become $z=Wh+\log b+U\,\mathrm{diag}(a(h))\,\epsilon$ with $\epsilon\sim\mathcal N(0,I_{16})$, so $q(c,z)$ varies from cell to cell along $16$ learned gene programs; training uses a variational bound with an encoder of the target cell, and generation draws $\epsilon$ from the prior. Without a control cell it lowers the cell NLL by $0.089$ (CI $0.080$ to $0.098$) on Norman, reaching the scGen-style model ($-0.009$, CI $-0.019$ to $+0.002$), and on PBMC from $5.623$ to $5.552$. The pooled NLL of the mean over draws is worse ($+0.062$, CI $+0.040$ to $+0.087$) and $r_\Delta$ lower ($-0.067$). The cell NLL is estimated from $50$ (Norman) or $300$ (PBMC) prior draws; this log-mean-exp estimator is biased upwards.
 
+\FloatBarrier
 \section{Co-expression of generated cells}\label{app:coexpr}
-\autoinput{auto_rev3/tab_coexpr.tex}
 For each test perturbation with at least $100$ real cells, on the $100$ panel genes with the largest variance of log-normalized expression in training cells, we compared the gene--gene Pearson correlations across real cells with those across the method's generated cells (multinomial sampler), and the total variance and the share of variance on the first principal component (Table~\ref{tab:coexpr}; post hoc). With a median of about $216$ panel UMIs per cell, correlations are dominated by counting noise, and every generator is within $0.005$ of the others in correlation error. Resampling real cells of training perturbations is further from the held-out cells ($0.093$), so the generated cells reproduce perturbation-specific co-variation at least as well as real cells of other conditions. The low-rank head and the scGen-style shift, which model variation between cells explicitly, are slightly closer than the flat decoders, and the additive baseline under-disperses (variance ratio $0.94$).
+\autoinput{auto_rev3/tab_coexpr.tex}
 
+\FloatBarrier
 \section{An add-on panel with every perturbed gene}\label{app:tp}
+The main panel admits only training targets by force, so $17$ of the $21$ unseen single targets are not scored. We rebuilt the Norman panel with every perturbed gene forced in (\texttt{preprocess.py --force-all-targets}; only gene identities are used, and the remaining genes are chosen by training-cell dispersion as before), checked that the cell-level splits are identical, and re-ran the additive and target-induction baselines, the three no-language-model decoders, and \cad{} (Gemma, no control cell) once on test (Table~\ref{tab:tp}; post hoc). Three of the $105$ perturbed genes are not in the dataset's gene list, which leaves $19$ unseen single genes with their target in the panel. Every learned model predicts almost no induction of an unseen target; the one-factor target-induction baseline halves the error. Likelihood orderings match the main panel.
 \autoinput{auto_rev3/tab_tp.tex}
-The main panel admits only training targets by force, so $17$ of the $21$ unseen single targets are not scored. We rebuilt the Norman panel with every perturbed gene forced in (\texttt{preprocess.py --force-all-targets}; only gene identities are used, and the remaining genes are chosen by training-cell dispersion as before), checked that the cell-level splits are identical, and re-ran the additive and target-induction baselines, the three no-language-model decoders and \cad{} (Gemma, no control cell) once on test (Table~\ref{tab:tp}; post hoc). Three of the $105$ perturbed genes are not in the dataset's gene list, which leaves $19$ unseen single genes with their target in the panel. Every learned model predicts almost no induction of an unseen target; the one-factor target-induction baseline halves the error. Likelihood orderings match the main panel.
 
+\FloatBarrier
 \section{Additional tables (all methods, validation, sensitivity)}\label{app:val}
-\autoinput{auto_rev3/tab_norman_full.tex}
 The tables in this section and in Appendix~\ref{app:transform} come from the earlier runs, in which the control cells were drawn separately for each method; the main-text tables use matched control cells.
+Table~\ref{tab:norman_full} reports all methods on the Norman test split.
 Table~\ref{tab:norman_test_transform} (test) compares the target transformations for perturbation response with the Gemma backbone, and Table~\ref{tab:norman_test_rank_vs_mass} (test) compares the two control-cell formats.
 Tables~\ref{tab:val_cond} and~\ref{tab:val_pert} repeat the comparison with the other generators on the validation split, on which all decisions were made; Table~\ref{tab:val_pert_lora} shows the LoRA-rank sensitivity on Norman (validation).
+\autoinput{auto_rev3/tab_norman_full.tex}
 \autoinput{auto_test/norman_test_transform_table.tex}
 \autoinput{auto_test/norman_test_rank_vs_mass_table.tex}
 \autoinput{auto_rev/val_cond_table.tex}
 \autoinput{auto_rev/val_pert_table.tex}
 \autoinput{auto_test/val_pert_lora_table.tex}
 
+\FloatBarrier
 \section{Proofs (Proposition 1 and the hierarchical head)}\label{app:proofs}
 \textbf{Proposition~\ref{prop:repr}.} Part (ii) is P2 below. (i) $x=Np$ recovers the counts from $(N,p)$, and $(N,p)$ is a function of $x$. Under $\mathrm{Mult}(N,q)$, $\log P(x)=\log\frac{N!}{\prod_gx_g!}+\sum_gx_g\log q_g=\text{const}+N\sum_gp_g\log q_g$, which by Gibbs' inequality is maximized over $q\in\Delta$ at $q=p$. (iii, rank sentences) For any $x$ with at least two distinct nonzero counts, $x$ and $2x$ have the same ordering and hence the same sentence, and so do $x$ and any count vector obtained by a strictly increasing change of the counts. (iii, transformed vectors) $x$ and $2x$ have the same binarization. For $f(t)=\log(1+t)$ or $f(t)=\sqrt t$, the renormalized vector is $p'_g=f(x_g)/\sum_hf(x_h)$, and $p'=p$ requires $f(x_g)/x_g$ to be equal for all genes with $x_g>0$; because $f(t)/t$ is strictly decreasing for $t>0$, this holds only when all nonzero counts are equal.
 
-Throughout, $\Delta$ is the simplex over the $G$ panel genes and modules $S_1,\dots,S_M$ partition the genes; P1, P3 and P4 concern the hierarchical head of Appendix~\ref{app:tree}, and P2 concerns the NLL used throughout.
+Throughout, $\Delta$ is the simplex over the $G$ panel genes and modules $S_1,\dots,S_M$ partition the genes; P1, P3, and P4 concern the hierarchical head of Appendix~\ref{app:tree}, and P2 concerns the NLL used throughout.
 \begin{description}
 \item[P1 (normalization and exact factorization).] For any $q^{\mathrm{root}}\in\Delta^{M}$ and $q^{m}\in\Delta^{|S_m|}$, $q(g)=q^{\mathrm{root}}(m(g))\,q^{m(g)}(g)$ lies in $\Delta$, and for counts $X$ with module totals $n_m$,
 \[-\sum_gX_g\log q(g)=-\sum_mn_m\log q^{\mathrm{root}}(m)-\sum_m\sum_{g\in S_m}X_g\log q^m(g).\]

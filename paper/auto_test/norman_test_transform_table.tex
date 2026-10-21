@@ -1,8 +1,8 @@
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
-\scriptsize
-\setlength{\tabcolsep}{3.5pt}
-\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrr}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrr}
 \toprule
 Model & NLL $\downarrow$ & cell NLL $\downarrow$ & MMD $\downarrow$ & AUC $\downarrow$ & $r_\mu$ $\uparrow$ \\
 \midrule
@@ -10,7 +10,7 @@ Model & NLL $\downarrow$ & cell NLL $\downarrow$ & MMD $\downarrow$ & AUC $\down
 log1p & 5.474 (+0.288 [+0.249, +0.333]) & 5.474 & 0.0941 & 0.875 & 0.938 \\
 sqrt & 5.435 (+0.250 [+0.219, +0.282]) & 5.435 & 0.0869 & 0.871 & 0.940 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \caption{Norman K562, test split: 76 held-out perturbations; CAD (Gemma), no control cell, with three target transformations. NLL: multinomial negative log-likelihood per UMI of the pooled real cells under the model (Delta: paired difference to frequency [95\% bootstrap over perturbations]). cell NLL: per-cell mixture over $M$ random control cells. MMD, AUC (real vs generated classifier; 0.5 is ideal), $r_\mu$ (gene-mean correlation). The generation metrics use cells from the shared Dirichlet-multinomial sampler. Best in bold; our rows shaded.}
 \label{tab:norman_test_transform}
 \end{table}

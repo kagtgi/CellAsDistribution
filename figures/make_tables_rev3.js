@@ -147,7 +147,7 @@ if (nm) {
   const R = rows.filter(([, t]) => get(t));
   const m = (k, dp) => t => (get(t)[k] ? num(get(t)[k].mean, dp) : null);
   write("tab_norman_full.tex", table({
-    rows: R, sep: "3pt", size: "\\small\n", place: "h", cols: [
+    rows: R, sep: "3pt", size: "\\small\n", place: "!htb", cols: [
       { h: "NLL", dir: "min", get: m("nll_pooled", 3) },
       { h: "$\\Delta$NLL to additive", dir: "min", get: t => (t === "cb_additive" ? zero() : diffci(get(t).nll_pooled.diff)) },
       { h: "cell NLL", dir: "min", get: m("nll_mix", 3) }, { h: "MMD", dir: "min", get: m("mmd_dm", 3) },
@@ -163,7 +163,7 @@ if (cx) {
   const rows = Object.keys(cx.summary).map(l => [l.replace(/^CAD/, "\\cad{}"), l]);
   const m = (k, dp) => l => num(cx.summary[l][k].mean, dp);
   write("tab_coexpr.tex", table({
-    rows, firstHead: "Generator", size: "\\small\n", place: "h", cols: [
+    rows, firstHead: "Generator", size: "\\small\n", place: "!htb", cols: [
       { h: "correlation error", dir: "min", get: m("corr_err", 3) }, { h: "variance ratio", dir: "one", get: m("var_ratio", 2) },
       { h: "PC1-share error", dir: "min", get: m("pc1_err", 3) }],
     caption: `Co-expression of generated cells, Norman test split (${cx.units.length} perturbations with at least 100 cells; ${cx.H} training-selected variable genes; seed 0; post hoc). Correlation error: mean absolute difference between gene--gene correlations across real and generated cells; variance ratio: total variance generated/real (1 is ideal).`,
@@ -188,7 +188,7 @@ if (tp) {
   const nTarg = (tavg("s", "cb_additive", "target_abs_err") || { n: 0 }).n;
   const pre = " & \\multicolumn{3}{c}{$\\Delta$NLL to additive $\\downarrow$} & \\multicolumn{3}{c}{target error $\\downarrow$} & \\multicolumn{1}{c}{target sign $\\uparrow$} \\\\\n\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\\cmidrule(lr){8-8}\n";
   write("tab_tp.tex", table({
-    rows, sep: "3pt", size: "\\small\n", place: "h", pre, cols: [
+    rows, sep: "3pt", size: "\\small\n", place: "!htb", pre, cols: [
       { h: "single", dir: "min", get: dnl("s") }, { h: "1 unseen", dir: "min", get: dnl("pu") }, { h: "2 seen", dir: "min", get: dnl("p") },
       { h: "single", dir: "min", get: ter("s") }, { h: "1 unseen", dir: "min", get: ter("pu") }, { h: "2 seen", dir: "min", get: ter("p") },
       { h: "single", dir: "max", get: tsg("s") }],
