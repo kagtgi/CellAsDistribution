@@ -1,6 +1,10 @@
 # CellAsDistribution
 
-Code for *CellAsDistribution: Decision-Native Language Modeling of Single-Cell Gene Composition* (RECOMB 2027 submission).
+Code for *Why Generate a Sentence? A Decision Language Model for Modeling Single-Cell Composition* (RECOMB 2027 submission).
+
+![The same prompt, answered two ways](paper/figs/fig1_method.png)
+
+*Why generate a sentence? The same prompt, answered two ways. Top: a cell-sentence model (Cell2Sentence) writes the cell as gene names ranked by expression, token by token, and a heuristic map turns the ranks back into expression. Bottom (this work): a decision head answers in one forward pass with one probability for every gene of a fixed, ordered panel; that distribution is the cell, can be sampled, and is scored by an exact likelihood. Bars: the distribution decoded for the test perturbation FOXA1+FOXL2 on 20 of the 2048 panel genes.*
 
 A cell over a fixed gene panel is treated as a probability distribution (its normalized expression vector). A decision language model decodes that distribution in one forward pass from a text state (a cell type, or a perturbation optionally with a control cell). The model is a language model with LoRA adapters and a linear softmax head over the $G=2048$ panel genes, plus an optional fixed log-prior on the logits (none, the training mean, or the control cell itself: the *control residual*). Cells are sampled from the decoded distribution with a shared sampler, and every method is scored by the same multinomial likelihood of held-out counts.
 
