@@ -1,9 +1,0 @@
-{
- "rule": "CAD (CL definition) - nearest CL type mean, pooled NLL, CI upper < 0",
- "diff": [
-  -0.3754261064873594,
-  -0.7514282077736562,
-  -0.06292427494400497
- ],
- "pass": true
-}

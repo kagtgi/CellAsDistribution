@@ -1,5 +1,0 @@
-c2sg_s0_eps0.9                                mse_de20=0.987 pearson_de20=0.558 pearson_delta_ctrl=0.393 pearson_delta_pert=0.096 prec_de20=0.126 sign_de20=0.811 target_abs_err=1.416 target_sign=0.568
-c2sg_s0_learned_eps0.7                        mse_de20=0.958 pearson_de20=0.560 pearson_delta_ctrl=0.347 pearson_delta_pert=0.097 prec_de20=0.129 sign_de20=0.804 target_abs_err=1.242 target_sign=0.653
-t2_g_noctrl_s0                                mse_de20=0.439 pearson_de20=0.773 pearson_delta_ctrl=0.567 pearson_delta_pert=0.495 prec_de20=0.238 sign_de20=0.888 target_abs_err=0.645 target_sign=0.924
-cb_additive                                   mse_de20=0.399 pearson_de20=0.769 pearson_delta_ctrl=0.575 pearson_delta_pert=0.444 prec_de20=0.261 sign_de20=0.898 target_abs_err=0.459 target_sign=0.890
-cb_perturbed_mean                             mse_de20=0.988 pearson_de20=0.584 pearson_delta_ctrl=0.423 pearson_delta_pert=0.118 prec_de20=0.122 sign_de20=0.813 target_abs_err=1.651 target_sign=0.483

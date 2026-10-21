@@ -1,5 +1,0 @@
-Cell-type mean {'nll_pooled': 5.6271, 'nll_mix': 5.6271, 'mmd_dm': 0.1688, 'auc_dm': 0.9826, 'mean_corr_dm': 0.9417, 'type_acc_gen_dm': 0.9281}
-v2_q_cond {'nll_pooled': 5.6295, 'nll_mix': 5.6295, 'mmd_dm': 0.1414, 'auc_dm': 0.9591, 'mean_corr_dm': 0.9474, 'type_acc_gen_dm': 0.9134}
-v2_q_cond_umi {'nll_pooled': 5.6281, 'nll_mix': 5.6281, 'mmd_dm': 0.1437, 'auc_dm': 0.9656, 'mean_corr_dm': 0.9464, 'type_acc_gen_dm': 0.8881}
-v2_q_cond_nb {'nll_pooled': 5.6375, 'nll_mix': 5.6375, 'mmd_dm': 0.1461, 'auc_dm': 0.9658, 'mean_corr_dm': 0.9463, 'type_acc_gen_dm': 0.9051}
-v2_q_cond_lowrank {'nll_pooled': 5.6663, 'nll_mix': 5.5975, 'mmd_dm': 0.1569, 'auc_dm': 0.9707, 'mean_corr_dm': 0.9432, 'type_acc_gen_dm': 0.8251}

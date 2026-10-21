@@ -1,7 +1,0 @@
-t2_g_noctrl_s0 {'trainable_params': None, 'train_seconds': 776.9724764823914, 'decode_seconds_per_prompt': 0.17394990042636269, 'peak_vram_gb': 6.03979776}
-t3_nolm_s0 {'trainable_params': 1126144, 'train_seconds': 10.393473148345947, 'decode_seconds_per_prompt': 0.0012700244000083522, 'peak_vram_gb': None}
-t3_g_frozen_mlp_s0 {'trainable_params': 4464128, 'train_seconds': 97.59673643112183, 'decode_seconds_per_prompt': 0.12293579076465808, 'peak_vram_gb': 5.46308096}
-v2_q_noctrl {'trainable_params': None, 'train_seconds': 410.4016454219818, 'decode_seconds_per_prompt': None, 'peak_vram_gb': 4.127195136}
-v3_nolm_s0 {'trainable_params': 1126144, 'train_seconds': 6.405104637145996, 'decode_seconds_per_prompt': 0.001786614457766215, 'peak_vram_gb': None}
-v3_q_frozen_mlp {'trainable_params': 3150848, 'train_seconds': 98.803471326828, 'decode_seconds_per_prompt': 0.0941022386153539, 'peak_vram_gb': 2.16006656}
-v3_q_frozen_lin {'trainable_params': 2099200, 'train_seconds': 118.8956413269043, 'decode_seconds_per_prompt': 0.09757237633069356, 'peak_vram_gb': 2.13909504}

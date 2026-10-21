@@ -2,7 +2,7 @@
 
 Code for *Why Generate a Sentence? A Decision Language Model for Modeling Single-Cell Composition* (RECOMB 2027 submission).
 
-![The same prompt, answered two ways](paper/figs/fig1_method.png)
+![The same prompt, answered two ways](docs/fig1_method.png)
 
 *Why generate a sentence? The same prompt, answered two ways. Top: a cell-sentence model (Cell2Sentence) writes the cell as gene names ranked by expression, token by token, and a heuristic map turns the ranks back into expression. Bottom (this work): a decision head answers in one forward pass with one probability for every gene of a fixed, ordered panel; that distribution is the cell, can be sampled, and is scored by an exact likelihood. Bars: the distribution decoded for the test perturbation FOXA1+FOXL2 on 20 of the 2048 panel genes.*
 
@@ -39,7 +39,7 @@ Use cases:
 | `figures/` | `fig1_method.py` (Figure 1), `fig3_representation.py` (Figure 2), `make_tables_rev2.js` (main-text tables from the result JSONs), `demo_outputs.py` (appendix worked examples), `umap_compare.py`, `make_figures.py` (k-fold forest plot) |
 | `experiments/` | the run queues. Validation decisions: `queue_rev2_val.sh`, `queue_rev2_zs.sh`, `summarize_rev2_val.sh`. Test runs and summaries: `queue_stage4.sh`, `summarize_stage4.sh`. Baselines: `queue_rev2_baselines.sh`. C2S-Gemma: `queue_c2sg.sh`, `queue_c2sg_regen.sh`. Decision rules written before the test runs: `PREREGISTRATION_rev2.md`, `DECISIONS_rev2.md`. Earlier queues: `queue_val.sh`, `queue_test.sh`. |
 | `splits/` | held-out perturbations and cell types, zero-shot folds (`pbmc_zs_folds.json`), Cell Ontology terms (`pbmc_cell_ontology.json`) |
-| `paper/` | LaTeX source, bibliography, generated tables (`auto*/`, `auto_rev2/tab_*.tex`), result JSONs (`auto_rev2/`), figures |
+| `docs/` | Figure 1 of the paper, shown above |
 
 ## Environment
 
@@ -50,7 +50,7 @@ Use cases:
   - control-expression indexing in `gears/gears.py`;
   - in `gears/utils.py`, the loss filter falls back to all genes when a condition is missing.
 - **Variables:** set `CAD_DATA` (input h5ad directory) and `CAD_OUT` (output directory).
-- **Figures:** the schematic figures use a small matplotlib layout kit that is not part of this repository; their PDF outputs are in `paper/figs/`. Figures use Google Sans if `fonts/GoogleSans-Regular.ttf` is present; the font is not redistributed here.
+- **Figures:** the schematic figures use a small matplotlib layout kit that is not part of this repository; they write their outputs to `paper/figs/` (the paper source is not part of this repository). Figures use Google Sans if `fonts/GoogleSans-Regular.ttf` is present; the font is not redistributed here.
 
 ## Data
 
@@ -79,7 +79,7 @@ bash experiments/queue_rev2_zs.sh                # zero-shot cell types, validat
 bash experiments/queue_stage4.sh                 # test runs (seeds 0-2), automatic rules, summaries, demo figure
 python -m src.repr_ceiling --task pert --name norman --split test; python -m src.rank_r2 --name norman --split test
 python -m src.speed_bench --out $CAD_OUT/auto_rev2/speed_bench.json
-node figures/make_tables_rev2.js                 # rev2 tables from paper/auto_rev2/*.json
+node figures/make_tables_rev2.js                 # rev2 tables from result JSONs copied to paper/auto_rev2/
 
 # revision 3 (experiments/PREREGISTRATION_rev3.md)
 bash experiments/queue_rev3_t0.sh                # additive + target-induction baseline; downstream metrics with perturbed genes excluded
@@ -87,7 +87,7 @@ bash experiments/queue_rev3_e3.sh                # representation ceilings incl.
 bash experiments/queue_rev3_e1.sh                # LM controls: frozen backbone + MLP head (--lora-r 0 --head-arch mlp), no-LM decoder (src/train_nolm.py)
 bash experiments/queue_rev3_c2s.sh               # C2S-Gemma sentences re-decoded with the learned map
 python -m src.coexpr_eval --split test --out $CAD_OUT/auto_rev3 --stem test_coexpr --runs "CAD=t2_g_noctrl_s0" "Additive=cb_additive"
-node figures/make_tables_rev3.js                 # main-text tables from paper/auto_rev3/*.json
+node figures/make_tables_rev3.js                 # main-text tables from result JSONs copied to paper/auto_rev3/ and auto_rev4/
 ```
 
 **Protocol.**

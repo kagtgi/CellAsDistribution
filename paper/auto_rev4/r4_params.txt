@@ -1,6 +1,0 @@
-norman t3_nolm_s0 {'trainable_params': 1126144, 'train_seconds': 10.393473148345947, 'gene_emb': None}
-norman t4_nolm_genept_s0 {'trainable_params': 1313280, 'train_seconds': 5.500967979431152, 'gene_emb': 'genept'}
-norman t4_nolm_coexpr_s0 {'trainable_params': 1124864, 'train_seconds': 5.288037061691284, 'gene_emb': 'coexpr'}
-norman_tp t4_tp_nolm_s0 {'trainable_params': 1126144, 'train_seconds': 5.485689878463745, 'gene_emb': 'learned'}
-norman_tp t4_tp_nolm_genept_s0 {'trainable_params': 1313280, 'train_seconds': 5.085298299789429, 'gene_emb': 'genept'}
-norman_tp t4_tp_g_noctrl_s0 {'trainable_params': 25487360, 'train_seconds': 562.1230158805847, 'gene_emb': None}
